@@ -28,52 +28,45 @@ func SplitSlice(numbers []int64, batchSize int64) ([][]int64, error) {
 	return batches, nil
 }
 
-func SwapKeyValue(myMap map[int64]string) (map[string]int64, error) {
-	if len(myMap) == 0 {
-		return nil, errors.New("null map received")
+func SwapKeyValue(data map[int64]string) (map[string]int64, error) {
+	if len(data) == 0 {
+		return nil, errors.New("map is empty")
 	}
 
-	resMap := make(map[string]int64, len(myMap))
-	for key, value := range myMap {
-		resMap[value] = key
+	res := make(map[string]int64, len(data))
+	for key, value := range data {
+		res[value] = key
 	}
-	return resMap, nil
+	return res, nil
 }
 
-func SliceFilter(base []int64, filter []int64) ([]int64, error) { //при [1, 2, 3] [1, 2] выведет [3]
-	if len(filter) == 0 || len(base) == 0 {
-		return nil, errors.New("null slice received")
+func SliceFilter(data []int64, filter []int64) ([]int64, error) {
+	res := []int64{}
+	if len(filter) == 0 || len(data) == 0 {
+		return nil, errors.New("input params invalid")
 	}
 
-	fltr, err := SliceToMap(filter)
-
+	filterMap, err := SliceToMap(filter)
 	if err != nil {
-		return nil, errors.New("was unable to convert this slice into map")
+		return nil, errors.New("failed to convert")
 	}
 
-	for _, val := range filter {
-		fltr[val] = struct{}{}
-	}
-
-	for i := 0; i < len(base); i++ {
-		if _, found := fltr[base[i]]; found {
-			base = append(base[:i], base[i+1:]...)
-			i -= 1
+	for i := 0; i < len(data); i++ {
+		if _, found := filterMap[data[i]]; !found {
+			res = append(res, data[i])
 		}
 	}
-	return base, nil
+	return res, nil
 }
 
-func SliceToMap(inSlice []int64) (map[int64]struct{}, error) {
-	if len(inSlice) == 0 {
-		return nil, errors.New("null slice received")
+func SliceToMap(data []int64) (map[int64]struct{}, error) {
+	if len(data) == 0 {
+		return nil, errors.New("input params invalid")
 	}
-	outMap := make(map[int64]struct{}, len(inSlice))
+	outMap := make(map[int64]struct{}, len(data))
 
-	for _, val := range inSlice {
+	for _, val := range data {
 		outMap[val] = struct{}{}
 	}
 	return outMap, nil
 }
-
-//Написать тесты ко всем
