@@ -1,10 +1,12 @@
 package main
 
 import (
-	pb "github.com/nikitads9/note-service-api/pkg/note_api"
-	"google.golang.org/grpc"
 	"log"
 	"net"
+
+	"github.com/nikitads9/note-service-api/internal/app/api/note_v1"
+	pb "github.com/nikitads9/note-service-api/pkg/note_api"
+	"google.golang.org/grpc"
 )
 
 const grpcAdress = ":50051"
@@ -16,11 +18,10 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	pb.RegisterNoteV1Server(s, &pb.UnimplementedNoteV1Server{})
+	pb.RegisterNoteV1Server(s, &note_v1.Implementation{})
 
 	if err = s.Serve(list); err != nil {
 		log.Fatalf("failed to process gRPC server: %v", err.Error())
 	}
-	
 
 }

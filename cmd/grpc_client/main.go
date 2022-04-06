@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 
 	"log"
 
@@ -25,13 +26,19 @@ func main() {
 	}()
 
 	client := pb.NewNoteV1Client(con)
-	_, err = client.AddNote(ctx, &pb.AddNoteRequest{
+	res, err := client.AddNote(ctx, &pb.AddNoteRequest{
 		Title:   "title1",
 		Content: "fhdshjdsgd",
 	})
 	if err != nil {
-		log.Printf("unimplemented API handler: %v", err)
+		log.Printf("failed to add note: %v\n", err)
+	}
 
+	fmt.Println("note id =", res.GetResult().GetId())
+
+	_, err = client.RemoveNote(ctx, &pb.RemoveNoteRequest{Id: int64(228)})
+	if err != nil {
+		log.Printf("failed to remove note: %v\n", err)
 	}
 
 }
