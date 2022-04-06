@@ -58,6 +58,11 @@ func TestSwapKeyValue(t *testing.T) {
 		_, err := SwapKeyValue(someMap)
 		require.Error(t, err)
 	})
+
+	t.Run("nil value passed", func(t *testing.T) {
+		_, err := SwapKeyValue(nil)
+		require.Error(t, err)
+	})
 }
 
 func TestSliceFilter(t *testing.T) {
@@ -101,6 +106,27 @@ func TestSliceFilter(t *testing.T) {
 		_, err := SliceFilter(someSlice, someFilter)
 		require.Error(t, err)
 	})
+
+	t.Run("nil first argument passed", func(t *testing.T) {
+		someFilter := []int64{1, 2}
+		_, err := SliceFilter(nil, someFilter)
+		require.Error(t, err)
+	})
+
+	t.Run("nil second argument passed", func(t *testing.T) {
+		someSlice := []int64{1, 2}
+		_, err := SliceFilter(someSlice, nil)
+		require.Error(t, err)
+	})
+
+	t.Run("filtered all values", func(t *testing.T) {
+		someSlice := []int64{1, 2, 3}
+		someFilter := []int64{1, 2, 3}
+		expected := []int64{}
+		res, err := SliceFilter(someSlice, someFilter)
+		require.NoError(t, err)
+		require.Equal(t, expected, res)
+	})
 }
 
 func TestSliceToMap(t *testing.T) {
@@ -112,9 +138,22 @@ func TestSliceToMap(t *testing.T) {
 		require.Equal(t, expected, res)
 	})
 
+	t.Run("repeated values", func(t *testing.T) {
+		someSlice := []int64{1, 2, 2, 3}
+		expected := map[int64]struct{}{int64(1): {}, int64(2): {}, int64(3): {}}
+		res, err := SliceToMap(someSlice)
+		require.NoError(t, err)
+		require.Equal(t, expected, res)
+	})
+
 	t.Run("empty slice passed", func(t *testing.T) {
 		someSlice := []int64{}
 		_, err := SliceToMap(someSlice)
+		require.Error(t, err)
+	})
+
+	t.Run("nil value passed", func(t *testing.T) {
+		_, err := SliceToMap(nil)
 		require.Error(t, err)
 	})
 }

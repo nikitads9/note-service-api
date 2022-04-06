@@ -3,12 +3,13 @@ syntax = "proto3";
 option go_package = "github.com/nikitads9/note-service-api/pkg/note_api";
 
 service NoteV1 {
-    rpc AddNote(AddNoteRequest) returns (AddNoteResponse);
+    rpc AddNote (AddNoteRequest) returns (AddNoteResponse);
+    rpc RemoveNote (RemoveNoteRequest) returns (Empty);
 }
 
 message AddNoteRequest {
-    string title = 1;
-    string content = 2;
+    string title = 1; 
+    string content = 2; 
 }
 
 message AddNoteResponse {
@@ -17,4 +18,11 @@ message AddNoteResponse {
     }
 
     Result result = 1;
+}
+
+message RemoveNoteRequest {
+    int64 id = 1;
+}
+
+message Empty {
 }
