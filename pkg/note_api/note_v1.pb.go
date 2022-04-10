@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.26.0
 // 	protoc        v3.12.4
-// source: note_v1.proto
+// source: api/note_v1/note_v1.proto
 
 package note_api
 
@@ -32,7 +32,7 @@ type AddNoteRequest struct {
 func (x *AddNoteRequest) Reset() {
 	*x = AddNoteRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_note_v1_proto_msgTypes[0]
+		mi := &file_api_note_v1_note_v1_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -45,7 +45,7 @@ func (x *AddNoteRequest) String() string {
 func (*AddNoteRequest) ProtoMessage() {}
 
 func (x *AddNoteRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_note_v1_proto_msgTypes[0]
+	mi := &file_api_note_v1_note_v1_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -58,7 +58,7 @@ func (x *AddNoteRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddNoteRequest.ProtoReflect.Descriptor instead.
 func (*AddNoteRequest) Descriptor() ([]byte, []int) {
-	return file_note_v1_proto_rawDescGZIP(), []int{0}
+	return file_api_note_v1_note_v1_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *AddNoteRequest) GetTitle() string {
@@ -86,7 +86,7 @@ type AddNoteResponse struct {
 func (x *AddNoteResponse) Reset() {
 	*x = AddNoteResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_note_v1_proto_msgTypes[1]
+		mi := &file_api_note_v1_note_v1_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -99,7 +99,7 @@ func (x *AddNoteResponse) String() string {
 func (*AddNoteResponse) ProtoMessage() {}
 
 func (x *AddNoteResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_note_v1_proto_msgTypes[1]
+	mi := &file_api_note_v1_note_v1_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -112,7 +112,7 @@ func (x *AddNoteResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddNoteResponse.ProtoReflect.Descriptor instead.
 func (*AddNoteResponse) Descriptor() ([]byte, []int) {
-	return file_note_v1_proto_rawDescGZIP(), []int{1}
+	return file_api_note_v1_note_v1_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *AddNoteResponse) GetResult() *AddNoteResponse_Result {
@@ -133,7 +133,7 @@ type RemoveNoteRequest struct {
 func (x *RemoveNoteRequest) Reset() {
 	*x = RemoveNoteRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_note_v1_proto_msgTypes[2]
+		mi := &file_api_note_v1_note_v1_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -146,7 +146,7 @@ func (x *RemoveNoteRequest) String() string {
 func (*RemoveNoteRequest) ProtoMessage() {}
 
 func (x *RemoveNoteRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_note_v1_proto_msgTypes[2]
+	mi := &file_api_note_v1_note_v1_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -159,7 +159,7 @@ func (x *RemoveNoteRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemoveNoteRequest.ProtoReflect.Descriptor instead.
 func (*RemoveNoteRequest) Descriptor() ([]byte, []int) {
-	return file_note_v1_proto_rawDescGZIP(), []int{2}
+	return file_api_note_v1_note_v1_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *RemoveNoteRequest) GetId() int64 {
@@ -178,7 +178,7 @@ type Empty struct {
 func (x *Empty) Reset() {
 	*x = Empty{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_note_v1_proto_msgTypes[3]
+		mi := &file_api_note_v1_note_v1_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -191,7 +191,7 @@ func (x *Empty) String() string {
 func (*Empty) ProtoMessage() {}
 
 func (x *Empty) ProtoReflect() protoreflect.Message {
-	mi := &file_note_v1_proto_msgTypes[3]
+	mi := &file_api_note_v1_note_v1_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -204,34 +204,34 @@ func (x *Empty) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Empty.ProtoReflect.Descriptor instead.
 func (*Empty) Descriptor() ([]byte, []int) {
-	return file_note_v1_proto_rawDescGZIP(), []int{3}
+	return file_api_note_v1_note_v1_proto_rawDescGZIP(), []int{3}
 }
 
-type AddNotesRequest struct {
+type MultiAddRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Notes []*AddNotesRequest_Notes `protobuf:"bytes,1,rep,name=notes,proto3" json:"notes,omitempty"`
+	Notes []*MultiAddRequest_Notes `protobuf:"bytes,1,rep,name=notes,proto3" json:"notes,omitempty"`
 }
 
-func (x *AddNotesRequest) Reset() {
-	*x = AddNotesRequest{}
+func (x *MultiAddRequest) Reset() {
+	*x = MultiAddRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_note_v1_proto_msgTypes[4]
+		mi := &file_api_note_v1_note_v1_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *AddNotesRequest) String() string {
+func (x *MultiAddRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*AddNotesRequest) ProtoMessage() {}
+func (*MultiAddRequest) ProtoMessage() {}
 
-func (x *AddNotesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_note_v1_proto_msgTypes[4]
+func (x *MultiAddRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_note_v1_note_v1_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -242,43 +242,43 @@ func (x *AddNotesRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use AddNotesRequest.ProtoReflect.Descriptor instead.
-func (*AddNotesRequest) Descriptor() ([]byte, []int) {
-	return file_note_v1_proto_rawDescGZIP(), []int{4}
+// Deprecated: Use MultiAddRequest.ProtoReflect.Descriptor instead.
+func (*MultiAddRequest) Descriptor() ([]byte, []int) {
+	return file_api_note_v1_note_v1_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *AddNotesRequest) GetNotes() []*AddNotesRequest_Notes {
+func (x *MultiAddRequest) GetNotes() []*MultiAddRequest_Notes {
 	if x != nil {
 		return x.Notes
 	}
 	return nil
 }
 
-type AddNotesResponse struct {
+type MultiAddResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Results []*AddNotesResponse_Results `protobuf:"bytes,1,rep,name=results,proto3" json:"results,omitempty"`
+	Results *MultiAddResponse_Result `protobuf:"bytes,1,opt,name=results,proto3" json:"results,omitempty"`
 }
 
-func (x *AddNotesResponse) Reset() {
-	*x = AddNotesResponse{}
+func (x *MultiAddResponse) Reset() {
+	*x = MultiAddResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_note_v1_proto_msgTypes[5]
+		mi := &file_api_note_v1_note_v1_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *AddNotesResponse) String() string {
+func (x *MultiAddResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*AddNotesResponse) ProtoMessage() {}
+func (*MultiAddResponse) ProtoMessage() {}
 
-func (x *AddNotesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_note_v1_proto_msgTypes[5]
+func (x *MultiAddResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_note_v1_note_v1_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -289,12 +289,12 @@ func (x *AddNotesResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use AddNotesResponse.ProtoReflect.Descriptor instead.
-func (*AddNotesResponse) Descriptor() ([]byte, []int) {
-	return file_note_v1_proto_rawDescGZIP(), []int{5}
+// Deprecated: Use MultiAddResponse.ProtoReflect.Descriptor instead.
+func (*MultiAddResponse) Descriptor() ([]byte, []int) {
+	return file_api_note_v1_note_v1_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *AddNotesResponse) GetResults() []*AddNotesResponse_Results {
+func (x *MultiAddResponse) GetResults() *MultiAddResponse_Result {
 	if x != nil {
 		return x.Results
 	}
@@ -312,7 +312,7 @@ type GetNoteRequest struct {
 func (x *GetNoteRequest) Reset() {
 	*x = GetNoteRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_note_v1_proto_msgTypes[6]
+		mi := &file_api_note_v1_note_v1_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -325,7 +325,7 @@ func (x *GetNoteRequest) String() string {
 func (*GetNoteRequest) ProtoMessage() {}
 
 func (x *GetNoteRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_note_v1_proto_msgTypes[6]
+	mi := &file_api_note_v1_note_v1_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -338,7 +338,7 @@ func (x *GetNoteRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetNoteRequest.ProtoReflect.Descriptor instead.
 func (*GetNoteRequest) Descriptor() ([]byte, []int) {
-	return file_note_v1_proto_rawDescGZIP(), []int{6}
+	return file_api_note_v1_note_v1_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *GetNoteRequest) GetId() int64 {
@@ -360,7 +360,7 @@ type GetNoteResponse struct {
 func (x *GetNoteResponse) Reset() {
 	*x = GetNoteResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_note_v1_proto_msgTypes[7]
+		mi := &file_api_note_v1_note_v1_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -373,7 +373,7 @@ func (x *GetNoteResponse) String() string {
 func (*GetNoteResponse) ProtoMessage() {}
 
 func (x *GetNoteResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_note_v1_proto_msgTypes[7]
+	mi := &file_api_note_v1_note_v1_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -386,7 +386,7 @@ func (x *GetNoteResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetNoteResponse.ProtoReflect.Descriptor instead.
 func (*GetNoteResponse) Descriptor() ([]byte, []int) {
-	return file_note_v1_proto_rawDescGZIP(), []int{7}
+	return file_api_note_v1_note_v1_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *GetNoteResponse) GetTitle() string {
@@ -414,7 +414,7 @@ type GetAllNotesResponse struct {
 func (x *GetAllNotesResponse) Reset() {
 	*x = GetAllNotesResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_note_v1_proto_msgTypes[8]
+		mi := &file_api_note_v1_note_v1_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -427,7 +427,7 @@ func (x *GetAllNotesResponse) String() string {
 func (*GetAllNotesResponse) ProtoMessage() {}
 
 func (x *GetAllNotesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_note_v1_proto_msgTypes[8]
+	mi := &file_api_note_v1_note_v1_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -440,7 +440,7 @@ func (x *GetAllNotesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAllNotesResponse.ProtoReflect.Descriptor instead.
 func (*GetAllNotesResponse) Descriptor() ([]byte, []int) {
-	return file_note_v1_proto_rawDescGZIP(), []int{8}
+	return file_api_note_v1_note_v1_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *GetAllNotesResponse) GetResults() []*GetAllNotesResponse_Result {
@@ -448,6 +448,53 @@ func (x *GetAllNotesResponse) GetResults() []*GetAllNotesResponse_Result {
 		return x.Results
 	}
 	return nil
+}
+
+type EditNoteRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id int64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *EditNoteRequest) Reset() {
+	*x = EditNoteRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_api_note_v1_note_v1_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EditNoteRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EditNoteRequest) ProtoMessage() {}
+
+func (x *EditNoteRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_note_v1_note_v1_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EditNoteRequest.ProtoReflect.Descriptor instead.
+func (*EditNoteRequest) Descriptor() ([]byte, []int) {
+	return file_api_note_v1_note_v1_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *EditNoteRequest) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
 }
 
 type AddNoteResponse_Result struct {
@@ -461,7 +508,7 @@ type AddNoteResponse_Result struct {
 func (x *AddNoteResponse_Result) Reset() {
 	*x = AddNoteResponse_Result{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_note_v1_proto_msgTypes[9]
+		mi := &file_api_note_v1_note_v1_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -474,7 +521,7 @@ func (x *AddNoteResponse_Result) String() string {
 func (*AddNoteResponse_Result) ProtoMessage() {}
 
 func (x *AddNoteResponse_Result) ProtoReflect() protoreflect.Message {
-	mi := &file_note_v1_proto_msgTypes[9]
+	mi := &file_api_note_v1_note_v1_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -487,7 +534,7 @@ func (x *AddNoteResponse_Result) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddNoteResponse_Result.ProtoReflect.Descriptor instead.
 func (*AddNoteResponse_Result) Descriptor() ([]byte, []int) {
-	return file_note_v1_proto_rawDescGZIP(), []int{1, 0}
+	return file_api_note_v1_note_v1_proto_rawDescGZIP(), []int{1, 0}
 }
 
 func (x *AddNoteResponse_Result) GetId() int64 {
@@ -497,7 +544,7 @@ func (x *AddNoteResponse_Result) GetId() int64 {
 	return 0
 }
 
-type AddNotesRequest_Notes struct {
+type MultiAddRequest_Notes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -506,23 +553,23 @@ type AddNotesRequest_Notes struct {
 	Content string `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty"`
 }
 
-func (x *AddNotesRequest_Notes) Reset() {
-	*x = AddNotesRequest_Notes{}
+func (x *MultiAddRequest_Notes) Reset() {
+	*x = MultiAddRequest_Notes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_note_v1_proto_msgTypes[10]
+		mi := &file_api_note_v1_note_v1_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *AddNotesRequest_Notes) String() string {
+func (x *MultiAddRequest_Notes) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*AddNotesRequest_Notes) ProtoMessage() {}
+func (*MultiAddRequest_Notes) ProtoMessage() {}
 
-func (x *AddNotesRequest_Notes) ProtoReflect() protoreflect.Message {
-	mi := &file_note_v1_proto_msgTypes[10]
+func (x *MultiAddRequest_Notes) ProtoReflect() protoreflect.Message {
+	mi := &file_api_note_v1_note_v1_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -533,50 +580,50 @@ func (x *AddNotesRequest_Notes) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use AddNotesRequest_Notes.ProtoReflect.Descriptor instead.
-func (*AddNotesRequest_Notes) Descriptor() ([]byte, []int) {
-	return file_note_v1_proto_rawDescGZIP(), []int{4, 0}
+// Deprecated: Use MultiAddRequest_Notes.ProtoReflect.Descriptor instead.
+func (*MultiAddRequest_Notes) Descriptor() ([]byte, []int) {
+	return file_api_note_v1_note_v1_proto_rawDescGZIP(), []int{4, 0}
 }
 
-func (x *AddNotesRequest_Notes) GetTitle() string {
+func (x *MultiAddRequest_Notes) GetTitle() string {
 	if x != nil {
 		return x.Title
 	}
 	return ""
 }
 
-func (x *AddNotesRequest_Notes) GetContent() string {
+func (x *MultiAddRequest_Notes) GetContent() string {
 	if x != nil {
 		return x.Content
 	}
 	return ""
 }
 
-type AddNotesResponse_Results struct {
+type MultiAddResponse_Result struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id int64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id []int64 `protobuf:"varint,1,rep,packed,name=id,proto3" json:"id,omitempty"`
 }
 
-func (x *AddNotesResponse_Results) Reset() {
-	*x = AddNotesResponse_Results{}
+func (x *MultiAddResponse_Result) Reset() {
+	*x = MultiAddResponse_Result{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_note_v1_proto_msgTypes[11]
+		mi := &file_api_note_v1_note_v1_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *AddNotesResponse_Results) String() string {
+func (x *MultiAddResponse_Result) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*AddNotesResponse_Results) ProtoMessage() {}
+func (*MultiAddResponse_Result) ProtoMessage() {}
 
-func (x *AddNotesResponse_Results) ProtoReflect() protoreflect.Message {
-	mi := &file_note_v1_proto_msgTypes[11]
+func (x *MultiAddResponse_Result) ProtoReflect() protoreflect.Message {
+	mi := &file_api_note_v1_note_v1_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -587,16 +634,16 @@ func (x *AddNotesResponse_Results) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use AddNotesResponse_Results.ProtoReflect.Descriptor instead.
-func (*AddNotesResponse_Results) Descriptor() ([]byte, []int) {
-	return file_note_v1_proto_rawDescGZIP(), []int{5, 0}
+// Deprecated: Use MultiAddResponse_Result.ProtoReflect.Descriptor instead.
+func (*MultiAddResponse_Result) Descriptor() ([]byte, []int) {
+	return file_api_note_v1_note_v1_proto_rawDescGZIP(), []int{5, 0}
 }
 
-func (x *AddNotesResponse_Results) GetId() int64 {
+func (x *MultiAddResponse_Result) GetId() []int64 {
 	if x != nil {
 		return x.Id
 	}
-	return 0
+	return nil
 }
 
 type GetAllNotesResponse_Result struct {
@@ -611,7 +658,7 @@ type GetAllNotesResponse_Result struct {
 func (x *GetAllNotesResponse_Result) Reset() {
 	*x = GetAllNotesResponse_Result{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_note_v1_proto_msgTypes[12]
+		mi := &file_api_note_v1_note_v1_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -624,7 +671,7 @@ func (x *GetAllNotesResponse_Result) String() string {
 func (*GetAllNotesResponse_Result) ProtoMessage() {}
 
 func (x *GetAllNotesResponse_Result) ProtoReflect() protoreflect.Message {
-	mi := &file_note_v1_proto_msgTypes[12]
+	mi := &file_api_note_v1_note_v1_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -637,7 +684,7 @@ func (x *GetAllNotesResponse_Result) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAllNotesResponse_Result.ProtoReflect.Descriptor instead.
 func (*GetAllNotesResponse_Result) Descriptor() ([]byte, []int) {
-	return file_note_v1_proto_rawDescGZIP(), []int{8, 0}
+	return file_api_note_v1_note_v1_proto_rawDescGZIP(), []int{8, 0}
 }
 
 func (x *GetAllNotesResponse_Result) GetTitle() string {
@@ -654,130 +701,138 @@ func (x *GetAllNotesResponse_Result) GetContent() string {
 	return ""
 }
 
-var File_note_v1_proto protoreflect.FileDescriptor
+var File_api_note_v1_note_v1_proto protoreflect.FileDescriptor
 
-var file_note_v1_proto_rawDesc = []byte{
-	0x0a, 0x0d, 0x6e, 0x6f, 0x74, 0x65, 0x5f, 0x76, 0x31, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22,
-	0x40, 0x0a, 0x0e, 0x41, 0x64, 0x64, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65,
-	0x6e, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e,
-	0x74, 0x22, 0x5c, 0x0a, 0x0f, 0x41, 0x64, 0x64, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70,
-	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2f, 0x0a, 0x06, 0x72, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x18, 0x01,
-	0x20, 0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x41, 0x64, 0x64, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x52, 0x06, 0x72,
-	0x65, 0x73, 0x75, 0x6c, 0x74, 0x1a, 0x18, 0x0a, 0x06, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x12,
-	0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x22,
-	0x23, 0x0a, 0x11, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03,
-	0x52, 0x02, 0x69, 0x64, 0x22, 0x07, 0x0a, 0x05, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x22, 0x78, 0x0a,
-	0x0f, 0x41, 0x64, 0x64, 0x4e, 0x6f, 0x74, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x12, 0x2c, 0x0a, 0x05, 0x6e, 0x6f, 0x74, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32,
-	0x16, 0x2e, 0x41, 0x64, 0x64, 0x4e, 0x6f, 0x74, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x2e, 0x4e, 0x6f, 0x74, 0x65, 0x73, 0x52, 0x05, 0x6e, 0x6f, 0x74, 0x65, 0x73, 0x1a, 0x37,
-	0x0a, 0x05, 0x4e, 0x6f, 0x74, 0x65, 0x73, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x18, 0x0a,
-	0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07,
-	0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x22, 0x62, 0x0a, 0x10, 0x41, 0x64, 0x64, 0x4e, 0x6f,
-	0x74, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x33, 0x0a, 0x07, 0x72,
-	0x65, 0x73, 0x75, 0x6c, 0x74, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x41,
-	0x64, 0x64, 0x4e, 0x6f, 0x74, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e,
-	0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x73, 0x52, 0x07, 0x72, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x73,
-	0x1a, 0x19, 0x0a, 0x07, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x73, 0x12, 0x0e, 0x0a, 0x02, 0x69,
-	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x22, 0x20, 0x0a, 0x0e, 0x47,
-	0x65, 0x74, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a,
-	0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x22, 0x41, 0x0a,
-	0x0f, 0x47, 0x65, 0x74, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
-	0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e,
-	0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74,
-	0x22, 0x86, 0x01, 0x0a, 0x13, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x4e, 0x6f, 0x74, 0x65, 0x73,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x35, 0x0a, 0x07, 0x72, 0x65, 0x73, 0x75,
-	0x6c, 0x74, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x47, 0x65, 0x74, 0x41,
-	0x6c, 0x6c, 0x4e, 0x6f, 0x74, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e,
-	0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x52, 0x07, 0x72, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x73, 0x1a,
-	0x38, 0x0a, 0x06, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74,
-	0x6c, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12,
-	0x18, 0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x32, 0xec, 0x01, 0x0a, 0x06, 0x4e, 0x6f,
-	0x74, 0x65, 0x56, 0x31, 0x12, 0x2c, 0x0a, 0x07, 0x41, 0x64, 0x64, 0x4e, 0x6f, 0x74, 0x65, 0x12,
-	0x0f, 0x2e, 0x41, 0x64, 0x64, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x1a, 0x10, 0x2e, 0x41, 0x64, 0x64, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x12, 0x28, 0x0a, 0x0a, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x4e, 0x6f, 0x74, 0x65,
-	0x12, 0x12, 0x2e, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x1a, 0x06, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x2f, 0x0a, 0x08,
-	0x41, 0x64, 0x64, 0x4e, 0x6f, 0x74, 0x65, 0x73, 0x12, 0x10, 0x2e, 0x41, 0x64, 0x64, 0x4e, 0x6f,
-	0x74, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x11, 0x2e, 0x41, 0x64, 0x64,
-	0x4e, 0x6f, 0x74, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2c, 0x0a,
-	0x07, 0x47, 0x65, 0x74, 0x4e, 0x6f, 0x74, 0x65, 0x12, 0x0f, 0x2e, 0x47, 0x65, 0x74, 0x4e, 0x6f,
-	0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x10, 0x2e, 0x47, 0x65, 0x74, 0x4e,
-	0x6f, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2b, 0x0a, 0x0b, 0x47,
-	0x65, 0x74, 0x41, 0x6c, 0x6c, 0x4e, 0x6f, 0x74, 0x65, 0x73, 0x12, 0x06, 0x2e, 0x45, 0x6d, 0x70,
-	0x74, 0x79, 0x1a, 0x14, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x4e, 0x6f, 0x74, 0x65, 0x73,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x34, 0x5a, 0x32, 0x67, 0x69, 0x74, 0x68,
-	0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6e, 0x69, 0x6b, 0x69, 0x74, 0x61, 0x64, 0x73, 0x39,
-	0x2f, 0x6e, 0x6f, 0x74, 0x65, 0x2d, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2d, 0x61, 0x70,
-	0x69, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x6e, 0x6f, 0x74, 0x65, 0x5f, 0x61, 0x70, 0x69, 0x62, 0x06,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+var file_api_note_v1_note_v1_proto_rawDesc = []byte{
+	0x0a, 0x19, 0x61, 0x70, 0x69, 0x2f, 0x6e, 0x6f, 0x74, 0x65, 0x5f, 0x76, 0x31, 0x2f, 0x6e, 0x6f,
+	0x74, 0x65, 0x5f, 0x76, 0x31, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x40, 0x0a, 0x0e, 0x41,
+	0x64, 0x64, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x14, 0x0a,
+	0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69,
+	0x74, 0x6c, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x22, 0x5c, 0x0a,
+	0x0f, 0x41, 0x64, 0x64, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x2f, 0x0a, 0x06, 0x72, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x17, 0x2e, 0x41, 0x64, 0x64, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x2e, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x52, 0x06, 0x72, 0x65, 0x73, 0x75, 0x6c,
+	0x74, 0x1a, 0x18, 0x0a, 0x06, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x22, 0x23, 0x0a, 0x11, 0x52,
+	0x65, 0x6d, 0x6f, 0x76, 0x65, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64,
+	0x22, 0x07, 0x0a, 0x05, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x22, 0x78, 0x0a, 0x0f, 0x4d, 0x75, 0x6c,
+	0x74, 0x69, 0x41, 0x64, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x2c, 0x0a, 0x05,
+	0x6e, 0x6f, 0x74, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x16, 0x2e, 0x4d, 0x75,
+	0x6c, 0x74, 0x69, 0x41, 0x64, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x4e, 0x6f,
+	0x74, 0x65, 0x73, 0x52, 0x05, 0x6e, 0x6f, 0x74, 0x65, 0x73, 0x1a, 0x37, 0x0a, 0x05, 0x4e, 0x6f,
+	0x74, 0x65, 0x73, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x6f, 0x6e,
+	0x74, 0x65, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74,
+	0x65, 0x6e, 0x74, 0x22, 0x60, 0x0a, 0x10, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x41, 0x64, 0x64, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x32, 0x0a, 0x07, 0x72, 0x65, 0x73, 0x75, 0x6c,
+	0x74, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x4d, 0x75, 0x6c, 0x74, 0x69,
+	0x41, 0x64, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x52, 0x65, 0x73, 0x75,
+	0x6c, 0x74, 0x52, 0x07, 0x72, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x73, 0x1a, 0x18, 0x0a, 0x06, 0x52,
+	0x65, 0x73, 0x75, 0x6c, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x03, 0x28,
+	0x03, 0x52, 0x02, 0x69, 0x64, 0x22, 0x20, 0x0a, 0x0e, 0x47, 0x65, 0x74, 0x4e, 0x6f, 0x74, 0x65,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x22, 0x41, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x4e, 0x6f,
+	0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69,
+	0x74, 0x6c, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65,
+	0x12, 0x18, 0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x22, 0x86, 0x01, 0x0a, 0x13, 0x47,
+	0x65, 0x74, 0x41, 0x6c, 0x6c, 0x4e, 0x6f, 0x74, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x12, 0x35, 0x0a, 0x07, 0x72, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x73, 0x18, 0x01, 0x20,
+	0x03, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x4e, 0x6f, 0x74, 0x65,
+	0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74,
+	0x52, 0x07, 0x72, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x73, 0x1a, 0x38, 0x0a, 0x06, 0x52, 0x65, 0x73,
+	0x75, 0x6c, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x6f, 0x6e,
+	0x74, 0x65, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74,
+	0x65, 0x6e, 0x74, 0x22, 0x21, 0x0a, 0x0f, 0x45, 0x64, 0x69, 0x74, 0x4e, 0x6f, 0x74, 0x65, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x32, 0x92, 0x02, 0x0a, 0x06, 0x4e, 0x6f, 0x74, 0x65, 0x56,
+	0x31, 0x12, 0x2c, 0x0a, 0x07, 0x41, 0x64, 0x64, 0x4e, 0x6f, 0x74, 0x65, 0x12, 0x0f, 0x2e, 0x41,
+	0x64, 0x64, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x10, 0x2e,
+	0x41, 0x64, 0x64, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x28, 0x0a, 0x0a, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x4e, 0x6f, 0x74, 0x65, 0x12, 0x12, 0x2e,
+	0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x1a, 0x06, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x2f, 0x0a, 0x08, 0x4d, 0x75, 0x6c,
+	0x74, 0x69, 0x41, 0x64, 0x64, 0x12, 0x10, 0x2e, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x41, 0x64, 0x64,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x11, 0x2e, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x41,
+	0x64, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2c, 0x0a, 0x07, 0x47, 0x65,
+	0x74, 0x4e, 0x6f, 0x74, 0x65, 0x12, 0x0f, 0x2e, 0x47, 0x65, 0x74, 0x4e, 0x6f, 0x74, 0x65, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x10, 0x2e, 0x47, 0x65, 0x74, 0x4e, 0x6f, 0x74, 0x65,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2b, 0x0a, 0x0b, 0x47, 0x65, 0x74, 0x41,
+	0x6c, 0x6c, 0x4e, 0x6f, 0x74, 0x65, 0x73, 0x12, 0x06, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a,
+	0x14, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x4e, 0x6f, 0x74, 0x65, 0x73, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x24, 0x0a, 0x08, 0x45, 0x64, 0x69, 0x74, 0x4e, 0x6f, 0x74,
+	0x65, 0x12, 0x10, 0x2e, 0x45, 0x64, 0x69, 0x74, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x06, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x42, 0x34, 0x5a, 0x32, 0x67,
+	0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6e, 0x69, 0x6b, 0x69, 0x74, 0x61,
+	0x64, 0x73, 0x39, 0x2f, 0x6e, 0x6f, 0x74, 0x65, 0x2d, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x2d, 0x61, 0x70, 0x69, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x6e, 0x6f, 0x74, 0x65, 0x5f, 0x61, 0x70,
+	0x69, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
-	file_note_v1_proto_rawDescOnce sync.Once
-	file_note_v1_proto_rawDescData = file_note_v1_proto_rawDesc
+	file_api_note_v1_note_v1_proto_rawDescOnce sync.Once
+	file_api_note_v1_note_v1_proto_rawDescData = file_api_note_v1_note_v1_proto_rawDesc
 )
 
-func file_note_v1_proto_rawDescGZIP() []byte {
-	file_note_v1_proto_rawDescOnce.Do(func() {
-		file_note_v1_proto_rawDescData = protoimpl.X.CompressGZIP(file_note_v1_proto_rawDescData)
+func file_api_note_v1_note_v1_proto_rawDescGZIP() []byte {
+	file_api_note_v1_note_v1_proto_rawDescOnce.Do(func() {
+		file_api_note_v1_note_v1_proto_rawDescData = protoimpl.X.CompressGZIP(file_api_note_v1_note_v1_proto_rawDescData)
 	})
-	return file_note_v1_proto_rawDescData
+	return file_api_note_v1_note_v1_proto_rawDescData
 }
 
-var file_note_v1_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
-var file_note_v1_proto_goTypes = []interface{}{
+var file_api_note_v1_note_v1_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+var file_api_note_v1_note_v1_proto_goTypes = []interface{}{
 	(*AddNoteRequest)(nil),             // 0: AddNoteRequest
 	(*AddNoteResponse)(nil),            // 1: AddNoteResponse
 	(*RemoveNoteRequest)(nil),          // 2: RemoveNoteRequest
 	(*Empty)(nil),                      // 3: Empty
-	(*AddNotesRequest)(nil),            // 4: AddNotesRequest
-	(*AddNotesResponse)(nil),           // 5: AddNotesResponse
+	(*MultiAddRequest)(nil),            // 4: MultiAddRequest
+	(*MultiAddResponse)(nil),           // 5: MultiAddResponse
 	(*GetNoteRequest)(nil),             // 6: GetNoteRequest
 	(*GetNoteResponse)(nil),            // 7: GetNoteResponse
 	(*GetAllNotesResponse)(nil),        // 8: GetAllNotesResponse
-	(*AddNoteResponse_Result)(nil),     // 9: AddNoteResponse.Result
-	(*AddNotesRequest_Notes)(nil),      // 10: AddNotesRequest.Notes
-	(*AddNotesResponse_Results)(nil),   // 11: AddNotesResponse.Results
-	(*GetAllNotesResponse_Result)(nil), // 12: GetAllNotesResponse.Result
+	(*EditNoteRequest)(nil),            // 9: EditNoteRequest
+	(*AddNoteResponse_Result)(nil),     // 10: AddNoteResponse.Result
+	(*MultiAddRequest_Notes)(nil),      // 11: MultiAddRequest.Notes
+	(*MultiAddResponse_Result)(nil),    // 12: MultiAddResponse.Result
+	(*GetAllNotesResponse_Result)(nil), // 13: GetAllNotesResponse.Result
 }
-var file_note_v1_proto_depIdxs = []int32{
-	9,  // 0: AddNoteResponse.result:type_name -> AddNoteResponse.Result
-	10, // 1: AddNotesRequest.notes:type_name -> AddNotesRequest.Notes
-	11, // 2: AddNotesResponse.results:type_name -> AddNotesResponse.Results
-	12, // 3: GetAllNotesResponse.results:type_name -> GetAllNotesResponse.Result
+var file_api_note_v1_note_v1_proto_depIdxs = []int32{
+	10, // 0: AddNoteResponse.result:type_name -> AddNoteResponse.Result
+	11, // 1: MultiAddRequest.notes:type_name -> MultiAddRequest.Notes
+	12, // 2: MultiAddResponse.results:type_name -> MultiAddResponse.Result
+	13, // 3: GetAllNotesResponse.results:type_name -> GetAllNotesResponse.Result
 	0,  // 4: NoteV1.AddNote:input_type -> AddNoteRequest
 	2,  // 5: NoteV1.RemoveNote:input_type -> RemoveNoteRequest
-	4,  // 6: NoteV1.AddNotes:input_type -> AddNotesRequest
+	4,  // 6: NoteV1.MultiAdd:input_type -> MultiAddRequest
 	6,  // 7: NoteV1.GetNote:input_type -> GetNoteRequest
 	3,  // 8: NoteV1.GetAllNotes:input_type -> Empty
-	1,  // 9: NoteV1.AddNote:output_type -> AddNoteResponse
-	3,  // 10: NoteV1.RemoveNote:output_type -> Empty
-	5,  // 11: NoteV1.AddNotes:output_type -> AddNotesResponse
-	7,  // 12: NoteV1.GetNote:output_type -> GetNoteResponse
-	8,  // 13: NoteV1.GetAllNotes:output_type -> GetAllNotesResponse
-	9,  // [9:14] is the sub-list for method output_type
-	4,  // [4:9] is the sub-list for method input_type
+	9,  // 9: NoteV1.EditNote:input_type -> EditNoteRequest
+	1,  // 10: NoteV1.AddNote:output_type -> AddNoteResponse
+	3,  // 11: NoteV1.RemoveNote:output_type -> Empty
+	5,  // 12: NoteV1.MultiAdd:output_type -> MultiAddResponse
+	7,  // 13: NoteV1.GetNote:output_type -> GetNoteResponse
+	8,  // 14: NoteV1.GetAllNotes:output_type -> GetAllNotesResponse
+	3,  // 15: NoteV1.EditNote:output_type -> Empty
+	10, // [10:16] is the sub-list for method output_type
+	4,  // [4:10] is the sub-list for method input_type
 	4,  // [4:4] is the sub-list for extension type_name
 	4,  // [4:4] is the sub-list for extension extendee
 	0,  // [0:4] is the sub-list for field type_name
 }
 
-func init() { file_note_v1_proto_init() }
-func file_note_v1_proto_init() {
-	if File_note_v1_proto != nil {
+func init() { file_api_note_v1_note_v1_proto_init() }
+func file_api_note_v1_note_v1_proto_init() {
+	if File_api_note_v1_note_v1_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_note_v1_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_api_note_v1_note_v1_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*AddNoteRequest); i {
 			case 0:
 				return &v.state
@@ -789,7 +844,7 @@ func file_note_v1_proto_init() {
 				return nil
 			}
 		}
-		file_note_v1_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_api_note_v1_note_v1_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*AddNoteResponse); i {
 			case 0:
 				return &v.state
@@ -801,7 +856,7 @@ func file_note_v1_proto_init() {
 				return nil
 			}
 		}
-		file_note_v1_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_api_note_v1_note_v1_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*RemoveNoteRequest); i {
 			case 0:
 				return &v.state
@@ -813,7 +868,7 @@ func file_note_v1_proto_init() {
 				return nil
 			}
 		}
-		file_note_v1_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_api_note_v1_note_v1_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Empty); i {
 			case 0:
 				return &v.state
@@ -825,8 +880,8 @@ func file_note_v1_proto_init() {
 				return nil
 			}
 		}
-		file_note_v1_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AddNotesRequest); i {
+		file_api_note_v1_note_v1_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MultiAddRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -837,8 +892,8 @@ func file_note_v1_proto_init() {
 				return nil
 			}
 		}
-		file_note_v1_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AddNotesResponse); i {
+		file_api_note_v1_note_v1_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MultiAddResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -849,7 +904,7 @@ func file_note_v1_proto_init() {
 				return nil
 			}
 		}
-		file_note_v1_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+		file_api_note_v1_note_v1_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetNoteRequest); i {
 			case 0:
 				return &v.state
@@ -861,7 +916,7 @@ func file_note_v1_proto_init() {
 				return nil
 			}
 		}
-		file_note_v1_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+		file_api_note_v1_note_v1_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetNoteResponse); i {
 			case 0:
 				return &v.state
@@ -873,7 +928,7 @@ func file_note_v1_proto_init() {
 				return nil
 			}
 		}
-		file_note_v1_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+		file_api_note_v1_note_v1_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetAllNotesResponse); i {
 			case 0:
 				return &v.state
@@ -885,7 +940,19 @@ func file_note_v1_proto_init() {
 				return nil
 			}
 		}
-		file_note_v1_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+		file_api_note_v1_note_v1_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EditNoteRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_api_note_v1_note_v1_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*AddNoteResponse_Result); i {
 			case 0:
 				return &v.state
@@ -897,8 +964,8 @@ func file_note_v1_proto_init() {
 				return nil
 			}
 		}
-		file_note_v1_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AddNotesRequest_Notes); i {
+		file_api_note_v1_note_v1_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MultiAddRequest_Notes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -909,8 +976,8 @@ func file_note_v1_proto_init() {
 				return nil
 			}
 		}
-		file_note_v1_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AddNotesResponse_Results); i {
+		file_api_note_v1_note_v1_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MultiAddResponse_Result); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -921,7 +988,7 @@ func file_note_v1_proto_init() {
 				return nil
 			}
 		}
-		file_note_v1_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+		file_api_note_v1_note_v1_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetAllNotesResponse_Result); i {
 			case 0:
 				return &v.state
@@ -938,18 +1005,18 @@ func file_note_v1_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_note_v1_proto_rawDesc,
+			RawDescriptor: file_api_note_v1_note_v1_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   13,
+			NumMessages:   14,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_note_v1_proto_goTypes,
-		DependencyIndexes: file_note_v1_proto_depIdxs,
-		MessageInfos:      file_note_v1_proto_msgTypes,
+		GoTypes:           file_api_note_v1_note_v1_proto_goTypes,
+		DependencyIndexes: file_api_note_v1_note_v1_proto_depIdxs,
+		MessageInfos:      file_api_note_v1_note_v1_proto_msgTypes,
 	}.Build()
-	File_note_v1_proto = out.File
-	file_note_v1_proto_rawDesc = nil
-	file_note_v1_proto_goTypes = nil
-	file_note_v1_proto_depIdxs = nil
+	File_api_note_v1_note_v1_proto = out.File
+	file_api_note_v1_note_v1_proto_rawDesc = nil
+	file_api_note_v1_note_v1_proto_goTypes = nil
+	file_api_note_v1_note_v1_proto_depIdxs = nil
 }

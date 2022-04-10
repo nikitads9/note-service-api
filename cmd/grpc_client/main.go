@@ -6,6 +6,7 @@ import (
 
 	"log"
 
+	"github.com/nikitads9/note-service-api/pkg/note_api"
 	pb "github.com/nikitads9/note-service-api/pkg/note_api"
 	"google.golang.org/grpc"
 )
@@ -41,4 +42,40 @@ func main() {
 		log.Printf("failed to remove note: %v\n", err)
 	}
 
+	addedID, err2 := client.MultiAdd(ctx, &pb.MultiAddRequest{
+		Notes: []*note_api.MultiAddRequest_Notes{
+			{
+				Title:   "title1",
+				Content: "ffdsjfdjf",
+			},
+			{
+				Title:   "title2",
+				Content: "sometext",
+			},
+			{
+				Title:   "title3",
+				Content: "more text",
+			},
+		},
+	})
+	if err2 != nil {
+		log.Printf("failed to remove note: %v\n", err)
+	}
+	fmt.Printf("IDs: %v", addedID.GetResults().Id)
+
+	_, err = client.GetNote(ctx, &pb.GetNoteRequest{
+		Id: 0,
+	})
+	if err != nil {
+		log.Printf("failed to get note: %v\n", err)
+	}
+
+	_, err = client.GetAllNotes(ctx, &pb.Empty{})
+	if err != nil {
+		log.Printf("failed to get all notes: %v\n", err)
+	}
+
+	_, err = client.EditNote(ctx, &pb.EditNoteRequest{
+		Id: 0,
+	})
 }
