@@ -42,7 +42,7 @@ func SwapKeyValue(data map[int64]string) (map[string]int64, error) {
 
 func SliceFilter(data []int64, filter []int64) ([]int64, error) {
 	res := []int64{}
-	if len(filter) == 0 || len(data) == 0 || filter == nil || data == nil{
+	if filter == nil || data == nil {
 		return nil, errors.New("input params invalid")
 	}
 
@@ -60,13 +60,14 @@ func SliceFilter(data []int64, filter []int64) ([]int64, error) {
 }
 
 func SliceToMap(data []int64) (map[int64]struct{}, error) {
-	if len(data) == 0 || data == nil {
+	if data == nil {
 		return nil, errors.New("input params invalid")
 	}
-	outMap := make(map[int64]struct{}, len(data))
+
+	res := make(map[int64]struct{}, len(data))
 
 	for _, val := range data {
-		outMap[val] = struct{}{}
+		res[val] = struct{}{}
 	}
-	return outMap, nil
+	return res, nil
 }
