@@ -11,8 +11,6 @@
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
-#JSON files
-*.json
-
 # Directories (remove the comment below to include it)
 bin/
+.vscode/
