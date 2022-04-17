@@ -16,7 +16,7 @@ func main() {
 	//nolint
 	con, err := grpc.Dial(grpcAdress, grpc.WithInsecure())
 	if err != nil {
-		log.Fatalf("failed to connect: %v\n", err)
+		log.Fatalf("failed to connect: %v\n", err.Error())
 	}
 	defer con.Close()
 
@@ -26,18 +26,18 @@ func main() {
 		Content: "fhdshjdsgd",
 	})
 	if err != nil {
-		log.Printf("failed to add note: %v\n", err)
+		log.Printf("failed to add note: %v\n", err.Error())
 	}
 
 	fmt.Println("note id =", res.GetResult().GetId())
 
 	_, err = client.RemoveNote(ctx, &pb.RemoveNoteRequest{Id: int64(228)})
 	if err != nil {
-		log.Printf("failed to remove note: %v\n", err)
+		log.Printf("failed to remove note: %v\n", err.Error())
 	}
 
 	var addedID *pb.MultiAddResponse
-	
+
 	addedID, err = client.MultiAdd(ctx, &pb.MultiAddRequest{
 		Notes: []*pb.MultiAddRequest_Notes{
 			{
@@ -55,7 +55,7 @@ func main() {
 		},
 	})
 	if err != nil {
-		log.Printf("failed to remove note: %v\n", err)
+		log.Printf("failed to remove note: %v\n", err.Error())
 	}
 
 	fmt.Printf("IDs: %v", addedID.GetResult().Count)
@@ -64,12 +64,12 @@ func main() {
 		Id: 0,
 	})
 	if err != nil {
-		log.Printf("failed to get note: %v\n", err)
+		log.Printf("failed to get note: %v\n", err.Error())
 	}
 
 	_, err = client.GetList(ctx, &pb.Empty{})
 	if err != nil {
-		log.Printf("failed to get all notes: %v\n", err)
+		log.Printf("failed to get all notes: %v\n", err.Error())
 	}
 
 	_, err = client.UpdateNote(ctx, &pb.UpdateNoteRequest{
