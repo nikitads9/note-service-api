@@ -3,10 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
-
 	"log"
 
-	"github.com/nikitads9/note-service-api/pkg/note_api"
 	pb "github.com/nikitads9/note-service-api/pkg/note_api"
 	"google.golang.org/grpc"
 )
@@ -17,7 +15,7 @@ func main() {
 	ctx := context.Background()
 	con, err := grpc.Dial(grpcAdress, grpc.WithInsecure())
 	if err != nil {
-		log.Fatalf("failed to connect: %v", err.Error)
+		defer con.Close()
 	}
 	defer func() {
 		err = con.Close()
@@ -43,7 +41,7 @@ func main() {
 	}
 
 	addedID, err2 := client.MultiAdd(ctx, &pb.MultiAddRequest{
-		Notes: []*note_api.MultiAddRequest_Notes{
+		Notes: []*pb.MultiAddRequest_Notes{
 			{
 				Title:   "title1",
 				Content: "ffdsjfdjf",
@@ -61,7 +59,8 @@ func main() {
 	if err2 != nil {
 		log.Printf("failed to remove note: %v\n", err)
 	}
-	fmt.Printf("IDs: %v", addedID.GetResults().Id)
+
+	fmt.Printf("IDs: %v", addedID.GetResult().Id)
 
 	_, err = client.GetNote(ctx, &pb.GetNoteRequest{
 		Id: 0,
@@ -70,12 +69,14 @@ func main() {
 		log.Printf("failed to get note: %v\n", err)
 	}
 
-	_, err = client.GetAllNotes(ctx, &pb.Empty{})
+	_, err = client.GetList(ctx, &pb.Empty{})
 	if err != nil {
 		log.Printf("failed to get all notes: %v\n", err)
 	}
 
-	_, err = client.EditNote(ctx, &pb.EditNoteRequest{
-		Id: 0,
+	_, err = client.UpdateNote(ctx, &pb.UpdateNoteRequest{
+		Id:      0,
+		Title:   "newtitle",
+		Content: "newcontent",
 	})
 }

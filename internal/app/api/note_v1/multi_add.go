@@ -8,14 +8,13 @@ import (
 )
 
 func (i *Implementation) MultiAdd(ctx context.Context, req *desc.MultiAddRequest) (*desc.MultiAddResponse, error) {
-	ids := []int64{}
-	for i := 0; i < len(req.Notes); i++ {
-		ids = append(ids, int64(i))
-	}
+	quantity := int64(len(req.Notes))
+
 	fmt.Println("added multiple entries")
+
 	return &desc.MultiAddResponse{
-		Results: &desc.MultiAddResponse_Result{
-			Id: ids,
+		Result: &desc.MultiAddResponse_Result{
+			Id: quantity,
 		},
 	}, nil
 }

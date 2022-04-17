@@ -8,7 +8,6 @@ import (
 )
 
 func (i *Implementation) GetNote(ctx context.Context, req *desc.GetNoteRequest) (*desc.GetNoteResponse, error) {
-
 	fmt.Printf("requested note with id %v \n", req.Id)
 	return &desc.GetNoteResponse{
 		Title:   "sometitle",

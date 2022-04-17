@@ -22,8 +22,8 @@ type NoteV1Client interface {
 	RemoveNote(ctx context.Context, in *RemoveNoteRequest, opts ...grpc.CallOption) (*Empty, error)
 	MultiAdd(ctx context.Context, in *MultiAddRequest, opts ...grpc.CallOption) (*MultiAddResponse, error)
 	GetNote(ctx context.Context, in *GetNoteRequest, opts ...grpc.CallOption) (*GetNoteResponse, error)
-	GetAllNotes(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*GetAllNotesResponse, error)
-	EditNote(ctx context.Context, in *EditNoteRequest, opts ...grpc.CallOption) (*Empty, error)
+	GetList(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*GetListResponse, error)
+	UpdateNote(ctx context.Context, in *UpdateNoteRequest, opts ...grpc.CallOption) (*Empty, error)
 }
 
 type noteV1Client struct {
@@ -70,18 +70,18 @@ func (c *noteV1Client) GetNote(ctx context.Context, in *GetNoteRequest, opts ...
 	return out, nil
 }
 
-func (c *noteV1Client) GetAllNotes(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*GetAllNotesResponse, error) {
-	out := new(GetAllNotesResponse)
-	err := c.cc.Invoke(ctx, "/NoteV1/GetAllNotes", in, out, opts...)
+func (c *noteV1Client) GetList(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*GetListResponse, error) {
+	out := new(GetListResponse)
+	err := c.cc.Invoke(ctx, "/NoteV1/GetList", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *noteV1Client) EditNote(ctx context.Context, in *EditNoteRequest, opts ...grpc.CallOption) (*Empty, error) {
+func (c *noteV1Client) UpdateNote(ctx context.Context, in *UpdateNoteRequest, opts ...grpc.CallOption) (*Empty, error) {
 	out := new(Empty)
-	err := c.cc.Invoke(ctx, "/NoteV1/EditNote", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/NoteV1/UpdateNote", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -96,8 +96,8 @@ type NoteV1Server interface {
 	RemoveNote(context.Context, *RemoveNoteRequest) (*Empty, error)
 	MultiAdd(context.Context, *MultiAddRequest) (*MultiAddResponse, error)
 	GetNote(context.Context, *GetNoteRequest) (*GetNoteResponse, error)
-	GetAllNotes(context.Context, *Empty) (*GetAllNotesResponse, error)
-	EditNote(context.Context, *EditNoteRequest) (*Empty, error)
+	GetList(context.Context, *Empty) (*GetListResponse, error)
+	UpdateNote(context.Context, *UpdateNoteRequest) (*Empty, error)
 	mustEmbedUnimplementedNoteV1Server()
 }
 
@@ -117,11 +117,11 @@ func (UnimplementedNoteV1Server) MultiAdd(context.Context, *MultiAddRequest) (*M
 func (UnimplementedNoteV1Server) GetNote(context.Context, *GetNoteRequest) (*GetNoteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNote not implemented")
 }
-func (UnimplementedNoteV1Server) GetAllNotes(context.Context, *Empty) (*GetAllNotesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAllNotes not implemented")
+func (UnimplementedNoteV1Server) GetList(context.Context, *Empty) (*GetListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetList not implemented")
 }
-func (UnimplementedNoteV1Server) EditNote(context.Context, *EditNoteRequest) (*Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EditNote not implemented")
+func (UnimplementedNoteV1Server) UpdateNote(context.Context, *UpdateNoteRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateNote not implemented")
 }
 func (UnimplementedNoteV1Server) mustEmbedUnimplementedNoteV1Server() {}
 
@@ -208,38 +208,38 @@ func _NoteV1_GetNote_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _NoteV1_GetAllNotes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _NoteV1_GetList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(NoteV1Server).GetAllNotes(ctx, in)
+		return srv.(NoteV1Server).GetList(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/NoteV1/GetAllNotes",
+		FullMethod: "/NoteV1/GetList",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(NoteV1Server).GetAllNotes(ctx, req.(*Empty))
+		return srv.(NoteV1Server).GetList(ctx, req.(*Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _NoteV1_EditNote_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(EditNoteRequest)
+func _NoteV1_UpdateNote_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateNoteRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(NoteV1Server).EditNote(ctx, in)
+		return srv.(NoteV1Server).UpdateNote(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/NoteV1/EditNote",
+		FullMethod: "/NoteV1/UpdateNote",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(NoteV1Server).EditNote(ctx, req.(*EditNoteRequest))
+		return srv.(NoteV1Server).UpdateNote(ctx, req.(*UpdateNoteRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -268,14 +268,14 @@ var NoteV1_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _NoteV1_GetNote_Handler,
 		},
 		{
-			MethodName: "GetAllNotes",
-			Handler:    _NoteV1_GetAllNotes_Handler,
+			MethodName: "GetList",
+			Handler:    _NoteV1_GetList_Handler,
 		},
 		{
-			MethodName: "EditNote",
-			Handler:    _NoteV1_EditNote_Handler,
+			MethodName: "UpdateNote",
+			Handler:    _NoteV1_UpdateNote_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "api/note_v1/note_v1.proto",
+	Metadata: "note_v1.proto",
 }

@@ -7,8 +7,11 @@ service NoteV1 {
     rpc RemoveNote (RemoveNoteRequest) returns (Empty);
     rpc MultiAdd (MultiAddRequest) returns (MultiAddResponse);
     rpc GetNote (GetNoteRequest) returns (GetNoteResponse);
-    rpc GetAllNotes (Empty) returns (GetAllNotesResponse);
-    rpc EditNote (EditNoteRequest) returns (Empty);
+    rpc GetList (Empty) returns (GetListResponse);
+    rpc UpdateNote (UpdateNoteRequest) returns (Empty);
+}
+
+message Empty {
 }
 
 message AddNoteRequest {
@@ -28,24 +31,21 @@ message RemoveNoteRequest {
     int64 id = 1;
 }
 
-message Empty {
-}
-
 message MultiAddRequest {
-    message Notes {
-    string title = 1; 
-    string content = 2; 
+        message Notes {
+        string title = 1; 
+        string content = 2; 
     }
 
     repeated Notes notes = 1;
 }
 
 message MultiAddResponse {
-    message Result {
-        repeated int64 id = 1;
+    message Result { 
+        int64 id = 1;
     }
 
-    Result results = 1;
+    Result result = 1;
 }
 
 message GetNoteRequest {
@@ -53,11 +53,12 @@ message GetNoteRequest {
 }
 
 message GetNoteResponse {
-    string title = 1; 
-    string content = 2; 
+    int64 id = 1;
+    string title = 2; 
+    string content = 3; 
 }
 
-message GetAllNotesResponse {
+message GetListResponse {
     message Result {
         string title = 1; 
         string content = 2; 
@@ -65,6 +66,9 @@ message GetAllNotesResponse {
 
     repeated Result results = 1;
 }
-message EditNoteRequest {
+message UpdateNoteRequest {
     int64 id = 1;
+    string title = 2; 
+    string content = 3; 
+
 }

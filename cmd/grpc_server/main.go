@@ -14,7 +14,7 @@ const grpcAdress = ":50051"
 func main() {
 	list, err := net.Listen("tcp", grpcAdress)
 	if err != nil {
-		log.Fatalf("failed to map port: %v", err.Error())
+		defer list.Close()
 	}
 
 	s := grpc.NewServer()
@@ -23,5 +23,4 @@ func main() {
 	if err = s.Serve(list); err != nil {
 		log.Fatalf("failed to process gRPC server: %v", err.Error())
 	}
-
 }

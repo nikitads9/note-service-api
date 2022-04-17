@@ -7,10 +7,10 @@ import (
 	desc "github.com/nikitads9/note-service-api/pkg/note_api"
 )
 
-func (i *Implementation) GetAllNotes(ctx context.Context, in *desc.Empty) (*desc.GetAllNotesResponse, error) {
+func (i *Implementation) GetList(ctx context.Context, in *desc.Empty) (*desc.GetListResponse, error) {
 	fmt.Println("returned all notes")
 
-	return &desc.GetAllNotesResponse{Results: []*desc.GetAllNotesResponse_Result{
+	return &desc.GetListResponse{Results: []*desc.GetListResponse_Result{
 		{
 			Title:   "title1",
 			Content: "content1",
