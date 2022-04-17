@@ -32,7 +32,7 @@ message RemoveNoteRequest {
 }
 
 message MultiAddRequest {
-        message Notes {
+    message Notes {
         string title = 1; 
         string content = 2; 
     }
@@ -42,7 +42,7 @@ message MultiAddRequest {
 
 message MultiAddResponse {
     message Result { 
-        int64 id = 1;
+        int64 count = 1;
     }
 
     Result result = 1;

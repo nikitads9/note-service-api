@@ -14,7 +14,7 @@ func (i *Implementation) MultiAdd(ctx context.Context, req *desc.MultiAddRequest
 
 	return &desc.MultiAddResponse{
 		Result: &desc.MultiAddResponse_Result{
-			Id: quantity,
+			Count: quantity,
 		},
 	}, nil
 }

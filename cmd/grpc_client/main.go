@@ -13,16 +13,12 @@ const grpcAdress = "localhost:50051"
 
 func main() {
 	ctx := context.Background()
+	//nolint
 	con, err := grpc.Dial(grpcAdress, grpc.WithInsecure())
 	if err != nil {
-		defer con.Close()
+		log.Fatalf("failed to connect: %v\n", err)
 	}
-	defer func() {
-		err = con.Close()
-		if err != nil {
-			log.Fatalf("failed to close connection")
-		}
-	}()
+	defer con.Close()
 
 	client := pb.NewNoteV1Client(con)
 	res, err := client.AddNote(ctx, &pb.AddNoteRequest{
@@ -40,7 +36,7 @@ func main() {
 		log.Printf("failed to remove note: %v\n", err)
 	}
 
-	addedID, err2 := client.MultiAdd(ctx, &pb.MultiAddRequest{
+	addedID, err := client.MultiAdd(ctx, &pb.MultiAddRequest{
 		Notes: []*pb.MultiAddRequest_Notes{
 			{
 				Title:   "title1",
@@ -56,11 +52,11 @@ func main() {
 			},
 		},
 	})
-	if err2 != nil {
+	if err != nil {
 		log.Printf("failed to remove note: %v\n", err)
 	}
 
-	fmt.Printf("IDs: %v", addedID.GetResult().Id)
+	fmt.Printf("IDs: %v", addedID.GetResult().Count)
 
 	_, err = client.GetNote(ctx, &pb.GetNoteRequest{
 		Id: 0,

@@ -12,10 +12,12 @@ import (
 const grpcAdress = ":50051"
 
 func main() {
+	//nolint
 	list, err := net.Listen("tcp", grpcAdress)
 	if err != nil {
-		defer list.Close()
+		log.Fatalf("failed to create listener: %v", err.Error())
 	}
+	defer list.Close()
 
 	s := grpc.NewServer()
 	pb.RegisterNoteV1Server(s, &note_v1.Implementation{})
