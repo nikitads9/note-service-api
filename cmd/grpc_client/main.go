@@ -36,7 +36,9 @@ func main() {
 		log.Printf("failed to remove note: %v\n", err)
 	}
 
-	addedID, err := client.MultiAdd(ctx, &pb.MultiAddRequest{
+	var addedID *pb.MultiAddResponse
+	
+	addedID, err = client.MultiAdd(ctx, &pb.MultiAddRequest{
 		Notes: []*pb.MultiAddRequest_Notes{
 			{
 				Title:   "title1",
