@@ -21,7 +21,9 @@ func main() {
 	defer con.Close()
 
 	client := pb.NewNoteV1Client(con)
-	res, err := client.AddNote(ctx, &pb.AddNoteRequest{
+
+	var res *pb.AddNoteResponse
+	res, err = client.AddNote(ctx, &pb.AddNoteRequest{
 		Title:   "title1",
 		Content: "fhdshjdsgd",
 	})
@@ -77,4 +79,7 @@ func main() {
 		Title:   "newtitle",
 		Content: "newcontent",
 	})
+	if err != nil {
+		log.Printf("failed to update a note: %v\n", err.Error())
+	}
 }
