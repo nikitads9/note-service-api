@@ -31,9 +31,9 @@ func main() {
 		log.Printf("failed to add note: %v\n", err.Error())
 	}
 
-	fmt.Println("note id =", res.GetResult().GetId())
+	fmt.Println("note with id", res.GetResult().GetId(), "added")
 
-	_, err = client.RemoveNote(ctx, &pb.RemoveNoteRequest{Id: int64(228)})
+	_, err = client.RemoveNote(ctx, &pb.RemoveNoteRequest{Id: int64(1)})
 	if err != nil {
 		log.Printf("failed to remove note: %v\n", err.Error())
 	}
@@ -60,26 +60,28 @@ func main() {
 		log.Printf("failed to remove note: %v\n", err.Error())
 	}
 
-	fmt.Printf("IDs: %v", addedID.GetResult().Count)
+	fmt.Printf("added %v IDs", addedID.GetResult().Count)
 
-	_, err = client.GetNote(ctx, &pb.GetNoteRequest{
-		Id: 0,
-	})
-	if err != nil {
-		log.Printf("failed to get note: %v\n", err.Error())
-	}
-
-	_, err = client.GetList(ctx, &pb.Empty{})
+	notes, err := client.GetList(ctx, &pb.Empty{})
 	if err != nil {
 		log.Printf("failed to get all notes: %v\n", err.Error())
 	}
+	fmt.Printf("%v\n", notes.GetResults())
 
 	_, err = client.UpdateNote(ctx, &pb.UpdateNoteRequest{
-		Id:      0,
+		Id:      3,
 		Title:   "newtitle",
 		Content: "newcontent",
 	})
 	if err != nil {
 		log.Printf("failed to update a note: %v\n", err.Error())
 	}
+
+	note, err := client.GetNote(ctx, &pb.GetNoteRequest{
+		Id: 3,
+	})
+	if err != nil {
+		log.Printf("failed to get note: %v\n", err.Error())
+	}
+	fmt.Printf("%v\n", note)
 }
