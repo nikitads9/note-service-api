@@ -38,7 +38,7 @@ func (i *Implementation) MultiAdd(ctx context.Context, req *desc.MultiAddRequest
 
 	row, err := db.QueryContext(ctx, query, args...)
 	if err != nil {
-		log.Printf("failed to get query context %v\n", err.Error())
+		log.Printf("failed to get added entry id %v\n", err.Error())
 		return nil, err
 	}
 	defer row.Close()
@@ -46,12 +46,16 @@ func (i *Implementation) MultiAdd(ctx context.Context, req *desc.MultiAddRequest
 	added := []int64{}
 	for row.Next() {
 		var element int64
-		row.Scan(&element)
+		err = row.Scan(&element)
+		if err != nil {
+			log.Printf("failed to get query context %v\n", err.Error())
+			return nil, err
+		}
 		added = append(added, element)
 	}
 
 	fmt.Println("added multiple entries")
-	
+
 	return &desc.MultiAddResponse{
 		Result: &desc.MultiAddResponse_Result{
 			Count: int64(len(added)),

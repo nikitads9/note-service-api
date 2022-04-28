@@ -41,7 +41,11 @@ func (i *Implementation) RemoveNote(ctx context.Context, req *desc.RemoveNoteReq
 
 	row.Next()
 	var deleted int64
-	row.Scan(&deleted)
+	err = row.Scan(&deleted)
+	if err != nil {
+		log.Printf("failed to get id of deleted entry %v\n", err.Error())
+		return nil, err
+	}
 
 	if deleted == int64(0) {
 		log.Printf("no entries removed\n")
