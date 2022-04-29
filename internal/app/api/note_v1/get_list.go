@@ -3,7 +3,6 @@ package note_v1
 import (
 	"context"
 	"fmt"
-	"log"
 
 	sq "github.com/Masterminds/squirrel"
 	_ "github.com/jackc/pgx/stdlib"
@@ -21,7 +20,6 @@ func (i *Implementation) GetList(ctx context.Context, in *desc.Empty) (*desc.Get
 
 	db, err := sqlx.Open("pgx", DbDsn)
 	if err != nil {
-		log.Printf("failed to open connection to database %v\n", err.Error())
 		return nil, err
 	}
 	defer db.Close()
@@ -32,7 +30,6 @@ func (i *Implementation) GetList(ctx context.Context, in *desc.Empty) (*desc.Get
 
 	query, args, err := builder.ToSql()
 	if err != nil {
-		log.Printf("failed to build a query %v\n", err.Error())
 		return nil, err
 	}
 
@@ -40,7 +37,6 @@ func (i *Implementation) GetList(ctx context.Context, in *desc.Empty) (*desc.Get
 
 	err = db.SelectContext(ctx, &res, query, args...)
 	if err != nil {
-		log.Printf("failed to select %v\n", err.Error())
 		return nil, err
 	}
 
@@ -51,8 +47,6 @@ func (i *Implementation) GetList(ctx context.Context, in *desc.Empty) (*desc.Get
 			Content: u.Content,
 		})
 	}
-
-	fmt.Println("returned all notes")
 
 	return &desc.GetListResponse{
 		Results: notes}, nil

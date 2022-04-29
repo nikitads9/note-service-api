@@ -3,7 +3,6 @@ package note_v1
 import (
 	"context"
 	"fmt"
-	"log"
 
 	sq "github.com/Masterminds/squirrel"
 	_ "github.com/jackc/pgx/stdlib"
@@ -16,7 +15,6 @@ func (i *Implementation) MultiAdd(ctx context.Context, req *desc.MultiAddRequest
 
 	db, err := sqlx.Open("pgx", DbDsn)
 	if err != nil {
-		log.Printf("failed to open connection to database %v\n", err.Error())
 		return nil, err
 	}
 	defer db.Close()
@@ -32,13 +30,11 @@ func (i *Implementation) MultiAdd(ctx context.Context, req *desc.MultiAddRequest
 
 	query, args, err := builder.ToSql()
 	if err != nil {
-		log.Printf("failed to build a query %v\n", err.Error())
 		return nil, err
 	}
 
 	row, err := db.QueryContext(ctx, query, args...)
 	if err != nil {
-		log.Printf("failed to get added entry id %v\n", err.Error())
 		return nil, err
 	}
 	defer row.Close()
@@ -48,13 +44,10 @@ func (i *Implementation) MultiAdd(ctx context.Context, req *desc.MultiAddRequest
 		var element int64
 		err = row.Scan(&element)
 		if err != nil {
-			log.Printf("failed to get query context %v\n", err.Error())
 			return nil, err
 		}
 		added = append(added, element)
 	}
-
-	fmt.Println("added multiple entries")
 
 	return &desc.MultiAddResponse{
 		Result: &desc.MultiAddResponse_Result{

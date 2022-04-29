@@ -3,7 +3,6 @@ package note_v1
 import (
 	"context"
 	"fmt"
-	"log"
 
 	sq "github.com/Masterminds/squirrel"
 	_ "github.com/jackc/pgx/stdlib"
@@ -16,7 +15,6 @@ func (i *Implementation) UpdateNote(ctx context.Context, req *desc.UpdateNoteReq
 
 	db, err := sqlx.Open("pgx", DbDsn)
 	if err != nil {
-		log.Printf("failed to open connection to database %v\n", err.Error())
 		return nil, err
 	}
 	defer db.Close()
@@ -30,13 +28,11 @@ func (i *Implementation) UpdateNote(ctx context.Context, req *desc.UpdateNoteReq
 
 	query, args, err := builder.ToSql()
 	if err != nil {
-		log.Printf("failed to build a query %v\n", err.Error())
 		return nil, err
 	}
 
 	row, err := db.QueryContext(ctx, query, args...)
 	if err != nil {
-		log.Printf("failed to get query context %v\n", err.Error())
 		return nil, err
 	}
 	defer row.Close()
@@ -45,7 +41,6 @@ func (i *Implementation) UpdateNote(ctx context.Context, req *desc.UpdateNoteReq
 	row.Next()
 	err = row.Scan(&id)
 	if err != nil {
-		log.Printf("failed get updated entry id %v\n", err.Error())
 		return nil, err
 	}
 

@@ -3,7 +3,6 @@ package note_v1
 import (
 	"context"
 	"fmt"
-	"log"
 
 	sq "github.com/Masterminds/squirrel"
 	_ "github.com/jackc/pgx/stdlib"
@@ -16,7 +15,6 @@ func (i *Implementation) RemoveNote(ctx context.Context, req *desc.RemoveNoteReq
 
 	db, err := sqlx.Open("pgx", DbDsn)
 	if err != nil {
-		log.Printf("failed to open connection to database %v\n", err.Error())
 		return nil, err
 	}
 	defer db.Close()
@@ -28,13 +26,11 @@ func (i *Implementation) RemoveNote(ctx context.Context, req *desc.RemoveNoteReq
 
 	query, args, err := builder.ToSql()
 	if err != nil {
-		log.Printf("failed to build a query %v\n", err.Error())
 		return nil, err
 	}
 
 	row, err := db.QueryContext(ctx, query, args...)
 	if err != nil {
-		log.Printf("failed to get query context %v\n", err.Error())
 		return nil, err
 	}
 	defer row.Close()
@@ -43,12 +39,11 @@ func (i *Implementation) RemoveNote(ctx context.Context, req *desc.RemoveNoteReq
 	var deleted int64
 	err = row.Scan(&deleted)
 	if err != nil {
-		log.Printf("failed to get id of deleted entry %v\n", err.Error())
 		return nil, err
 	}
 
 	if deleted == int64(0) {
-		log.Printf("no entries removed\n")
+		fmt.Printf("no entries removed\n")
 		return &desc.Empty{}, nil
 	}
 
