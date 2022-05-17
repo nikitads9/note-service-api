@@ -10,7 +10,7 @@ import (
 	desc "github.com/nikitads9/note-service-api/pkg/note_api"
 )
 
-func (i *Implementation) RemoveNote(ctx context.Context, req *desc.RemoveNoteRequest) (*desc.Empty, error) {
+func (i *Implementation) RemoveNote(ctx context.Context, req *desc.RemoveNoteRequest) (*desc.RemoveNoteResponse, error) {
 	DbDsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s", host, port, user, password, dbName, ssl)
 
 	db, err := sqlx.Open("pgx", DbDsn)
@@ -43,11 +43,12 @@ func (i *Implementation) RemoveNote(ctx context.Context, req *desc.RemoveNoteReq
 	}
 
 	if deleted == int64(0) {
-		fmt.Printf("no entries removed\n")
-		return &desc.Empty{}, nil
+		return &desc.RemoveNoteResponse{
+			Removed: deleted,
+		}, nil
 	}
 
-	fmt.Printf("note with id=%v removed.\n", deleted)
-
-	return &desc.Empty{}, nil
+	return &desc.RemoveNoteResponse{
+		Removed: deleted,
+	}, nil
 }
