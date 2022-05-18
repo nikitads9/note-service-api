@@ -207,6 +207,53 @@ func (x *RemoveNoteRequest) GetId() int64 {
 	return 0
 }
 
+type RemoveNoteResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Removed int64 `protobuf:"varint,1,opt,name=removed,proto3" json:"removed,omitempty"`
+}
+
+func (x *RemoveNoteResponse) Reset() {
+	*x = RemoveNoteResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_note_v1_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RemoveNoteResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RemoveNoteResponse) ProtoMessage() {}
+
+func (x *RemoveNoteResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_note_v1_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RemoveNoteResponse.ProtoReflect.Descriptor instead.
+func (*RemoveNoteResponse) Descriptor() ([]byte, []int) {
+	return file_note_v1_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *RemoveNoteResponse) GetRemoved() int64 {
+	if x != nil {
+		return x.Removed
+	}
+	return 0
+}
+
 type MultiAddRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -218,7 +265,7 @@ type MultiAddRequest struct {
 func (x *MultiAddRequest) Reset() {
 	*x = MultiAddRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_note_v1_proto_msgTypes[4]
+		mi := &file_note_v1_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -231,7 +278,7 @@ func (x *MultiAddRequest) String() string {
 func (*MultiAddRequest) ProtoMessage() {}
 
 func (x *MultiAddRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_note_v1_proto_msgTypes[4]
+	mi := &file_note_v1_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -244,7 +291,7 @@ func (x *MultiAddRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MultiAddRequest.ProtoReflect.Descriptor instead.
 func (*MultiAddRequest) Descriptor() ([]byte, []int) {
-	return file_note_v1_proto_rawDescGZIP(), []int{4}
+	return file_note_v1_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *MultiAddRequest) GetNotes() []*MultiAddRequest_Notes {
@@ -265,7 +312,7 @@ type MultiAddResponse struct {
 func (x *MultiAddResponse) Reset() {
 	*x = MultiAddResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_note_v1_proto_msgTypes[5]
+		mi := &file_note_v1_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -278,7 +325,7 @@ func (x *MultiAddResponse) String() string {
 func (*MultiAddResponse) ProtoMessage() {}
 
 func (x *MultiAddResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_note_v1_proto_msgTypes[5]
+	mi := &file_note_v1_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -291,7 +338,7 @@ func (x *MultiAddResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MultiAddResponse.ProtoReflect.Descriptor instead.
 func (*MultiAddResponse) Descriptor() ([]byte, []int) {
-	return file_note_v1_proto_rawDescGZIP(), []int{5}
+	return file_note_v1_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *MultiAddResponse) GetResult() *MultiAddResponse_Result {
@@ -312,7 +359,7 @@ type GetNoteRequest struct {
 func (x *GetNoteRequest) Reset() {
 	*x = GetNoteRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_note_v1_proto_msgTypes[6]
+		mi := &file_note_v1_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -325,7 +372,7 @@ func (x *GetNoteRequest) String() string {
 func (*GetNoteRequest) ProtoMessage() {}
 
 func (x *GetNoteRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_note_v1_proto_msgTypes[6]
+	mi := &file_note_v1_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -338,7 +385,7 @@ func (x *GetNoteRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetNoteRequest.ProtoReflect.Descriptor instead.
 func (*GetNoteRequest) Descriptor() ([]byte, []int) {
-	return file_note_v1_proto_rawDescGZIP(), []int{6}
+	return file_note_v1_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *GetNoteRequest) GetId() int64 {
@@ -361,7 +408,7 @@ type GetNoteResponse struct {
 func (x *GetNoteResponse) Reset() {
 	*x = GetNoteResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_note_v1_proto_msgTypes[7]
+		mi := &file_note_v1_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -374,7 +421,7 @@ func (x *GetNoteResponse) String() string {
 func (*GetNoteResponse) ProtoMessage() {}
 
 func (x *GetNoteResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_note_v1_proto_msgTypes[7]
+	mi := &file_note_v1_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -387,7 +434,7 @@ func (x *GetNoteResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetNoteResponse.ProtoReflect.Descriptor instead.
 func (*GetNoteResponse) Descriptor() ([]byte, []int) {
-	return file_note_v1_proto_rawDescGZIP(), []int{7}
+	return file_note_v1_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *GetNoteResponse) GetId() int64 {
@@ -422,7 +469,7 @@ type GetListResponse struct {
 func (x *GetListResponse) Reset() {
 	*x = GetListResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_note_v1_proto_msgTypes[8]
+		mi := &file_note_v1_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -435,7 +482,7 @@ func (x *GetListResponse) String() string {
 func (*GetListResponse) ProtoMessage() {}
 
 func (x *GetListResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_note_v1_proto_msgTypes[8]
+	mi := &file_note_v1_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -448,7 +495,7 @@ func (x *GetListResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetListResponse.ProtoReflect.Descriptor instead.
 func (*GetListResponse) Descriptor() ([]byte, []int) {
-	return file_note_v1_proto_rawDescGZIP(), []int{8}
+	return file_note_v1_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *GetListResponse) GetResults() []*GetListResponse_Result {
@@ -471,7 +518,7 @@ type UpdateNoteRequest struct {
 func (x *UpdateNoteRequest) Reset() {
 	*x = UpdateNoteRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_note_v1_proto_msgTypes[9]
+		mi := &file_note_v1_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -484,7 +531,7 @@ func (x *UpdateNoteRequest) String() string {
 func (*UpdateNoteRequest) ProtoMessage() {}
 
 func (x *UpdateNoteRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_note_v1_proto_msgTypes[9]
+	mi := &file_note_v1_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -497,7 +544,7 @@ func (x *UpdateNoteRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateNoteRequest.ProtoReflect.Descriptor instead.
 func (*UpdateNoteRequest) Descriptor() ([]byte, []int) {
-	return file_note_v1_proto_rawDescGZIP(), []int{9}
+	return file_note_v1_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *UpdateNoteRequest) GetId() int64 {
@@ -532,7 +579,7 @@ type AddNoteResponse_Result struct {
 func (x *AddNoteResponse_Result) Reset() {
 	*x = AddNoteResponse_Result{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_note_v1_proto_msgTypes[10]
+		mi := &file_note_v1_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -545,7 +592,7 @@ func (x *AddNoteResponse_Result) String() string {
 func (*AddNoteResponse_Result) ProtoMessage() {}
 
 func (x *AddNoteResponse_Result) ProtoReflect() protoreflect.Message {
-	mi := &file_note_v1_proto_msgTypes[10]
+	mi := &file_note_v1_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -580,7 +627,7 @@ type MultiAddRequest_Notes struct {
 func (x *MultiAddRequest_Notes) Reset() {
 	*x = MultiAddRequest_Notes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_note_v1_proto_msgTypes[11]
+		mi := &file_note_v1_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -593,7 +640,7 @@ func (x *MultiAddRequest_Notes) String() string {
 func (*MultiAddRequest_Notes) ProtoMessage() {}
 
 func (x *MultiAddRequest_Notes) ProtoReflect() protoreflect.Message {
-	mi := &file_note_v1_proto_msgTypes[11]
+	mi := &file_note_v1_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -606,7 +653,7 @@ func (x *MultiAddRequest_Notes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MultiAddRequest_Notes.ProtoReflect.Descriptor instead.
 func (*MultiAddRequest_Notes) Descriptor() ([]byte, []int) {
-	return file_note_v1_proto_rawDescGZIP(), []int{4, 0}
+	return file_note_v1_proto_rawDescGZIP(), []int{5, 0}
 }
 
 func (x *MultiAddRequest_Notes) GetTitle() string {
@@ -634,7 +681,7 @@ type MultiAddResponse_Result struct {
 func (x *MultiAddResponse_Result) Reset() {
 	*x = MultiAddResponse_Result{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_note_v1_proto_msgTypes[12]
+		mi := &file_note_v1_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -647,7 +694,7 @@ func (x *MultiAddResponse_Result) String() string {
 func (*MultiAddResponse_Result) ProtoMessage() {}
 
 func (x *MultiAddResponse_Result) ProtoReflect() protoreflect.Message {
-	mi := &file_note_v1_proto_msgTypes[12]
+	mi := &file_note_v1_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -660,7 +707,7 @@ func (x *MultiAddResponse_Result) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MultiAddResponse_Result.ProtoReflect.Descriptor instead.
 func (*MultiAddResponse_Result) Descriptor() ([]byte, []int) {
-	return file_note_v1_proto_rawDescGZIP(), []int{5, 0}
+	return file_note_v1_proto_rawDescGZIP(), []int{6, 0}
 }
 
 func (x *MultiAddResponse_Result) GetCount() int64 {
@@ -682,7 +729,7 @@ type GetListResponse_Result struct {
 func (x *GetListResponse_Result) Reset() {
 	*x = GetListResponse_Result{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_note_v1_proto_msgTypes[13]
+		mi := &file_note_v1_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -695,7 +742,7 @@ func (x *GetListResponse_Result) String() string {
 func (*GetListResponse_Result) ProtoMessage() {}
 
 func (x *GetListResponse_Result) ProtoReflect() protoreflect.Message {
-	mi := &file_note_v1_proto_msgTypes[13]
+	mi := &file_note_v1_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -708,7 +755,7 @@ func (x *GetListResponse_Result) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetListResponse_Result.ProtoReflect.Descriptor instead.
 func (*GetListResponse_Result) Descriptor() ([]byte, []int) {
-	return file_note_v1_proto_rawDescGZIP(), []int{8, 0}
+	return file_note_v1_proto_rawDescGZIP(), []int{9, 0}
 }
 
 func (x *GetListResponse_Result) GetTitle() string {
@@ -741,7 +788,10 @@ var file_note_v1_proto_rawDesc = []byte{
 	0x0a, 0x06, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01,
 	0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x22, 0x23, 0x0a, 0x11, 0x52, 0x65, 0x6d, 0x6f,
 	0x76, 0x65, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a,
-	0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x22, 0x78, 0x0a,
+	0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x22, 0x2e, 0x0a,
+	0x12, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x72, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x64, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x03, 0x52, 0x07, 0x72, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x64, 0x22, 0x78, 0x0a,
 	0x0f, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x41, 0x64, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
 	0x12, 0x2c, 0x0a, 0x05, 0x6e, 0x6f, 0x74, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32,
 	0x16, 0x2e, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x41, 0x64, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
@@ -776,28 +826,29 @@ var file_note_v1_proto_rawDesc = []byte{
 	0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65,
 	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x18, 0x0a,
 	0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07,
-	0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x32, 0x8e, 0x02, 0x0a, 0x06, 0x4e, 0x6f, 0x74, 0x65,
+	0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x32, 0x9b, 0x02, 0x0a, 0x06, 0x4e, 0x6f, 0x74, 0x65,
 	0x56, 0x31, 0x12, 0x2c, 0x0a, 0x07, 0x41, 0x64, 0x64, 0x4e, 0x6f, 0x74, 0x65, 0x12, 0x0f, 0x2e,
 	0x41, 0x64, 0x64, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x10,
 	0x2e, 0x41, 0x64, 0x64, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
-	0x12, 0x28, 0x0a, 0x0a, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x4e, 0x6f, 0x74, 0x65, 0x12, 0x12,
+	0x12, 0x35, 0x0a, 0x0a, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x4e, 0x6f, 0x74, 0x65, 0x12, 0x12,
 	0x2e, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65,
-	0x73, 0x74, 0x1a, 0x06, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x2f, 0x0a, 0x08, 0x4d, 0x75,
-	0x6c, 0x74, 0x69, 0x41, 0x64, 0x64, 0x12, 0x10, 0x2e, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x41, 0x64,
-	0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x11, 0x2e, 0x4d, 0x75, 0x6c, 0x74, 0x69,
-	0x41, 0x64, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2c, 0x0a, 0x07, 0x47,
-	0x65, 0x74, 0x4e, 0x6f, 0x74, 0x65, 0x12, 0x0f, 0x2e, 0x47, 0x65, 0x74, 0x4e, 0x6f, 0x74, 0x65,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x10, 0x2e, 0x47, 0x65, 0x74, 0x4e, 0x6f, 0x74,
-	0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x23, 0x0a, 0x07, 0x47, 0x65, 0x74,
-	0x4c, 0x69, 0x73, 0x74, 0x12, 0x06, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x10, 0x2e, 0x47,
-	0x65, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x28,
-	0x0a, 0x0a, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x4e, 0x6f, 0x74, 0x65, 0x12, 0x12, 0x2e, 0x55,
-	0x70, 0x64, 0x61, 0x74, 0x65, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x1a, 0x06, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x42, 0x34, 0x5a, 0x32, 0x67, 0x69, 0x74, 0x68,
-	0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6e, 0x69, 0x6b, 0x69, 0x74, 0x61, 0x64, 0x73, 0x39,
-	0x2f, 0x6e, 0x6f, 0x74, 0x65, 0x2d, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2d, 0x61, 0x70,
-	0x69, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x6e, 0x6f, 0x74, 0x65, 0x5f, 0x61, 0x70, 0x69, 0x62, 0x06,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x73, 0x74, 0x1a, 0x13, 0x2e, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x4e, 0x6f, 0x74, 0x65, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2f, 0x0a, 0x08, 0x4d, 0x75, 0x6c, 0x74, 0x69,
+	0x41, 0x64, 0x64, 0x12, 0x10, 0x2e, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x41, 0x64, 0x64, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x11, 0x2e, 0x4d, 0x75, 0x6c, 0x74, 0x69, 0x41, 0x64, 0x64,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2c, 0x0a, 0x07, 0x47, 0x65, 0x74, 0x4e,
+	0x6f, 0x74, 0x65, 0x12, 0x0f, 0x2e, 0x47, 0x65, 0x74, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x10, 0x2e, 0x47, 0x65, 0x74, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x23, 0x0a, 0x07, 0x47, 0x65, 0x74, 0x4c, 0x69, 0x73,
+	0x74, 0x12, 0x06, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x10, 0x2e, 0x47, 0x65, 0x74, 0x4c,
+	0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x28, 0x0a, 0x0a, 0x55,
+	0x70, 0x64, 0x61, 0x74, 0x65, 0x4e, 0x6f, 0x74, 0x65, 0x12, 0x12, 0x2e, 0x55, 0x70, 0x64, 0x61,
+	0x74, 0x65, 0x4e, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x06, 0x2e,
+	0x45, 0x6d, 0x70, 0x74, 0x79, 0x42, 0x34, 0x5a, 0x32, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e,
+	0x63, 0x6f, 0x6d, 0x2f, 0x6e, 0x69, 0x6b, 0x69, 0x74, 0x61, 0x64, 0x73, 0x39, 0x2f, 0x6e, 0x6f,
+	0x74, 0x65, 0x2d, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2d, 0x61, 0x70, 0x69, 0x2f, 0x70,
+	0x6b, 0x67, 0x2f, 0x6e, 0x6f, 0x74, 0x65, 0x5f, 0x61, 0x70, 0x69, 0x62, 0x06, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x33,
 }
 
 var (
@@ -812,39 +863,40 @@ func file_note_v1_proto_rawDescGZIP() []byte {
 	return file_note_v1_proto_rawDescData
 }
 
-var file_note_v1_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+var file_note_v1_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
 var file_note_v1_proto_goTypes = []interface{}{
 	(*Empty)(nil),                   // 0: Empty
 	(*AddNoteRequest)(nil),          // 1: AddNoteRequest
 	(*AddNoteResponse)(nil),         // 2: AddNoteResponse
 	(*RemoveNoteRequest)(nil),       // 3: RemoveNoteRequest
-	(*MultiAddRequest)(nil),         // 4: MultiAddRequest
-	(*MultiAddResponse)(nil),        // 5: MultiAddResponse
-	(*GetNoteRequest)(nil),          // 6: GetNoteRequest
-	(*GetNoteResponse)(nil),         // 7: GetNoteResponse
-	(*GetListResponse)(nil),         // 8: GetListResponse
-	(*UpdateNoteRequest)(nil),       // 9: UpdateNoteRequest
-	(*AddNoteResponse_Result)(nil),  // 10: AddNoteResponse.Result
-	(*MultiAddRequest_Notes)(nil),   // 11: MultiAddRequest.Notes
-	(*MultiAddResponse_Result)(nil), // 12: MultiAddResponse.Result
-	(*GetListResponse_Result)(nil),  // 13: GetListResponse.Result
+	(*RemoveNoteResponse)(nil),      // 4: RemoveNoteResponse
+	(*MultiAddRequest)(nil),         // 5: MultiAddRequest
+	(*MultiAddResponse)(nil),        // 6: MultiAddResponse
+	(*GetNoteRequest)(nil),          // 7: GetNoteRequest
+	(*GetNoteResponse)(nil),         // 8: GetNoteResponse
+	(*GetListResponse)(nil),         // 9: GetListResponse
+	(*UpdateNoteRequest)(nil),       // 10: UpdateNoteRequest
+	(*AddNoteResponse_Result)(nil),  // 11: AddNoteResponse.Result
+	(*MultiAddRequest_Notes)(nil),   // 12: MultiAddRequest.Notes
+	(*MultiAddResponse_Result)(nil), // 13: MultiAddResponse.Result
+	(*GetListResponse_Result)(nil),  // 14: GetListResponse.Result
 }
 var file_note_v1_proto_depIdxs = []int32{
-	10, // 0: AddNoteResponse.result:type_name -> AddNoteResponse.Result
-	11, // 1: MultiAddRequest.notes:type_name -> MultiAddRequest.Notes
-	12, // 2: MultiAddResponse.result:type_name -> MultiAddResponse.Result
-	13, // 3: GetListResponse.results:type_name -> GetListResponse.Result
+	11, // 0: AddNoteResponse.result:type_name -> AddNoteResponse.Result
+	12, // 1: MultiAddRequest.notes:type_name -> MultiAddRequest.Notes
+	13, // 2: MultiAddResponse.result:type_name -> MultiAddResponse.Result
+	14, // 3: GetListResponse.results:type_name -> GetListResponse.Result
 	1,  // 4: NoteV1.AddNote:input_type -> AddNoteRequest
 	3,  // 5: NoteV1.RemoveNote:input_type -> RemoveNoteRequest
-	4,  // 6: NoteV1.MultiAdd:input_type -> MultiAddRequest
-	6,  // 7: NoteV1.GetNote:input_type -> GetNoteRequest
+	5,  // 6: NoteV1.MultiAdd:input_type -> MultiAddRequest
+	7,  // 7: NoteV1.GetNote:input_type -> GetNoteRequest
 	0,  // 8: NoteV1.GetList:input_type -> Empty
-	9,  // 9: NoteV1.UpdateNote:input_type -> UpdateNoteRequest
+	10, // 9: NoteV1.UpdateNote:input_type -> UpdateNoteRequest
 	2,  // 10: NoteV1.AddNote:output_type -> AddNoteResponse
-	0,  // 11: NoteV1.RemoveNote:output_type -> Empty
-	5,  // 12: NoteV1.MultiAdd:output_type -> MultiAddResponse
-	7,  // 13: NoteV1.GetNote:output_type -> GetNoteResponse
-	8,  // 14: NoteV1.GetList:output_type -> GetListResponse
+	4,  // 11: NoteV1.RemoveNote:output_type -> RemoveNoteResponse
+	6,  // 12: NoteV1.MultiAdd:output_type -> MultiAddResponse
+	8,  // 13: NoteV1.GetNote:output_type -> GetNoteResponse
+	9,  // 14: NoteV1.GetList:output_type -> GetListResponse
 	0,  // 15: NoteV1.UpdateNote:output_type -> Empty
 	10, // [10:16] is the sub-list for method output_type
 	4,  // [4:10] is the sub-list for method input_type
@@ -908,7 +960,7 @@ func file_note_v1_proto_init() {
 			}
 		}
 		file_note_v1_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MultiAddRequest); i {
+			switch v := v.(*RemoveNoteResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -920,7 +972,7 @@ func file_note_v1_proto_init() {
 			}
 		}
 		file_note_v1_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MultiAddResponse); i {
+			switch v := v.(*MultiAddRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -932,7 +984,7 @@ func file_note_v1_proto_init() {
 			}
 		}
 		file_note_v1_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetNoteRequest); i {
+			switch v := v.(*MultiAddResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -944,7 +996,7 @@ func file_note_v1_proto_init() {
 			}
 		}
 		file_note_v1_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetNoteResponse); i {
+			switch v := v.(*GetNoteRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -956,7 +1008,7 @@ func file_note_v1_proto_init() {
 			}
 		}
 		file_note_v1_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetListResponse); i {
+			switch v := v.(*GetNoteResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -968,7 +1020,7 @@ func file_note_v1_proto_init() {
 			}
 		}
 		file_note_v1_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateNoteRequest); i {
+			switch v := v.(*GetListResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -980,7 +1032,7 @@ func file_note_v1_proto_init() {
 			}
 		}
 		file_note_v1_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AddNoteResponse_Result); i {
+			switch v := v.(*UpdateNoteRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -992,7 +1044,7 @@ func file_note_v1_proto_init() {
 			}
 		}
 		file_note_v1_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MultiAddRequest_Notes); i {
+			switch v := v.(*AddNoteResponse_Result); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1004,7 +1056,7 @@ func file_note_v1_proto_init() {
 			}
 		}
 		file_note_v1_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MultiAddResponse_Result); i {
+			switch v := v.(*MultiAddRequest_Notes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1016,6 +1068,18 @@ func file_note_v1_proto_init() {
 			}
 		}
 		file_note_v1_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MultiAddResponse_Result); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_note_v1_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetListResponse_Result); i {
 			case 0:
 				return &v.state
@@ -1034,7 +1098,7 @@ func file_note_v1_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_note_v1_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   14,
+			NumMessages:   15,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

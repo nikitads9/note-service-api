@@ -19,7 +19,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type NoteV1Client interface {
 	AddNote(ctx context.Context, in *AddNoteRequest, opts ...grpc.CallOption) (*AddNoteResponse, error)
-	RemoveNote(ctx context.Context, in *RemoveNoteRequest, opts ...grpc.CallOption) (*Empty, error)
+	RemoveNote(ctx context.Context, in *RemoveNoteRequest, opts ...grpc.CallOption) (*RemoveNoteResponse, error)
 	MultiAdd(ctx context.Context, in *MultiAddRequest, opts ...grpc.CallOption) (*MultiAddResponse, error)
 	GetNote(ctx context.Context, in *GetNoteRequest, opts ...grpc.CallOption) (*GetNoteResponse, error)
 	GetList(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*GetListResponse, error)
@@ -43,8 +43,8 @@ func (c *noteV1Client) AddNote(ctx context.Context, in *AddNoteRequest, opts ...
 	return out, nil
 }
 
-func (c *noteV1Client) RemoveNote(ctx context.Context, in *RemoveNoteRequest, opts ...grpc.CallOption) (*Empty, error) {
-	out := new(Empty)
+func (c *noteV1Client) RemoveNote(ctx context.Context, in *RemoveNoteRequest, opts ...grpc.CallOption) (*RemoveNoteResponse, error) {
+	out := new(RemoveNoteResponse)
 	err := c.cc.Invoke(ctx, "/NoteV1/RemoveNote", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -93,7 +93,7 @@ func (c *noteV1Client) UpdateNote(ctx context.Context, in *UpdateNoteRequest, op
 // for forward compatibility
 type NoteV1Server interface {
 	AddNote(context.Context, *AddNoteRequest) (*AddNoteResponse, error)
-	RemoveNote(context.Context, *RemoveNoteRequest) (*Empty, error)
+	RemoveNote(context.Context, *RemoveNoteRequest) (*RemoveNoteResponse, error)
 	MultiAdd(context.Context, *MultiAddRequest) (*MultiAddResponse, error)
 	GetNote(context.Context, *GetNoteRequest) (*GetNoteResponse, error)
 	GetList(context.Context, *Empty) (*GetListResponse, error)
@@ -108,7 +108,7 @@ type UnimplementedNoteV1Server struct {
 func (UnimplementedNoteV1Server) AddNote(context.Context, *AddNoteRequest) (*AddNoteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddNote not implemented")
 }
-func (UnimplementedNoteV1Server) RemoveNote(context.Context, *RemoveNoteRequest) (*Empty, error) {
+func (UnimplementedNoteV1Server) RemoveNote(context.Context, *RemoveNoteRequest) (*RemoveNoteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemoveNote not implemented")
 }
 func (UnimplementedNoteV1Server) MultiAdd(context.Context, *MultiAddRequest) (*MultiAddResponse, error) {
