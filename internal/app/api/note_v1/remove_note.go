@@ -42,12 +42,6 @@ func (i *Implementation) RemoveNote(ctx context.Context, req *desc.RemoveNoteReq
 		return nil, err
 	}
 
-	if deleted == int64(0) {
-		return &desc.RemoveNoteResponse{
-			Removed: deleted,
-		}, nil
-	}
-
 	return &desc.RemoveNoteResponse{
 		Removed: deleted,
 	}, nil
