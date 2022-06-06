@@ -2,21 +2,50 @@ syntax = "proto3";
 
 option go_package = "github.com/nikitads9/note-service-api/pkg/note_api";
 
-service NoteV1 {
-    rpc AddNote (AddNoteRequest) returns (AddNoteResponse);
-    rpc RemoveNote (RemoveNoteRequest) returns (RemoveNoteResponse);
-    rpc MultiAdd (MultiAddRequest) returns (MultiAddResponse);
-    rpc GetNote (GetNoteRequest) returns (GetNoteResponse);
-    rpc GetList (Empty) returns (GetListResponse);
-    rpc UpdateNote (UpdateNoteRequest) returns (Empty);
-}
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "validate/validate.proto";
 
-message Empty {
+service NoteV1 {
+    rpc AddNote (AddNoteRequest) returns (AddNoteResponse) {
+        option (google.api.http) = {
+            post: "/note/v1/add"
+            body: "*"
+        };
+    }
+    
+    rpc RemoveNote (RemoveNoteRequest) returns (RemoveNoteResponse){
+        option (google.api.http) = {
+            delete: "/note/v1/remove/{id}"
+        };
+    }
+    rpc MultiAdd (MultiAddRequest) returns (MultiAddResponse) {
+        option (google.api.http) = {
+            post: "/note/v1/multi-add"
+            body: "*"
+        };
+    }
+    rpc GetNote (GetNoteRequest) returns (GetNoteResponse){
+        option (google.api.http) = {
+            get: "/note/v1/get/{id}"
+        };
+    }
+    rpc GetList (google.protobuf.Empty) returns (GetListResponse){
+        option (google.api.http) = {
+            get: "/note/v1/get-all-notes"
+        };
+    }
+    rpc UpdateNote (UpdateNoteRequest) returns (google.protobuf.Empty){
+        option (google.api.http) = {
+            put: "/note/v1/update"
+            body: "*"
+        };
+    }
 }
 
 message AddNoteRequest {
-    string title = 1; 
-    string content = 2; 
+    string title = 1 [json_name = "title", (validate.rules).string = {min_len: 1, max_len: 20}]; 
+    string content = 2 [json_name = "content", (validate.rules).string = {min_len: 1, max_len: 1000}]; 
 }
 
 message AddNoteResponse {
@@ -28,7 +57,7 @@ message AddNoteResponse {
 }
 
 message RemoveNoteRequest {
-    int64 id = 1;
+    int64 id = 1 [json_name = "id", (validate.rules).int64 = {gt : 0}];
 }
 
 message RemoveNoteResponse {
@@ -37,11 +66,11 @@ message RemoveNoteResponse {
 
 message MultiAddRequest {
     message Notes {
-        string title = 1; 
-        string content = 2; 
+        string title = 1 [json_name = "title", (validate.rules).string = {min_len: 1, max_len: 20}]; 
+        string content = 2 [json_name = "content", (validate.rules).string = {min_len: 1, max_len: 1000}]; 
     }
 
-    repeated Notes notes = 1;
+    repeated Notes notes = 1 [json_name = "notes"];
 }
 
 message MultiAddResponse {
@@ -53,7 +82,7 @@ message MultiAddResponse {
 }
 
 message GetNoteRequest {
-    int64 id = 1;
+    int64 id = 1 [json_name = "id", (validate.rules).int64 = {gt : 0}];
 }
 
 message GetNoteResponse {
@@ -71,8 +100,8 @@ message GetListResponse {
     repeated Result results = 1;
 }
 message UpdateNoteRequest {
-    int64 id = 1;
-    string title = 2; 
-    string content = 3; 
+    int64 id = 1 [json_name = "id", (validate.rules).int64 = {gt : 0}];
+    string title = 2 [json_name = "title", (validate.rules).string = {min_len: 1, max_len: 20}]; 
+    string content = 3 [json_name = "content", (validate.rules).string = {min_len: 1, max_len: 1000}]; 
 
 }
