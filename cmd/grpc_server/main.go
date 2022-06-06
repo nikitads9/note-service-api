@@ -18,6 +18,7 @@ import (
 	desc "github.com/nikitads9/note-service-api/pkg/note_api"
 	pb "github.com/nikitads9/note-service-api/pkg/note_api"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 	//_ "google.golang.org/protobuf/cmd/protoc-gen-go"
 )
 
@@ -27,13 +28,12 @@ const (
 )
 
 const (
-	notesTable = "notes"
-	host       = "localhost"
-	dbPort     = "5444"
-	user       = "postgres"
-	password   = "notes_pass"
-	dbName     = "notes_db"
-	ssl        = "disable"
+	host     = "localhost"
+	dbPort   = "5444"
+	user     = "postgres"
+	password = "notes_pass"
+	dbName   = "notes_db"
+	ssl      = "disable"
 )
 
 func main() {
@@ -88,7 +88,7 @@ func startHTTP() error {
 	defer cancel()
 
 	mux := runtime.NewServeMux()
-	opts := []grpc.DialOption{grpc.WithInsecure()}
+	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
 
 	err := desc.RegisterNoteV1HandlerFromEndpoint(ctx, mux, grpcAdress, opts)
 	if err != nil {
