@@ -15,7 +15,6 @@ import (
 	"github.com/nikitads9/note-service-api/internal/app/api/note_v1"
 	"github.com/nikitads9/note-service-api/internal/app/repository"
 	"github.com/nikitads9/note-service-api/internal/app/service/note"
-	desc "github.com/nikitads9/note-service-api/pkg/note_api"
 	pb "github.com/nikitads9/note-service-api/pkg/note_api"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -90,7 +89,7 @@ func startHTTP() error {
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
 
-	err := desc.RegisterNoteV1HandlerFromEndpoint(ctx, mux, grpcAdress, opts)
+	err := pb.RegisterNoteV1HandlerFromEndpoint(ctx, mux, grpcAdress, opts)
 	if err != nil {
 		return err
 	}
