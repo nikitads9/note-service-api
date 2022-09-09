@@ -16,3 +16,10 @@ func NewNoteV1(noteService *serv.Service) *Implementation {
 		noteService,
 	}
 }
+
+func NewMockNoteV1(i Implementation) *Implementation {
+	return &Implementation{
+		desc.UnimplementedNoteV1Server{},
+		i.noteService,
+	}
+}

@@ -55,3 +55,7 @@ install-go-deps: .install-go-deps
 coverage:
 	go test -race -coverprofile="coverage.out" -covermode=atomic ./...
 	go tool cover -html="coverage.out"
+
+PHONY: test-coverage
+test-coverage:
+	go test ./... -coverprofile=coverage.out && go tool cover -html=coverage.out

@@ -1,5 +1,7 @@
 package repository
 
+//go:generate mockgen --build_flags=--mod=mod -destination=mocks/note_service_repository.go -package=mocks . INoteRepository
+
 import (
 	"context"
 	"fmt"
@@ -74,7 +76,7 @@ func (n *noteRepository) GetList(ctx context.Context) ([]*model.NoteInfo, error)
 	if err != nil {
 		return nil, err
 	}
-	
+
 	return res, nil
 }
 
