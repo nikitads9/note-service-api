@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"fmt"
 	"log"
 	"net"
@@ -15,53 +16,49 @@ import (
 	"github.com/nikitads9/note-service-api/internal/app/api/note_v1"
 	"github.com/nikitads9/note-service-api/internal/app/repository"
 	"github.com/nikitads9/note-service-api/internal/app/service/note"
+	"github.com/nikitads9/note-service-api/internal/config"
 	pb "github.com/nikitads9/note-service-api/pkg/note_api"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	//_ "google.golang.org/protobuf/cmd/protoc-gen-go"
 )
 
-const (
-	grpcAdress  = ":50051"
-	httpAddress = ":8000"
-)
-
-const (
-	host     = "localhost"
-	dbPort   = "5444"
-	user     = "postgres"
-	password = "notes_pass"
-	dbName   = "notes_db"
-	ssl      = "disable"
-)
-
 func main() {
+	var cfg *config.Config
 	var wg sync.WaitGroup
+
+	flag.Parse()
+
+	cfg, err := config.Read("config.yml")
+	if err != nil {
+		log.Fatal("failed to open configuration file")
+		return
+	}
 
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		log.Fatal(startGRPC())
+		log.Fatal(startGRPC(cfg))
 	}()
 
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		log.Fatal(startHTTP())
+		log.Fatal(startHTTP(cfg))
 	}()
 
 	wg.Wait()
 }
 
-func startGRPC() error {
+func startGRPC(cfg *config.Config) error {
 	//nolint
-	list, err := net.Listen("tcp", grpcAdress)
+	list, err := net.Listen("tcp", cfg.Grpc.Port)
 	if err != nil {
 		return fmt.Errorf("failed to create listener %v", err.Error())
 	}
 	defer list.Close()
 
-	DbDsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s", host, dbPort, user, password, dbName, ssl)
+	DbDsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s", cfg.Database.Host, cfg.Database.Port, cfg.Database.User, cfg.Database.Password, cfg.Database.Name, cfg.Database.Ssl)
 
 	db, err := sqlx.Open("pgx", DbDsn)
 	if err != nil {
@@ -81,7 +78,7 @@ func startGRPC() error {
 	return nil
 }
 
-func startHTTP() error {
+func startHTTP(cfg *config.Config) error {
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
@@ -89,10 +86,10 @@ func startHTTP() error {
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
 
-	err := pb.RegisterNoteV1HandlerFromEndpoint(ctx, mux, grpcAdress, opts)
+	err := pb.RegisterNoteV1HandlerFromEndpoint(ctx, mux, cfg.Grpc.Port, opts)
 	if err != nil {
 		return err
 	}
 
-	return http.ListenAndServe(httpAddress, mux)
+	return http.ListenAndServe(cfg.Http.Port, mux)
 }
