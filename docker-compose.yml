@@ -3,9 +3,11 @@ version: "3"
 volumes:
   postgres_volume:
 
+
 services:
   postgres:
     image: postgres:14-alpine3.15
+    container_name: 'postgres'
     environment:
       - "POSTGRES_DB=notes_db"
       - "POSTGRES_PASSWORD=notes_pass"
@@ -13,17 +15,20 @@ services:
       - "PGDATA=/var/lib/postgresql/data/notification"
     volumes:
       - ./postgres_volume:/var/lib/postgresql/data
-
-  goose:
-    build: ./migrations/
-    restart: on-failure
-    environment:
-      DB_HOST: postgres
     ports:
-        - "5444:5432"
+      - "5444:5444"
+
+  #goose:
+    #build: ./migrations/
+    #restart: on-failure
+    #environment:
+      #DB_HOST: postgres
+    #ports:
+        #- "5444:5432"
 
   app:
     build: .
+    container_name: 'app'
     ports:
       - "50051:50051"
       - "8000:8000"
