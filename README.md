@@ -19,6 +19,7 @@ Protobuffer  |  gRPC | Docker
 ## Project setup
 
 ```
+sudo apt install -y protobuf-compiler
 git clone https://github.com/nikitads9/note-service-api.git
 cd note-service-api/
 git checkout task4
