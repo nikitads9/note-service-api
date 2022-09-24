@@ -19,12 +19,15 @@ Protobuffer  |  gRPC | Docker
 ## Project setup
 
 ```
-sudo apt install -y protobuf-compiler
 git clone https://github.com/nikitads9/note-service-api.git
 cd note-service-api/
 git checkout task4
+make vendor-proto
 make generate
 docker-compose up -d
+curl -fsSL \
+    https://raw.githubusercontent.com/pressly/goose/master/install.sh |\
+    GOOSE_INSTALL=$HOME/.goose sh -s v3.5.0
 bash migration-local.sh
 ```
 <justify>
