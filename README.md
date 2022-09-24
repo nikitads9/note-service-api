@@ -13,7 +13,7 @@ interface for communication with PostgreSQL database.
 
 Protobuffer  |  gRPC | Docker
 :-------------------------:|:-------------------------:|:-----------------:
-   <img  src="./readme_assets/pluginIcon.png" width="80%"> | <img  src="https://grpc.io/img/logos/grpc-icon-color.png" width="50%"> |  <img  src="./readme_assets/vertical-logo-monochromatic.png" width="80%">          
+   <img  src="./readme_assets/pluginIcon.png" width="80%"> | <img  src="./readme_assets/grpc-icon-color.png" width="50%"> |  <img  src="./readme_assets/vertical-logo-monochromatic.png" width="80%">          
 
 
 ## Project setup
