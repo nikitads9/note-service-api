@@ -26,18 +26,27 @@ vendor-proto: .vendor-proto
 
 PHONY: .vendor-proto
 .vendor-proto:
-	@if [ ! -d vendor.protogen/google ]; then \
-      git clone https://github.com/googleapis/googleapis vendor.protogen/googleapis &&\
-      mkdir -p  vendor.protogen/google/ &&\
-      mv vendor.protogen/googleapis/google/api vendor.protogen/google &&\
-      rm -rf vendor.protogen/googleapis ;\
-    fi
-    @if [ ! -d vendor.protogen/github.com/envoyproxy ]; then \
-      mkdir -p vendor.protogen/validate &&\
-      git clone https://github.com/envoyproxy/protoc-gen-validate vendor.protogen/protoc-gen-validate &&\
-      mv vendor.protogen/protoc-gen-validate/validate/*.proto vendor.protogen/validate &&\
-      rm -rf vendor.protogen/protoc-gen-validate ;\
-    fi
+		mkdir -p proto
+		cp api/note_v1/note_v1.proto proto/api/note_v1.proto
+		@if [ ! -d proto/google ]; then \
+			git clone https://github.com/googleapis/googleapis proto/googleapis &&\
+			mkdir -p  proto/google/ &&\
+			mv proto/googleapis/google/api proto/google &&\
+			rm -rf proto/googleapis ;\
+		fi
+		@if [ ! -d proto/github.com/envoyproxy ]; then \
+			mkdir -p proto/validate &&\
+			git clone https://github.com/envoyproxy/protoc-gen-validate proto/protoc-gen-validate &&\
+			mv proto/protoc-gen-validate/validate/*.proto proto/validate &&\
+			rm -rf proto/protoc-gen-validate ;\
+		fi
+		@if [ ! -d proto/google/protobuf ]; then\
+			git clone https://github.com/protocolbuffers/protobuf proto/protobuf &&\
+			mkdir -p  proto/google/protobuf &&\
+			mv proto/protobuf/src/google/protobuf/*.proto proto/google/protobuf &&\
+			rm -rf proto/protobuf ;\
+		fi
+
 .PHONY: deps
 deps: install-go-deps
 
