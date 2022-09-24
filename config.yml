@@ -6,7 +6,7 @@ http:
 
 database :
   host: "postgres"
-  port : "5444"
+  port : "5432"
   user : "postgres"
   password : "notes_pass"
   database : "notes_db"
