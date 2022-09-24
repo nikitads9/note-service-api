@@ -11,7 +11,7 @@ build: vendor-proto .generate .build
 PHONY: .build
 #-I api/note_v1/
 .build:
-		CGO_ENABLED=0 GOOS=linux go build -o bin/ocp-note-api cmd/grpc-server/main.go
+		CGO_ENABLED=0 GOOS=linux go build -o bin/note-service-api cmd/grpc-server/note_service.go
 		CGO_ENABLED=0 GOOS=linux go build -o bin/kafkaConsumer cmd/kafkaConsumer/consumer.go
 
 PHONY: install
