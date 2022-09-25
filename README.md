@@ -1,8 +1,10 @@
 # Note Service
+
 ## Brief description
+
 <p align="justify">
 	
-This is a service dedicated to keep brief memo with structure "Title, Content". The title is constrained to be shorter than 20 letters, 
+This is a service dedicated to keep brief memos with structure "Title, Content". The title is constrained to be shorter than 20 letters, 
 whereas the content is bounded to 1000 letters. The service' API accepts gRPC or HTTP requests and converts the received Protobuffer 
 request into a simple golang struct, isolated from the outer layer. That struct is then passed to specific method of a service layer
 according to initial request. The service layer in turn redirects the received model to specific method in repository layer, which has an 
@@ -71,6 +73,7 @@ In case you want to build the service yourself, you will need to have these tool
 - goose
 - protobuffer-compiler
 - docker
+- golang
 If you are ok with that, be sure to edit database connection parameters in **config.yml** file among with **Dockerfile** and **migration-local.sh**. The commands to launch the server app and database are listed below:
 ```
 git clone https://github.com/nikitads9/note-service-api.git
@@ -93,7 +96,7 @@ bash migration-local.sh
 
 ## API use instruction
 
-This service is an API that implements the CRUD concept. It features the ability to create, read, update and delete database entries.
+This service is an API that implements the CRUD concept. It features the ability to create, read, update and delete database entries. The instruction below is for simple HTTP+JSON requests. If you want to write a gRPC client, you would need to look up in the **note_v1.proto** file.
 <details>
 <summary> 
 1. AddNote handle 
