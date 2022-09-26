@@ -36,8 +36,8 @@ sudo cp -r /home/$USER/.goose/bin/goose /usr/local/bin
 ```
 Then you need to pull Docker images from my repository on DockerHub.
 ```
-docker pull nikitads9/note-service:latest
-docker pull nikitads9/note-service:postgres
+docker pull nikitads9/note-service:app
+docker pull postgres:14-alpine3.15
 ```
 When it is done, it's time to run containers using pulled images. If you want to specify your own database connection parameters, you should change the environment `-e` and port `-p` flags in the command featured below:
 ```
@@ -47,15 +47,16 @@ docker run -d -e POSTGRES_DB='notes_db' \
 -e POSTGRES_USER='postgres'\
 -e PGDATA='/var/lib/postgresql/data/notification'\
 -p 5432:5432\
--v '/var/lib/postgresql/data'\
+-v postgres-volume:/var/lib/postgresql/data\
 --network note-service-network \
 --name postgres\
-nikitads9/note-service:postgres
+postgres:14-alpine3.15
 docker run -d --name app\
 -p 50051:50051\
 -p 8000:8000\
+-v app-volume:/var/lib/note-app/data\
 --network note-service-network\
-nikitads9/note-service:latest
+nikitads9/note-service:app
 ```
 **NB**: If you have changed the database configuration in `docker run` command, you should also edit the connection variables in **migration-local.sh** script file. 
 And finally, when both containers are up, run this bash script for migration:
