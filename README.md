@@ -31,7 +31,8 @@ In case you want to just use this service out of the box, you need to verify the
 ```
 curl -fsSL \
     https://raw.githubusercontent.com/pressly/goose/master/install.sh |\
-    GOOSE_INSTALL=$HOME/.goose sh -s v3.5.0
+    GOOSE_INSTALL=/usr/local/bin/.goose sh -s v3.5.0
+sudo cp -r /home/$USER/.goose/bin/goose /usr/local/bin
 ```
 Then you need to pull Docker images from my repository on DockerHub.
 ```
@@ -85,6 +86,7 @@ docker-compose up -d
 curl -fsSL \
     https://raw.githubusercontent.com/pressly/goose/master/install.sh |\
     GOOSE_INSTALL=$HOME/.goose sh -s v3.5.0
+sudo cp -r /home/$USER/.goose/bin/goose /usr/local/bin
 bash migration-local.sh
 ```
   
