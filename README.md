@@ -104,7 +104,7 @@ This handle does not require JSON or number. It's goal is to show all entries in
 The JSON object passed to that handle should look like:
 ```
 {
-	"id": 10,
+	"id": 1,
 	"title": "Updated title",
 	"content": "updated content"
 }
