@@ -61,7 +61,7 @@ func (n *noteRepository) AddNote(ctx context.Context, note *model.NoteInfo) (int
 }
 
 func (n *noteRepository) GetList(ctx context.Context) ([]*model.NoteInfo, error) {
-	builder := sq.Select("title, content").
+	builder := sq.Select("id, title, content").
 		PlaceholderFormat(sq.Dollar).
 		From(table.NotesTable)
 

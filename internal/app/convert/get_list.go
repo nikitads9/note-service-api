@@ -9,6 +9,7 @@ func ToGetListResponse(notes []*model.NoteInfo) *desc.GetListResponse {
 	res := make([]*desc.GetListResponse_Result, 0, len(notes))
 	for _, elem := range notes {
 		res = append(res, &desc.GetListResponse_Result{
+			Id:      elem.Id,
 			Title:   elem.Title,
 			Content: elem.Content,
 		})
