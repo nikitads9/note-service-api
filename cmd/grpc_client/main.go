@@ -8,6 +8,7 @@ import (
 	pb "github.com/nikitads9/note-service-api/pkg/note_api"
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/types/known/emptypb"
+	wrapper "google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 const grpcAdress = "localhost:50051"
@@ -25,8 +26,10 @@ func main() {
 
 	var res *pb.AddNoteResponse
 	res, err = client.AddNote(ctx, &pb.AddNoteRequest{
-		Title:   "title1",
-		Content: "fhdshjdsgd",
+		Note: &pb.Notes{
+			Title:   "title1",
+			Content: "fhdshjdsgd",
+		},
 	})
 	if err != nil {
 		log.Printf("failed to add note: %v\n", err.Error())
@@ -37,7 +40,7 @@ func main() {
 	var addedID *pb.MultiAddResponse
 
 	addedID, err = client.MultiAdd(ctx, &pb.MultiAddRequest{
-		Notes: []*pb.MultiAddRequest_Notes{
+		Notes: []*pb.Notes{
 			{
 				Title:   "title11",
 				Content: "ffdsjfdjf",
@@ -69,9 +72,13 @@ func main() {
 	fmt.Printf("%v\n", notes.GetResults())
 
 	_, err = client.UpdateNote(ctx, &pb.UpdateNoteRequest{
-		Id:      3,
-		Title:   "newtitle",
-		Content: "newcontent",
+		Id: 3,
+		Title: &wrapper.StringValue{
+			Value: "newtitle",
+		},
+		Content: &wrapper.StringValue{
+			Value: "newcontent",
+		},
 	})
 	if err != nil {
 		log.Printf("failed to update a note: %v\n", err.Error())

@@ -12,8 +12,10 @@ func (i *Implementation) GetNote(ctx context.Context, req *desc.GetNoteRequest) 
 		return nil, err
 	}
 	return &desc.GetNoteResponse{
-		Id:      note.Id,
-		Title:   note.Title,
-		Content: note.Content,
+		Id: note.Id,
+		Note: &desc.Notes{
+			Title:   note.Title.String,
+			Content: note.Content.String,
+		},
 	}, nil
 }

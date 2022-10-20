@@ -2,6 +2,7 @@ package note_v1
 
 import (
 	"context"
+	"database/sql"
 	"errors"
 	"testing"
 
@@ -24,14 +25,27 @@ func Test_GetList(t *testing.T) {
 		noteContent = gofakeit.BeerStyle()
 
 		validResponse = []*model.NoteInfo{{
-			Id:      noteId,
-			Title:   noteTitle,
-			Content: noteContent,
+			Id: noteId,
+			Title: sql.NullString{
+				String: noteTitle,
+				Valid:  true,
+			},
+			Content: sql.NullString{
+				String: noteContent,
+				Valid:  true,
+			},
 		},
 			{
-				Id:      noteId,
-				Title:   noteTitle,
-				Content: noteContent},
+				Id: noteId,
+				Title: sql.NullString{
+					String: noteTitle,
+					Valid:  true,
+				},
+				Content: sql.NullString{
+					String: noteContent,
+					Valid:  true,
+				},
+			},
 		}
 	)
 	noteRepoMock := noteRepoMocks.NewMockINoteRepository(mock)

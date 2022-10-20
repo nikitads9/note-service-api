@@ -7,8 +7,10 @@ import (
 
 func ToGetNoteResponse(note *model.NoteInfo) *desc.GetNoteResponse {
 	return &desc.GetNoteResponse{
-		Id:      note.Id,
-		Title:   note.Title,
-		Content: note.Content,
+		Id: note.Id,
+		Note: &desc.Notes{
+			Title:   note.Title.String,
+			Content: note.Content.String,
+		},
 	}
 }

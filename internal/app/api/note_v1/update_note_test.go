@@ -2,6 +2,7 @@ package note_v1
 
 import (
 	"context"
+	"database/sql"
 	"errors"
 	"testing"
 
@@ -13,6 +14,7 @@ import (
 
 	desc "github.com/nikitads9/note-service-api/pkg/note_api"
 	"github.com/stretchr/testify/require"
+	wrapper "google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 func Test_UpdateNote(t *testing.T) {
@@ -23,14 +25,24 @@ func Test_UpdateNote(t *testing.T) {
 		noteTitle    = gofakeit.BeerName()
 		noteContent  = gofakeit.BeerStyle()
 		validRequest = &desc.UpdateNoteRequest{
-			Id:      noteId,
-			Title:   noteTitle,
-			Content: noteContent,
+			Id: noteId,
+			Title: &wrapper.StringValue{
+				Value: noteTitle,
+			},
+			Content: &wrapper.StringValue{
+				Value: noteContent,
+			},
 		}
 		validNote = &model.NoteInfo{
-			Id:      noteId,
-			Title:   noteTitle,
-			Content: noteContent,
+			Id: noteId,
+			Title: sql.NullString{
+				String: noteTitle,
+				Valid:  true,
+			},
+			Content: sql.NullString{
+				String: noteContent,
+				Valid:  true,
+			},
 		}
 	)
 	noteRepoMock := noteRepoMocks.NewMockINoteRepository(mock)

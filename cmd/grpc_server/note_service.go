@@ -9,8 +9,6 @@ import (
 	"net/http"
 	"sync"
 
-	//_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway"
-	//_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/jmoiron/sqlx"
 	"github.com/nikitads9/note-service-api/internal/app/api/note_v1"
@@ -20,7 +18,6 @@ import (
 	pb "github.com/nikitads9/note-service-api/pkg/note_api"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
-	//_ "google.golang.org/protobuf/cmd/protoc-gen-go"
 )
 
 func main() {

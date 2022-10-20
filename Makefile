@@ -1,10 +1,9 @@
 .PHONY: generate
 generate:
-	protoc -I api/note_v1 -I proto --go_out=pkg/note_api --go_opt=paths=import --go-grpc_out=pkg/note_api --go-grpc_opt=paths=import --grpc-gateway_out=pkg/note_api --grpc-gateway_opt=logtostderr=true --grpc-gateway_opt=paths=import api/note_v1/note_v1.proto
+	protoc -I api/note_v1 -I proto --go_out=pkg/note_api --go_opt=paths=import --go-grpc_out=pkg/note_api --go-grpc_opt=paths=import --grpc-gateway_out=pkg/note_api --grpc-gateway_opt=logtostderr=true --grpc-gateway_opt=paths=import api/note_v1/note_v1.proto --validate_out lang=go:pkg/note_api
 	mv pkg/note_api/github.com/nikitads9/note-service-api/pkg/note_api/* pkg/note_api/
 	rm -r  ./pkg/note_api/github.com
-
-
+		
 .PHONY: build
 build: vendor-proto .generate .build
 
@@ -27,7 +26,7 @@ vendor-proto: .vendor-proto
 PHONY: .vendor-proto
 .vendor-proto:
 		mkdir -p proto
-		cp api/note_v1/note_v1.proto proto/api/note_v1.proto
+		cp api/note_v1/note_v1.proto proto/
 		@if [ ! -d proto/google ]; then \
 			git clone https://github.com/googleapis/googleapis proto/googleapis &&\
 			mkdir -p  proto/google/ &&\
@@ -38,7 +37,7 @@ PHONY: .vendor-proto
 			mkdir -p proto/validate &&\
 			git clone https://github.com/envoyproxy/protoc-gen-validate proto/protoc-gen-validate &&\
 			mv proto/protoc-gen-validate/validate/*.proto proto/validate &&\
-			rm -rf proto/protoc-gen-validate ;\
+			rm -r -f proto/protoc-gen-validate ;\
 		fi
 		@if [ ! -d proto/google/protobuf ]; then\
 			git clone https://github.com/protocolbuffers/protobuf proto/protobuf &&\
@@ -59,6 +58,7 @@ install-go-deps: .install-go-deps
 		go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
 		go get -u github.com/golang/protobuf/proto
 		go get -u github.com/golang/protobuf/protoc-gen-go
+		go get -u github.com/envoyproxy/protoc-gen-validate
 		go install github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
 		go install google.golang.org/grpc/cmd/protoc-gen-go-grpc
 		go install github.com/envoyproxy/protoc-gen-validate

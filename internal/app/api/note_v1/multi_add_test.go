@@ -2,6 +2,7 @@ package note_v1
 
 import (
 	"context"
+	"database/sql"
 	"errors"
 	"testing"
 
@@ -23,17 +24,30 @@ func Test_MultiAdd(t *testing.T) {
 		noteTitle2   = gofakeit.BeerName()
 		noteContent2 = gofakeit.BeerStyle()
 
-		validNotes = []*model.NoteInfo{{
-			Title:   noteTitle1,
-			Content: noteContent1,
-		},
+		validNotes = []*model.NoteInfo{
 			{
-				Title:   noteTitle2,
-				Content: noteContent2,
+				Title: sql.NullString{
+					String: noteTitle1,
+					Valid:  true,
+				},
+				Content: sql.NullString{
+					String: noteContent1,
+					Valid:  true,
+				},
+			},
+			{
+				Title: sql.NullString{
+					String: noteTitle2,
+					Valid:  true,
+				},
+				Content: sql.NullString{
+					String: noteContent2,
+					Valid:  true,
+				},
 			},
 		}
 		validReq = &desc.MultiAddRequest{
-			Notes: []*desc.MultiAddRequest_Notes{
+			Notes: []*desc.Notes{
 				{
 					Title:   noteTitle1,
 					Content: noteContent1,

@@ -4,7 +4,6 @@ package repository
 
 import (
 	"context"
-	"fmt"
 
 	sq "github.com/Masterminds/squirrel"
 	"github.com/jmoiron/sqlx"
@@ -36,7 +35,7 @@ func (n *noteRepository) AddNote(ctx context.Context, note *model.NoteInfo) (int
 	builder := sq.Insert(table.NotesTable).
 		PlaceholderFormat(sq.Dollar).
 		Columns("title, content").
-		Values(note.Title, note.Content).
+		Values(note.Title.String, note.Content.String).
 		Suffix("returning id")
 
 	query, args, err := builder.ToSql()
@@ -112,7 +111,7 @@ func (n *noteRepository) MultiAdd(ctx context.Context, notes []*model.NoteInfo) 
 		Suffix("returning id")
 
 	for _, note := range notes {
-		builder = builder.Values(note.Title, note.Content)
+		builder = builder.Values(note.Title.String, note.Content.String)
 	}
 
 	query, args, err := builder.ToSql()
@@ -126,17 +125,12 @@ func (n *noteRepository) MultiAdd(ctx context.Context, notes []*model.NoteInfo) 
 	}
 	defer row.Close()
 
-	added := []int64{}
+	var added int64
 	for row.Next() {
-		var element int64
-		err = row.Scan(&element)
-		if err != nil {
-			return 0, err
-		}
-		added = append(added, element)
+		added += 1
 	}
 
-	return int64(len(added)), nil
+	return added, nil
 }
 
 func (n *noteRepository) RemoveNote(ctx context.Context, id int64) (int64, error) {
@@ -157,23 +151,27 @@ func (n *noteRepository) RemoveNote(ctx context.Context, id int64) (int64, error
 	defer row.Close()
 
 	row.Next()
-	var removed int64
-	err = row.Scan(&removed)
+	var removedID int64
+	err = row.Scan(&removedID)
 	if err != nil {
 		return 0, err
 	}
 
-	return removed, nil
+	return removedID, nil
 }
 
 func (n *noteRepository) UpdateNote(ctx context.Context, note *model.NoteInfo) error {
 	builder := sq.Update(table.NotesTable).
-		Set("title", note.Title).
-		Set("content", note.Content).
 		Where(sq.Eq{"id": note.Id}).
 		PlaceholderFormat(sq.Dollar).
 		Suffix("returning id")
+	if note.Title.Valid {
+		builder = builder.Set("title", note.Title.String)
+	}
 
+	if note.Content.Valid {
+		builder = builder.Set("content", note.Content.String)
+	}
 	query, args, err := builder.ToSql()
 	if err != nil {
 		return err
@@ -191,8 +189,6 @@ func (n *noteRepository) UpdateNote(ctx context.Context, note *model.NoteInfo) e
 	if err != nil {
 		return err
 	}
-
-	fmt.Printf("edited note with id %v\n", id)
 
 	return nil
 }
