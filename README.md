@@ -94,7 +94,7 @@ bash migration-local.sh
 - The `make deps` command installs dependencies required for this project.
 - The `make vendor-proto` command downloads the required tools for protobuf and validate to work. Running this command will create proto folder in the root of the project with all necessary `.proto` files.
 - The `make generate` command creates three files: `grpc.pb.go`, `pb.go`, `pb.gw.go` based on API description in **note_v1.proto**. These files contain golang structs, interfaces and golang methods generated on the basis of Protobuffer interface description.
-- The `docker-compose up -d` command downloads of **alpine3.15** image from Docker Hub (if you don't have it locally), builds a binary and creates two containers: one for server app which is the the API service itself and the second one acts as database server. Both containers are connected to default Docker network which enables the two containers to communicate successfully. 
+- The `docker-compose up -d` command downloads **alpine3.15** image from Docker Hub (if you don't have it locally), builds a binary and creates two containers: one for server app which is the the API service itself and the second one acts as database server. Both containers are connected to default Docker network which enables the two containers to communicate successfully. 
 - The `curl -fsSL...` command downloads goose tool for database migration and initiates the installation process.
 - The `sudo cp -r /home/$USER/.goose/bin/goose /usr/local/bin` command copies goose binary file to `usr/local/bin` folder so that your Linux could run goose commands from anywhere.
 - The `bash migration-local.sh` command starts the bash script, that completes database migration specified in `.sql` file in **/migrations** folder. The parameters required for database connection to complete migration are specified in **migration-local.sh**.
@@ -223,7 +223,7 @@ In response the handle provides an array of JSON objects with all info about mem
 </summary>
   
 **PUT** `host:port/note/v1/update` <br />
-The JSON object passed to that handle should look like:
+The JSON object passed to that handle should look like the one below, although one may omit updating eather Title or Content (or both) so both fields can take null value.
 ```
 {
 	"id": 1,
