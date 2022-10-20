@@ -26,7 +26,7 @@ func main() {
 
 	flag.Parse()
 
-	cfg, err := config.Read("C://Users/MSI GS75/Documents/GitHub/note-service-api/config.yml")
+	cfg, err := config.Read("config.yml")
 	if err != nil {
 		log.Fatal("failed to open configuration file")
 		return
