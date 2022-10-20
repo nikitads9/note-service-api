@@ -10,7 +10,6 @@ request into a simple golang struct, isolated from the outer layer. That struct 
 according to the initial request. The service layer in turn redirects the received model to specific method in repository layer, which has an 
 interface for communication with PostgreSQL database. This service requires at least [Docker](https://www.docker.com/) and [Goose](https://github.com/pressly/goose/) installed as well as using Linux or
 WSL to set up the Note Service app and database in a container.
-	
 </p>
 
 ## Implemented technologies
@@ -232,5 +231,4 @@ The JSON object passed to that handle should look like the one below, although o
 }
 ```
 The handle response should look like an epmty JSON object: {}
-
 </details>
