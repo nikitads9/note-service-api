@@ -223,7 +223,7 @@ In response the handle provides an array of JSON objects with all info about mem
 </summary>
   
 **PUT** `host:port/note/v1/update` <br />
-The JSON object passed to that handle should look like the one below, although one may omit updating either Title or Content (or both) so both fields can take null value.
+The JSON object passed to that handle should look like the one below, although one may omit updating either Title or Content (or both). Simply said both fields can take null value.
 ```
 {
 	"id": 1,
