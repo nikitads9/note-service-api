@@ -51,7 +51,7 @@ func Test_UpdateNote(t *testing.T) {
 		noteRepoMock.EXPECT().UpdateNote(ctx, validNote).Return(errors.New("someError")).Times(1),
 	)
 
-	api := NewMockNoteV1(Implementation{
+	api := newMockNoteV1(Implementation{
 		noteService: note.NewMockNoteService(noteRepoMock),
 	})
 

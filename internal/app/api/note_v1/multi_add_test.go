@@ -65,7 +65,7 @@ func Test_MultiAdd(t *testing.T) {
 		noteRepoMock.EXPECT().MultiAdd(ctx, validNotes).Return(int64(len(validReq.GetNotes())), errors.New("some error")).Times(1),
 	)
 
-	api := NewMockNoteV1(Implementation{
+	api := newMockNoteV1(Implementation{
 		noteService: note.NewMockNoteService(noteRepoMock),
 	})
 

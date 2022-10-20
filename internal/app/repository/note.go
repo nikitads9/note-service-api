@@ -83,7 +83,8 @@ func (n *noteRepository) GetNote(ctx context.Context, id int64) (*model.NoteInfo
 	builder := sq.Select("id, title, content").
 		PlaceholderFormat(sq.Dollar).
 		From(table.NotesTable).
-		Where(sq.Eq{"id": id})
+		Where(sq.Eq{"id": id}).
+		Limit(1)
 
 	query, args, err := builder.ToSql()
 	if err != nil {

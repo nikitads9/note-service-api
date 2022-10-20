@@ -18,14 +18,6 @@ services:
     ports:
       - "5432:5432"
 
-  #goose:
-    #build: ./migrations/
-    #restart: on-failure
-    #environment:
-      #DB_HOST: postgres
-    #ports:
-        #- "5444:5432"
-
   app:
     build: .
     image: nikitads9/note-service:app

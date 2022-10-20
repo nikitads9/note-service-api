@@ -46,7 +46,7 @@ func Test_AddNote(t *testing.T) {
 		noteRepoMock.EXPECT().AddNote(ctx, validNoteInfo).Return(noteId, errors.New("some error")).Times(1),
 	)
 
-	api := NewMockNoteV1(Implementation{
+	api := newMockNoteV1(Implementation{
 		noteService: note.NewMockNoteService(noteRepoMock),
 	})
 

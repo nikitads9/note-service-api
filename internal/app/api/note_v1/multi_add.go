@@ -9,7 +9,6 @@ import (
 
 func (i *Implementation) MultiAdd(ctx context.Context, req *desc.MultiAddRequest) (*desc.MultiAddResponse, error) {
 	res, err := i.noteService.MultiAdd(ctx, convert.ToNotesInfo(req))
-
 	if err != nil {
 		return nil, err
 	}

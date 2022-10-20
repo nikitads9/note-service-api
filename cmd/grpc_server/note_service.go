@@ -4,11 +4,11 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"log"
 	"net"
 	"net/http"
 	"sync"
 
+	grpcValidator "github.com/grpc-ecosystem/go-grpc-middleware/validator"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/jmoiron/sqlx"
 	"github.com/nikitads9/note-service-api/internal/app/api/note_v1"
@@ -28,20 +28,20 @@ func main() {
 
 	cfg, err := config.Read("config.yml")
 	if err != nil {
-		log.Fatal("failed to open configuration file")
+		fmt.Println("failed to open configuration file ", err)
 		return
 	}
 
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		log.Fatal(startGRPC(cfg))
+		fmt.Println(startGRPC(cfg))
 	}()
 
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		log.Fatal(startHTTP(cfg))
+		fmt.Println(startHTTP(cfg))
 	}()
 
 	wg.Wait()
@@ -66,7 +66,7 @@ func startGRPC(cfg *config.Config) error {
 	noteRepository := repository.NewNoteRepository(db)
 	noteService := note.NewNoteService(noteRepository)
 
-	s := grpc.NewServer()
+	s := grpc.NewServer(grpc.UnaryInterceptor(grpcValidator.UnaryServerInterceptor()))
 	pb.RegisterNoteV1Server(s, note_v1.NewNoteV1(noteService))
 	if err = s.Serve(list); err != nil {
 		return fmt.Errorf("failed to process gRPC server %v", err.Error())

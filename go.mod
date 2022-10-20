@@ -35,6 +35,7 @@ require (
 	github.com/Masterminds/squirrel v1.5.2
 	github.com/brianvoe/gofakeit/v6 v6.18.0
 	github.com/golang/mock v1.6.0
+	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
 	github.com/jmoiron/sqlx v1.3.5
 	google.golang.org/genproto v0.0.0-20220519153652-3a47de7e79bd
 	gopkg.in/yaml.v3 v3.0.1

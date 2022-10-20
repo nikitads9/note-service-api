@@ -29,7 +29,7 @@ func Test_RemoveNote(t *testing.T) {
 		noteRepoMock.EXPECT().RemoveNote(ctx, noteId).Return(int64(0), errors.New("someError")).Times(1),
 	)
 
-	api := NewMockNoteV1(Implementation{
+	api := newMockNoteV1(Implementation{
 		noteService: note.NewMockNoteService(noteRepoMock),
 	})
 

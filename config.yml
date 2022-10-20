@@ -4,10 +4,10 @@ grpc:
 http:
   port: ":8000"
 
-database :
+database:
   host: "postgres"
-  port : "5432"
-  user : "postgres"
-  password : "notes_pass"
-  database : "notes_db"
-  ssl : "disable"
+  port: "5432"
+  user: "postgres"
+  password: "notes_pass"
+  database: "notes_db"
+  ssl: "disable"
