@@ -177,12 +177,14 @@ The handle returns JSON with nested quantity of memos added.
   
 **GET** `host:port/note/v1/get/{id}` <br />
 This handle does not need JSON. It requires a note id in the request instead.
-The handle responds with id, title and content of requested memo.
+The handle responds with requested memo id, title and content the latter two being nested in note struct.
 ```
 {
 	"id": "1",
-	"title": "Title",
-	"content": "Content"
+	"note": {
+		"title": "YourTitle",
+		"content": "YourContent"
+	}
 }
 ```
 </details>
@@ -198,14 +200,18 @@ In response the handle provides an array of JSON objects with all info about mem
 {
 	"results": [
 		{
-			"id": "2",
-			"title": "Two More titles",
-			"content": "Two more contents"
+			"id": "1",
+			"note": {
+				"title": "YourTitle1",
+				"content": "YourContent1"
+			}
 		},
 		{
-			"id": "1",
-			"title": "Updated title",
-			"content": "updated content"
+			"id": "2",
+			"note": {
+				"title": "YourTitle2",
+				"content": "YourContent2"
+			}
 		}
 	]
 }
