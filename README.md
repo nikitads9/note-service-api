@@ -81,7 +81,7 @@ If you are ok with that, be sure to edit database connection parameters in **con
 ```
 git clone https://github.com/nikitads9/note-service-api.git
 cd note-service-api/
-git checkout task4
+make deps
 make vendor-proto
 make generate
 docker-compose up -d
@@ -91,7 +91,7 @@ curl -fsSL \
 sudo cp -r /home/$USER/.goose/bin/goose /usr/local/bin
 bash migration-local.sh
 ```
-
+- The `make deps` command installs dependencies required for this project.
 - The `make vendor-proto` command downloads the required tools for protobuf and validate to work. Running this command will create proto folder in the root of the project with all necessary `.proto` files.
 - The `make generate` command creates three files: `grpc.pb.go`, `pb.go`, `pb.gw.go` based on API description in **note_v1.proto**. These files contain golang structs, interfaces and golang methods generated on the basis of Protobuffer interface description.
 - The `docker-compose up -d` command downloads of **alpine3.15** image from Docker Hub (if you don't have it locally), builds a binary and creates two containers: one for server app which is the the API service itself and the second one acts as database server. Both containers are connected to default Docker network which enables the two containers to communicate successfully. 
@@ -113,8 +113,10 @@ This service is an API that implements the CRUD concept. It features the ability
 The JSON object passed to that handle should look like:
 ```
 {
-	"title": "YourTitle",
-	"content": "YourContent"
+	"note": {
+		"title": "YourTitle",
+		"content": "YourContent"
+	}
 }
 ```
 The handle returns JSON with nested id of added memo.

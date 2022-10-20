@@ -58,7 +58,7 @@ func main() {
 	if err != nil {
 		log.Printf("failed to add notes: %v\n", err.Error())
 	}
-	fmt.Printf("added %v IDs", addedID.GetResult().Count)
+	fmt.Printf("added %v IDs", addedID.GetResult().GetCount())
 
 	_, err = client.RemoveNote(ctx, &pb.RemoveNoteRequest{Id: int64(2)})
 	if err != nil {
