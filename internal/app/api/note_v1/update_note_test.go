@@ -14,6 +14,7 @@ import (
 
 	desc "github.com/nikitads9/note-service-api/pkg/note_api"
 	"github.com/stretchr/testify/require"
+	"google.golang.org/protobuf/types/known/emptypb"
 	wrapper "google.golang.org/protobuf/types/known/wrapperspb"
 )
 
@@ -56,8 +57,9 @@ func Test_UpdateNote(t *testing.T) {
 	})
 
 	t.Run("success case", func(t *testing.T) {
-		_, err := api.UpdateNote(ctx, validRequest)
+		res, err := api.UpdateNote(ctx, validRequest)
 		require.Nil(t, err)
+		require.Equal(t, res, &emptypb.Empty{})
 	})
 
 	t.Run("error case", func(t *testing.T) {

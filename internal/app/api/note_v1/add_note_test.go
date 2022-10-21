@@ -51,8 +51,9 @@ func Test_AddNote(t *testing.T) {
 	})
 
 	t.Run("success case", func(t *testing.T) {
-		_, err := api.AddNote(ctx, validReq)
+		res, err := api.AddNote(ctx, validReq)
 		require.Nil(t, err)
+		require.Equal(t, res.GetResult().GetId(), noteId)
 	})
 
 	t.Run("error case", func(t *testing.T) {

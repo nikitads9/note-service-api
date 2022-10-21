@@ -59,8 +59,11 @@ func Test_GetList(t *testing.T) {
 	})
 
 	t.Run("success case", func(t *testing.T) {
-		_, err := api.GetList(ctx, &emptypb.Empty{})
+		res, err := api.GetList(ctx, &emptypb.Empty{})
 		require.Nil(t, err)
+		require.Condition(t, func() bool {
+			return len(res.GetResults()) == len(validResponse)
+		}, "the number of returned entries should be equal to length of valid response slice")
 	})
 
 	t.Run("error case", func(t *testing.T) {
