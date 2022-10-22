@@ -93,7 +93,7 @@ func (n *noteRepository) GetNote(ctx context.Context, id int64) (*model.NoteInfo
 
 	var res []*model.NoteInfo
 
-	err = n.db.SelectContext(ctx, &res, query, args...)
+	err = n.db.GetContext(ctx, &res, query, args...)
 	if err != nil {
 		return nil, err
 	}
