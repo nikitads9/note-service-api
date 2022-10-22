@@ -113,17 +113,15 @@ The JSON object passed to that handle should look like:
 ```
 {
 	"note": {
-		"title": "YourTitle",
-		"content": "YourContent"
+		"title": "Your Title",
+		"content": "Your Content"
 	}
 }
 ```
 The handle returns JSON with nested id of added memo.
 ```
 {
-	"result": {
-		"id": "1"
-	}
+	"id": "1"
 }
 ```
 </details>
@@ -150,22 +148,22 @@ It returns JSON with id of memo removed.
 The JSON object passed to that handle should look like:
 ```
 {
-	"notes": [{ 
-		"title": "YourTitle1",
-		"content": "YourContent1"
-}, 
-{
-			"title": "YourTitle2",
-		"content": "YourContent2"
-}]
+	"notes": [
+		{ 
+			"title": "Your title 1",
+			"content": "Your Content 1"
+		}, 
+		{
+			"title": "Your title 2",
+			"content": "Your Content 1"
+		}
+	]
 }
 ```
-The handle returns JSON with nested quantity of memos added.
+The handle returns JSON with quantity of memos added.
 ```
 {
-	"result": {
-		"count": "2"
-	}
+	"count": "2"
 }
 ```
 </details>
@@ -176,13 +174,16 @@ The handle returns JSON with nested quantity of memos added.
   
 **GET** `host:port/note/v1/get/{id}` <br />
 This handle does not need JSON. It requires a note id in the request instead.
-The handle responds with requested memo id, title and content the latter two being nested in note struct.
+The handle responds with requested memo id, title and content the latter two being nested in note struct and all three nested in noteInfo struct.
 ```
 {
-	"id": "1",
-	"note": {
-		"title": "YourTitle",
-		"content": "YourContent"
+	"noteInfo": {
+		"id": "1",
+		"note": 
+			{
+				"title": "Your title",
+				"content": "Your content"
+			}
 	}
 }
 ```
@@ -197,19 +198,19 @@ This handle does not require JSON or number. It's goal is to show all entries in
 In response the handle provides an array of JSON objects with all info about memos keeped.
 ```
 {
-	"results": [
+	"noteInfo": [
 		{
 			"id": "1",
 			"note": {
-				"title": "YourTitle1",
-				"content": "YourContent1"
+				"title": "Your title 1",
+				"content": "Your content 1"
 			}
 		},
 		{
 			"id": "2",
 			"note": {
-				"title": "YourTitle2",
-				"content": "YourContent2"
+				"title": "Your title 2",
+				"content": "Your content 2"
 			}
 		}
 	]
@@ -225,7 +226,7 @@ In response the handle provides an array of JSON objects with all info about mem
 The JSON object passed to that handle should look like the one below, although one may omit updating either Title or Content (or both). Simply said both fields can take null value.
 ```
 {
-	"id": 1,
+	"id": 2,
 	"title": "Updated title",
 	"content": "updated content"
 }

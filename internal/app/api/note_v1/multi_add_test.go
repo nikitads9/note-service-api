@@ -72,7 +72,7 @@ func Test_MultiAdd(t *testing.T) {
 	t.Run("success case", func(t *testing.T) {
 		added, err := api.MultiAdd(ctx, validReq)
 		require.Nil(t, err)
-		require.Equal(t, added.GetResult().GetCount(), int64(len(validReq.GetNotes())))
+		require.Equal(t, added.GetCount(), int64(len(validReq.GetNotes())))
 	})
 
 	t.Run("error case", func(t *testing.T) {

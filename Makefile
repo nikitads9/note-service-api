@@ -1,6 +1,6 @@
 .PHONY: generate
 generate:
-	protoc -I api/note_v1 -I proto --go_out=pkg/note_api --go_opt=paths=import --go-grpc_out=pkg/note_api --go-grpc_opt=paths=import --grpc-gateway_out=pkg/note_api --grpc-gateway_opt=logtostderr=true --grpc-gateway_opt=paths=import api/note_v1/note_v1.proto --validate_out lang=go:pkg/note_api
+	protoc -I api/note_v1 -I proto --go_out=pkg/note_api --go_opt=paths=import --go-grpc_out=pkg/note_api --go-grpc_opt=paths=import --grpc-gateway_out=pkg/note_api --grpc-gateway_opt=logtostderr=true --grpc-gateway_opt=paths=import api/note_v1/note_v1.proto --validate_out lang=go:pkg/note_api --swagger_out=allow_merge=true,merge_file_name=api:pkg/note_api
 	mv pkg/note_api/github.com/nikitads9/note-service-api/pkg/note_api/* pkg/note_api/
 	rm -r  ./pkg/note_api/github.com
 		
@@ -59,6 +59,7 @@ install-go-deps: .install-go-deps
 		go get -u github.com/golang/protobuf/proto
 		go get -u github.com/golang/protobuf/protoc-gen-go
 		go get -u github.com/envoyproxy/protoc-gen-validate
+		go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
 		go install github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
 		go install google.golang.org/grpc/cmd/protoc-gen-go-grpc
 		go install github.com/envoyproxy/protoc-gen-validate

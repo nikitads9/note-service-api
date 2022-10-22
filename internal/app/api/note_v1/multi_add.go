@@ -8,14 +8,12 @@ import (
 )
 
 func (i *Implementation) MultiAdd(ctx context.Context, req *desc.MultiAddRequest) (*desc.MultiAddResponse, error) {
-	res, err := i.noteService.MultiAdd(ctx, convert.ToNotesInfo(req))
+	res, err := i.noteService.MultiAdd(ctx, convert.ToNotesInfo(req.GetNotes()))
 	if err != nil {
 		return nil, err
 	}
 
 	return &desc.MultiAddResponse{
-		Result: &desc.MultiAddResponse_Result{
-			Count: res,
-		},
+		Count: res,
 	}, nil
 }

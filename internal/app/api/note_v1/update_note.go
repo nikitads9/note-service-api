@@ -9,7 +9,7 @@ import (
 )
 
 func (i *Implementation) UpdateNote(ctx context.Context, req *desc.UpdateNoteRequest) (*emptypb.Empty, error) {
-	err := i.noteService.UpdateNote(ctx, convert.ToNoteUpdateInfo(req))
+	err := i.noteService.UpdateNote(ctx, convert.ToUpdateNoteInfo(req))
 	if err != nil {
 		return nil, err
 	}

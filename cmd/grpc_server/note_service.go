@@ -4,6 +4,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"log"
 	"net"
 	"net/http"
 	"sync"
@@ -28,20 +29,20 @@ func main() {
 
 	cfg, err := config.Read("config.yml")
 	if err != nil {
-		fmt.Println("failed to open configuration file ", err)
+		log.Fatal("failed to open configuration file ", err)
 		return
 	}
 
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		fmt.Println(startGRPC(cfg))
+		log.Fatal(startGRPC(cfg))
 	}()
 
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		fmt.Println(startHTTP(cfg))
+		log.Fatal(startHTTP(cfg))
 	}()
 
 	wg.Wait()

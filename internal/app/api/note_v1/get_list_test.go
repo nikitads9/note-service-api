@@ -62,7 +62,7 @@ func Test_GetList(t *testing.T) {
 		res, err := api.GetList(ctx, &emptypb.Empty{})
 		require.Nil(t, err)
 		require.Condition(t, func() bool {
-			return len(res.GetResults()) == len(validResponse)
+			return len(res.GetNoteInfo()) == len(validResponse)
 		}, "the number of returned entries should be equal to length of valid response slice")
 	})
 

@@ -36,7 +36,7 @@ func main() {
 		log.Printf("failed to add note: %v\n", err.Error())
 	}
 
-	fmt.Println("note with id", res.GetResult().GetId(), "added")
+	fmt.Println("note with id", res.GetId(), "added")
 
 	var addedID *pb.MultiAddResponse
 
@@ -59,7 +59,7 @@ func main() {
 	if err != nil {
 		log.Printf("failed to add notes: %v\n", err.Error())
 	}
-	fmt.Printf("added %v IDs", addedID.GetResult().GetCount())
+	fmt.Printf("added %v IDs", addedID.GetCount())
 
 	_, err = client.RemoveNote(ctx, &pb.RemoveNoteRequest{Id: int64(2)})
 	if err != nil {
@@ -70,7 +70,7 @@ func main() {
 	if err != nil {
 		log.Printf("failed to get all notes: %v\n", err.Error())
 	}
-	fmt.Printf("%v\n", notes.GetResults())
+	fmt.Printf("%v\n", notes.GetNoteInfo())
 
 	_, err = client.UpdateNote(ctx, &pb.UpdateNoteRequest{
 		Id: 3,

@@ -49,16 +49,17 @@ message Notes {
     string content = 2 [json_name = "content", (validate.rules).string = {min_len: 1, max_len: 1000}]; 
 }
 
+message NoteInfo {
+    int64 id = 1;
+    Notes note = 2;
+}
+
 message AddNoteRequest {
     Notes note= 1;
 }
 
 message AddNoteResponse {
-    message Result {
-        int64 id = 1;
-    }
-
-    Result result = 1;
+    int64 id = 1;
 }
 
 message RemoveNoteRequest {
@@ -74,11 +75,7 @@ message MultiAddRequest {
 }
 
 message MultiAddResponse {
-    message Result { 
-        int64 count = 1;
-    }
-
-    Result result = 1;
+    int64 count = 1;
 }
 
 message GetNoteRequest {
@@ -86,17 +83,11 @@ message GetNoteRequest {
 }
 
 message GetNoteResponse {
-    int64 id = 1;
-    Notes note = 2;
+    NoteInfo noteInfo= 1;
 }
 
 message GetListResponse {
-    message Result {
-        int64 id = 1;
-        Notes note = 2;
-    }
-
-    repeated Result results = 1;
+    repeated NoteInfo noteInfo = 1;
 }
 message UpdateNoteRequest {
     int64 id = 1 [json_name = "id", (validate.rules).int64 = {gt : 0}];

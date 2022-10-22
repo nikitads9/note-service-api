@@ -14,5 +14,7 @@ func (i *Implementation) GetList(ctx context.Context, in *emptypb.Empty) (*desc.
 		return nil, err
 	}
 
-	return convert.ToGetListResponse(noteInfo), nil
+	return &desc.GetListResponse{
+		NoteInfo: convert.ToDescNotesInfo(noteInfo),
+	}, nil
 }

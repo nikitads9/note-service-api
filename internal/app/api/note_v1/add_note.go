@@ -9,14 +9,15 @@ import (
 )
 
 func (i *Implementation) AddNote(ctx context.Context, req *desc.AddNoteRequest) (*desc.AddNoteResponse, error) {
-	id, err := i.noteService.AddNote(ctx, convert.ToNoteInfo(req))
+	id, err := i.noteService.AddNote(ctx, convert.ToNoteInfo(&desc.Notes{
+		Title:   req.GetNote().GetTitle(),
+		Content: req.GetNote().GetContent(),
+	}))
 	if err != nil {
 		return nil, err
 	}
 
 	return &desc.AddNoteResponse{
-		Result: &desc.AddNoteResponse_Result{
-			Id: id,
-		},
+		Id: id,
 	}, nil
 }

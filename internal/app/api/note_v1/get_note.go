@@ -3,6 +3,7 @@ package note_v1
 import (
 	"context"
 
+	"github.com/nikitads9/note-service-api/internal/app/convert"
 	desc "github.com/nikitads9/note-service-api/pkg/note_api"
 )
 
@@ -11,11 +12,8 @@ func (i *Implementation) GetNote(ctx context.Context, req *desc.GetNoteRequest) 
 	if err != nil {
 		return nil, err
 	}
+
 	return &desc.GetNoteResponse{
-		Id: note.Id,
-		Note: &desc.Notes{
-			Title:   note.Title.String,
-			Content: note.Content.String,
-		},
+		NoteInfo: convert.ToDescNoteInfo(note),
 	}, nil
 }
