@@ -14,3 +14,5 @@
 # Directories (remove the comment below to include it)
 bin/
 .vscode/
+proto/
+postgres_volume/

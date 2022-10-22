@@ -1,0 +1,13 @@
+grpc:
+  port: ":50051"
+
+http:
+  port: ":8000"
+
+database:
+  host: "postgres"
+  port: "5432"
+  user: "postgres"
+  password: "notes_pass"
+  database: "notes_db"
+  ssl: "disable"

@@ -7,6 +7,9 @@ import (
 
 	pb "github.com/nikitads9/note-service-api/pkg/note_api"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/protobuf/types/known/emptypb"
+	wrapper "google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 const grpcAdress = "localhost:50051"
@@ -14,7 +17,7 @@ const grpcAdress = "localhost:50051"
 func main() {
 	ctx := context.Background()
 	//nolint
-	con, err := grpc.Dial(grpcAdress, grpc.WithInsecure())
+	con, err := grpc.Dial(grpcAdress, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("failed to connect: %v\n", err.Error())
 	}
@@ -24,26 +27,23 @@ func main() {
 
 	var res *pb.AddNoteResponse
 	res, err = client.AddNote(ctx, &pb.AddNoteRequest{
-		Title:   "title1",
-		Content: "fhdshjdsgd",
+		Note: &pb.Notes{
+			Title:   "title1",
+			Content: "fhdshjdsgd",
+		},
 	})
 	if err != nil {
 		log.Printf("failed to add note: %v\n", err.Error())
 	}
 
-	fmt.Println("note with id", res.GetResult().GetId(), "added")
-
-	_, err = client.RemoveNote(ctx, &pb.RemoveNoteRequest{Id: int64(1)})
-	if err != nil {
-		log.Printf("failed to remove note: %v\n", err.Error())
-	}
+	fmt.Println("note with id", res.GetId(), "added")
 
 	var addedID *pb.MultiAddResponse
 
 	addedID, err = client.MultiAdd(ctx, &pb.MultiAddRequest{
-		Notes: []*pb.MultiAddRequest_Notes{
+		Notes: []*pb.Notes{
 			{
-				Title:   "title1",
+				Title:   "title11",
 				Content: "ffdsjfdjf",
 			},
 			{
@@ -57,21 +57,29 @@ func main() {
 		},
 	})
 	if err != nil {
+		log.Printf("failed to add notes: %v\n", err.Error())
+	}
+	fmt.Printf("added %v IDs", addedID.GetCount())
+
+	_, err = client.RemoveNote(ctx, &pb.RemoveNoteRequest{Id: int64(2)})
+	if err != nil {
 		log.Printf("failed to remove note: %v\n", err.Error())
 	}
 
-	fmt.Printf("added %v IDs", addedID.GetResult().Count)
-
-	notes, err := client.GetList(ctx, &pb.Empty{})
+	notes, err := client.GetList(ctx, &emptypb.Empty{})
 	if err != nil {
 		log.Printf("failed to get all notes: %v\n", err.Error())
 	}
-	fmt.Printf("%v\n", notes.GetResults())
+	fmt.Printf("%v\n", notes.GetNoteInfo())
 
 	_, err = client.UpdateNote(ctx, &pb.UpdateNoteRequest{
-		Id:      3,
-		Title:   "newtitle",
-		Content: "newcontent",
+		Id: 3,
+		Title: &wrapper.StringValue{
+			Value: "newtitle",
+		},
+		Content: &wrapper.StringValue{
+			Value: "newcontent",
+		},
 	})
 	if err != nil {
 		log.Printf("failed to update a note: %v\n", err.Error())

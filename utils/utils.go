@@ -46,10 +46,7 @@ func SliceFilter(data []int64, filter []int64) ([]int64, error) {
 		return nil, errors.New("input params invalid")
 	}
 
-	filterMap, err := SliceToMap(filter)
-	if err != nil {
-		return nil, errors.New("failed to convert")
-	}
+	filterMap, _ := SliceToMap(filter)
 
 	for i := 0; i < len(data); i++ {
 		if _, found := filterMap[data[i]]; !found {
