@@ -1,6 +1,8 @@
 syntax = "proto3";
 
-option go_package = "github.com/nikitads9/note-service-api/pkg/note_api";
+package note.service.api;
+
+option go_package = "github.com/nikitads9/note-service-api/pkg/note_api;note_service_api";
 
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";

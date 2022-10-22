@@ -30,7 +30,6 @@ func main() {
 	cfg, err := config.Read("config.yml")
 	if err != nil {
 		log.Fatal("failed to open configuration file ", err)
-		return
 	}
 
 	wg.Add(1)
