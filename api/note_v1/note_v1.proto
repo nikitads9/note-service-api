@@ -8,6 +8,7 @@ import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "validate/validate.proto";
 import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
 
 service NoteV1 {
     rpc AddNote (AddNoteRequest) returns (AddNoteResponse) {
@@ -54,6 +55,8 @@ message Notes {
 message NoteInfo {
     int64 id = 1;
     Notes note = 2;
+    google.protobuf.Timestamp createdAt = 3;
+    google.protobuf.Timestamp updatedAt = 4;
 }
 
 message AddNoteRequest {

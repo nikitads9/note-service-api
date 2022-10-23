@@ -1,13 +1,15 @@
 grpc:
+  host: "localhost"
   port: ":50051"
 
 http:
+  host: "localhost"
   port: ":8000"
 
 database:
-  host: "postgres"
+  host: "localhost"
   port: "5432"
   user: "postgres"
-  password: "notes_pass"
   database: "notes_db"
   ssl: "disable"
+  max_opened_connections: "10"

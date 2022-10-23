@@ -34,7 +34,7 @@ func Test_UpdateNote(t *testing.T) {
 				Value: noteContent,
 			},
 		}
-		validNote = &model.NoteInfo{
+		validNote = &model.UpdateNoteInfo{
 			Id: noteId,
 			Title: sql.NullString{
 				String: noteTitle,

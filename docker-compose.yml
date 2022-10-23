@@ -29,6 +29,4 @@ services:
       - postgres
     links:
       - postgres
-    volumes: 
-      - app-volume:/var/lib/note-app/data
 

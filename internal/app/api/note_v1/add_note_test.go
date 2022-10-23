@@ -2,7 +2,6 @@ package note_v1
 
 import (
 	"context"
-	"database/sql"
 	"errors"
 	"testing"
 
@@ -24,14 +23,8 @@ func Test_AddNote(t *testing.T) {
 		noteContent = gofakeit.BeerStyle()
 
 		validNoteInfo = &model.NoteInfo{
-			Title: sql.NullString{
-				String: noteTitle,
-				Valid:  true,
-			},
-			Content: sql.NullString{
-				String: noteContent,
-				Valid:  true,
-			},
+			Title:   noteTitle,
+			Content: noteContent,
 		}
 		validReq = &desc.AddNoteRequest{
 			Note: &desc.Notes{

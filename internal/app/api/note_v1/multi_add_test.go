@@ -2,7 +2,6 @@ package note_v1
 
 import (
 	"context"
-	"database/sql"
 	"errors"
 	"testing"
 
@@ -26,24 +25,13 @@ func Test_MultiAdd(t *testing.T) {
 
 		validNotes = []*model.NoteInfo{
 			{
-				Title: sql.NullString{
-					String: noteTitle1,
-					Valid:  true,
-				},
-				Content: sql.NullString{
-					String: noteContent1,
-					Valid:  true,
-				},
+				Title: noteTitle1,
+
+				Content: noteContent1,
 			},
 			{
-				Title: sql.NullString{
-					String: noteTitle2,
-					Valid:  true,
-				},
-				Content: sql.NullString{
-					String: noteContent2,
-					Valid:  true,
-				},
+				Title:   noteTitle2,
+				Content: noteContent2,
 			},
 		}
 		validReq = &desc.MultiAddRequest{

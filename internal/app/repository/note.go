@@ -4,11 +4,13 @@ package repository
 
 import (
 	"context"
+	"database/sql"
+	"time"
 
 	sq "github.com/Masterminds/squirrel"
-	"github.com/jmoiron/sqlx"
 	"github.com/nikitads9/note-service-api/internal/app/model"
 	"github.com/nikitads9/note-service-api/internal/app/repository/table"
+	"github.com/nikitads9/note-service-api/internal/pkg/db"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -19,23 +21,23 @@ type INoteRepository interface {
 	GetNote(ctx context.Context, id int64) (*model.NoteInfo, error)
 	MultiAdd(ctx context.Context, notes []*model.NoteInfo) (int64, error)
 	RemoveNote(ctx context.Context, id int64) (int64, error)
-	UpdateNote(ctx context.Context, note *model.NoteInfo) error
+	UpdateNote(ctx context.Context, note *model.UpdateNoteInfo) error
 }
 type noteRepository struct {
-	db *sqlx.DB
+	client db.Client
 }
 
-func NewNoteRepository(db *sqlx.DB) INoteRepository {
+func NewNoteRepository(client db.Client) INoteRepository {
 	return &noteRepository{
-		db: db,
+		client: client,
 	}
 }
 
 func (n *noteRepository) AddNote(ctx context.Context, note *model.NoteInfo) (int64, error) {
 	builder := sq.Insert(table.NotesTable).
 		PlaceholderFormat(sq.Dollar).
-		Columns("title, content").
-		Values(note.Title.String, note.Content.String).
+		Columns("title, content, created_at").
+		Values(note.Title, note.Content, time.Now().UTC()).
 		Suffix("returning id")
 
 	query, args, err := builder.ToSql()
@@ -43,7 +45,12 @@ func (n *noteRepository) AddNote(ctx context.Context, note *model.NoteInfo) (int
 		return 0, err
 	}
 
-	row, err := n.db.QueryContext(ctx, query, args...)
+	q := db.Query{
+		Name:     "AddNote",
+		QueryRaw: query,
+	}
+
+	row, err := n.client.DB().QueryContext(ctx, q, args...)
 	if err != nil {
 		return 0, err
 	}
@@ -60,7 +67,7 @@ func (n *noteRepository) AddNote(ctx context.Context, note *model.NoteInfo) (int
 }
 
 func (n *noteRepository) GetList(ctx context.Context) ([]*model.NoteInfo, error) {
-	builder := sq.Select("id, title, content").
+	builder := sq.Select("id, title, content, created_at, updated_at").
 		PlaceholderFormat(sq.Dollar).
 		From(table.NotesTable)
 
@@ -70,8 +77,12 @@ func (n *noteRepository) GetList(ctx context.Context) ([]*model.NoteInfo, error)
 	}
 
 	var res []*model.NoteInfo
+	q := db.Query{
+		Name:     "GetList",
+		QueryRaw: query,
+	}
 
-	err = n.db.SelectContext(ctx, &res, query, args...)
+	err = n.client.DB().SelectContext(ctx, &res, q, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +91,7 @@ func (n *noteRepository) GetList(ctx context.Context) ([]*model.NoteInfo, error)
 }
 
 func (n *noteRepository) GetNote(ctx context.Context, id int64) (*model.NoteInfo, error) {
-	builder := sq.Select("id, title, content").
+	builder := sq.Select("id, title, content, created_at, updated_at").
 		PlaceholderFormat(sq.Dollar).
 		From(table.NotesTable).
 		Where(sq.Eq{"id": id}).
@@ -91,28 +102,31 @@ func (n *noteRepository) GetNote(ctx context.Context, id int64) (*model.NoteInfo
 		return nil, err
 	}
 
-	var res []*model.NoteInfo
+	var res = new(model.NoteInfo)
+	q := db.Query{
+		Name:     "GetNote",
+		QueryRaw: query,
+	}
 
-	err = n.db.GetContext(ctx, &res, query, args...)
+	err = n.client.DB().GetContext(ctx, res, q, args...)
 	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, status.Error(codes.NotFound, "ebanyi rot etogo kasino")
+		}
 		return nil, err
 	}
 
-	if len(res) == 0 {
-		return nil, status.Error(codes.NotFound, "ebanyi rot etogo kasino")
-	}
-
-	return res[0], nil
+	return res, nil
 }
 
 func (n *noteRepository) MultiAdd(ctx context.Context, notes []*model.NoteInfo) (int64, error) {
 	builder := sq.Insert(table.NotesTable).
 		PlaceholderFormat(sq.Dollar).
-		Columns("title, content").
+		Columns("title, content, created_at").
 		Suffix("returning id")
 
 	for _, note := range notes {
-		builder = builder.Values(note.Title.String, note.Content.String)
+		builder = builder.Values(note.Title, note.Content, time.Now().UTC())
 	}
 
 	query, args, err := builder.ToSql()
@@ -120,7 +134,12 @@ func (n *noteRepository) MultiAdd(ctx context.Context, notes []*model.NoteInfo) 
 		return 0, err
 	}
 
-	row, err := n.db.QueryContext(ctx, query, args...)
+	q := db.Query{
+		Name:     "MultiAdd",
+		QueryRaw: query,
+	}
+
+	row, err := n.client.DB().QueryContext(ctx, q, args...)
 	if err != nil {
 		return 0, err
 	}
@@ -145,7 +164,12 @@ func (n *noteRepository) RemoveNote(ctx context.Context, id int64) (int64, error
 		return 0, err
 	}
 
-	row, err := n.db.QueryContext(ctx, query, args...)
+	q := db.Query{
+		Name:     "RemoveNote",
+		QueryRaw: query,
+	}
+
+	row, err := n.client.DB().QueryContext(ctx, q, args...)
 	if err != nil {
 		return 0, err
 	}
@@ -155,17 +179,20 @@ func (n *noteRepository) RemoveNote(ctx context.Context, id int64) (int64, error
 	var removedID int64
 	err = row.Scan(&removedID)
 	if err != nil {
+
 		return 0, err
 	}
 
 	return removedID, nil
 }
 
-func (n *noteRepository) UpdateNote(ctx context.Context, note *model.NoteInfo) error {
+func (n *noteRepository) UpdateNote(ctx context.Context, note *model.UpdateNoteInfo) error {
 	builder := sq.Update(table.NotesTable).
+		Set("updated_at", time.Now().UTC()).
 		Where(sq.Eq{"id": note.Id}).
 		PlaceholderFormat(sq.Dollar).
 		Suffix("returning id")
+
 	if note.Title.Valid {
 		builder = builder.Set("title", note.Title.String)
 	}
@@ -173,23 +200,23 @@ func (n *noteRepository) UpdateNote(ctx context.Context, note *model.NoteInfo) e
 	if note.Content.Valid {
 		builder = builder.Set("content", note.Content.String)
 	}
+
 	query, args, err := builder.ToSql()
 	if err != nil {
 		return err
 	}
 
-	row, err := n.db.QueryContext(ctx, query, args...)
-	if err != nil {
-		return err
+	q := db.Query{
+		Name:     "UpdateNote",
+		QueryRaw: query,
 	}
-	defer row.Close()
 
-	var id int64
-	row.Next()
-	err = row.Scan(&id)
+	row, err := n.client.DB().QueryContext(ctx, q, args...)
 	if err != nil {
 		return err
 	}
+
+	defer row.Close()
 
 	return nil
 }

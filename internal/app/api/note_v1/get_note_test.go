@@ -2,7 +2,6 @@ package note_v1
 
 import (
 	"context"
-	"database/sql"
 	"errors"
 	"testing"
 
@@ -27,15 +26,9 @@ func Test_GetNote(t *testing.T) {
 			Id: noteId,
 		}
 		validResponse = &model.NoteInfo{
-			Id: noteId,
-			Title: sql.NullString{
-				String: noteTitle,
-				Valid:  true,
-			},
-			Content: sql.NullString{
-				String: noteContent,
-				Valid:  true,
-			},
+			Id:      noteId,
+			Title:   noteTitle,
+			Content: noteContent,
 		}
 		errRepo = errors.New("ebanyi rot etogo kasino")
 	)

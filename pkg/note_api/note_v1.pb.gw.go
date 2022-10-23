@@ -2,11 +2,11 @@
 // source: note_v1.proto
 
 /*
-Package note_api is a reverse proxy.
+Package note_service_api is a reverse proxy.
 
 It translates gRPC into RESTful JSON APIs.
 */
-package note_api
+package note_service_api
 
 import (
 	"context"
@@ -269,7 +269,7 @@ func RegisterNoteV1HandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.NoteV1/AddNote", runtime.WithHTTPPathPattern("/note/v1/add"))
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/note.service.api.NoteV1/AddNote", runtime.WithHTTPPathPattern("/note/v1/add"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -293,7 +293,7 @@ func RegisterNoteV1HandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.NoteV1/RemoveNote", runtime.WithHTTPPathPattern("/note/v1/remove/{id}"))
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/note.service.api.NoteV1/RemoveNote", runtime.WithHTTPPathPattern("/note/v1/remove/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -317,7 +317,7 @@ func RegisterNoteV1HandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.NoteV1/MultiAdd", runtime.WithHTTPPathPattern("/note/v1/multi-add"))
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/note.service.api.NoteV1/MultiAdd", runtime.WithHTTPPathPattern("/note/v1/multi-add"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -341,7 +341,7 @@ func RegisterNoteV1HandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.NoteV1/GetNote", runtime.WithHTTPPathPattern("/note/v1/get/{id}"))
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/note.service.api.NoteV1/GetNote", runtime.WithHTTPPathPattern("/note/v1/get/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -365,7 +365,7 @@ func RegisterNoteV1HandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.NoteV1/GetList", runtime.WithHTTPPathPattern("/note/v1/get-all-notes"))
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/note.service.api.NoteV1/GetList", runtime.WithHTTPPathPattern("/note/v1/get-all-notes"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -389,7 +389,7 @@ func RegisterNoteV1HandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.NoteV1/UpdateNote", runtime.WithHTTPPathPattern("/note/v1/update"))
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/note.service.api.NoteV1/UpdateNote", runtime.WithHTTPPathPattern("/note/v1/update"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -452,7 +452,7 @@ func RegisterNoteV1HandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/.NoteV1/AddNote", runtime.WithHTTPPathPattern("/note/v1/add"))
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/note.service.api.NoteV1/AddNote", runtime.WithHTTPPathPattern("/note/v1/add"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -473,7 +473,7 @@ func RegisterNoteV1HandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/.NoteV1/RemoveNote", runtime.WithHTTPPathPattern("/note/v1/remove/{id}"))
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/note.service.api.NoteV1/RemoveNote", runtime.WithHTTPPathPattern("/note/v1/remove/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -494,7 +494,7 @@ func RegisterNoteV1HandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/.NoteV1/MultiAdd", runtime.WithHTTPPathPattern("/note/v1/multi-add"))
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/note.service.api.NoteV1/MultiAdd", runtime.WithHTTPPathPattern("/note/v1/multi-add"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -515,7 +515,7 @@ func RegisterNoteV1HandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/.NoteV1/GetNote", runtime.WithHTTPPathPattern("/note/v1/get/{id}"))
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/note.service.api.NoteV1/GetNote", runtime.WithHTTPPathPattern("/note/v1/get/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -536,7 +536,7 @@ func RegisterNoteV1HandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/.NoteV1/GetList", runtime.WithHTTPPathPattern("/note/v1/get-all-notes"))
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/note.service.api.NoteV1/GetList", runtime.WithHTTPPathPattern("/note/v1/get-all-notes"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -557,7 +557,7 @@ func RegisterNoteV1HandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/.NoteV1/UpdateNote", runtime.WithHTTPPathPattern("/note/v1/update"))
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/note.service.api.NoteV1/UpdateNote", runtime.WithHTTPPathPattern("/note/v1/update"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
