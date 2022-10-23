@@ -47,5 +47,5 @@ func (c *client) Close() error {
 }
 
 func (c *client) DB() *DB {
-	return c.DB()
+	return c.db
 }
