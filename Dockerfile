@@ -18,4 +18,4 @@ COPY --from=builder /github.com/nikitads9/note-service-api/config.yml .
 EXPOSE 50051
 EXPOSE 8000
 
-CMD ["./note_service"]
+CMD ["./note_service", "--config", "config.yml"]

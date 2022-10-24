@@ -3,6 +3,7 @@ package app
 import (
 	"context"
 	"fmt"
+	"log"
 
 	"net"
 	"net/http"
@@ -103,7 +104,7 @@ func (a *App) initGRPCServer(_ context.Context) error {
 func (a *App) initPublicHTTPHandlers(ctx context.Context) error {
 	a.mux = runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
-	err := pb.RegisterNoteV1HandlerFromEndpoint(ctx, a.mux, a.serviceProvider.GetConfig().Grpc.GetAddress(), opts)
+	err := pb.RegisterNoteV1HandlerFromEndpoint(ctx, a.mux, a.serviceProvider.GetConfig().Grpc.Port, opts)
 	if err != nil {
 		return err
 	}
@@ -112,15 +113,20 @@ func (a *App) initPublicHTTPHandlers(ctx context.Context) error {
 }
 
 func (a *App) startGRPC(cfg *config.Config) error {
-	list, err := net.Listen("tcp", cfg.Grpc.GetAddress())
+	list, err := net.Listen("tcp", cfg.Grpc.Port)
 	if err != nil {
 		return fmt.Errorf("failed to create listener %v", err.Error())
 	}
+
 	defer list.Close()
+
+	if err = a.grpcServer.Serve(list); err != nil {
+		log.Fatalf("failed to process gRPC server: %s", err.Error())
+	}
 
 	return nil
 }
 
 func (a *App) startHTTP(cfg *config.Config) error {
-	return http.ListenAndServe(cfg.Http.GetAddress(), a.mux)
+	return http.ListenAndServe(cfg.Http.Port, a.mux)
 }

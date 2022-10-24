@@ -59,7 +59,7 @@ func Read(path string) (*Config, error) {
 }
 
 func (c *Config) GetDBConfig() (*pgxpool.Config, error) {
-	DbDsn := fmt.Sprintf("host=%s port=%s user=%s password={password} dbname=%s sslmode=%s", c.Database.Host, c.Database.Port, c.Database.User, c.Database.Name, c.Database.Ssl)
+	DbDsn := fmt.Sprintf("user=%s dbname=%s password={password} host=%s port=%s sslmode=%s", c.Database.User, c.Database.Name, c.Database.Host, c.Database.Port, c.Database.Ssl)
 	DbDsn = strings.ReplaceAll(DbDsn, dbPassEscSeq, password)
 
 	poolConfig, err := pgxpool.ParseConfig(DbDsn)

@@ -4,16 +4,20 @@ package repository
 
 import (
 	"context"
-	"database/sql"
+	"errors"
+	"fmt"
 	"time"
 
 	sq "github.com/Masterminds/squirrel"
+	"github.com/jackc/pgx/v4"
 	"github.com/nikitads9/note-service-api/internal/app/model"
 	"github.com/nikitads9/note-service-api/internal/app/repository/table"
 	"github.com/nikitads9/note-service-api/internal/pkg/db"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
+
+var errNotFound = status.Error(codes.NotFound, "there is no note with this id")
 
 type INoteRepository interface {
 	AddNote(ctx context.Context, note *model.NoteInfo) (int64, error)
@@ -110,8 +114,8 @@ func (n *noteRepository) GetNote(ctx context.Context, id int64) (*model.NoteInfo
 
 	err = n.client.DB().GetContext(ctx, res, q, args...)
 	if err != nil {
-		if err == sql.ErrNoRows {
-			return nil, status.Error(codes.NotFound, "ebanyi rot etogo kasino")
+		if errors.Is(err, pgx.ErrNoRows) {
+			return nil, fmt.Errorf("%w", errNotFound)
 		}
 		return nil, err
 	}
@@ -175,11 +179,13 @@ func (n *noteRepository) RemoveNote(ctx context.Context, id int64) (int64, error
 	}
 	defer row.Close()
 
-	row.Next()
+	isNotEmpty := row.Next()
 	var removedID int64
 	err = row.Scan(&removedID)
 	if err != nil {
-
+		if !isNotEmpty {
+			return 0, errNotFound
+		}
 		return 0, err
 	}
 
@@ -214,6 +220,10 @@ func (n *noteRepository) UpdateNote(ctx context.Context, note *model.UpdateNoteI
 	row, err := n.client.DB().QueryContext(ctx, q, args...)
 	if err != nil {
 		return err
+	}
+
+	if !row.Next() {
+		return errNotFound
 	}
 
 	defer row.Close()
