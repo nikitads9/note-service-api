@@ -70,11 +70,11 @@ Now the database table is created and you can send HTTP and gRPC requests to the
 <p align="justify">
 	
 In case you want to build the service yourself, you will need to have these tools installed:
-- makefile
-- goose
-- protobuffer-compiler (protoc)
-- docker
-- golang
+- Makefile
+- Goose
+- Protocol Buffer Compiler ([protoc](https://github.com/protocolbuffers/protobuf/releases))
+- Docker
+- Golang
 	
 If you are ok with that, be sure to edit database connection parameters in **config.yml** file among with **Dockerfile** and **migration-local.sh**. The commands to launch the server app and database are listed below:
 ```
@@ -94,7 +94,7 @@ bash migration-local.sh
 - The `make vendor-proto` command downloads the required tools for protobuf and validate to work. Running this command will create proto folder in the root of the project with all necessary `.proto` files.
 - The `make generate` command creates three files: `grpc.pb.go`, `pb.go`, `pb.gw.go` based on API description in **note_v1.proto**. These files contain golang structs, interfaces and golang methods generated on the basis of Protobuffer interface description.
 - The `docker-compose up -d` command downloads **alpine3.15** image from Docker Hub (if you don't have it locally), builds a binary and creates two containers: one for server app which is the the API service itself and the second one acts as database server. Both containers are connected to default Docker network which enables the two containers to communicate successfully. 
-- The `curl -fsSL...` command downloads goose tool for database migration and initiates the installation process.
+- The `curl -fsSL...` command downloads goose tool for database migration and initiates the installation process. Another way of installing goose is to run ```go install github.com/pressly/goose/v3/cmd/goose@latest``` outside of this repository (goose binary will turn up at the **%GOPATH%/bin** folder).
 - The `sudo cp -r /home/$USER/.goose/bin/goose /usr/local/bin` command copies goose binary file to `usr/local/bin` folder so that your Linux could run goose commands from anywhere.
 - The `bash migration-local.sh` command starts the bash script, that completes database migration specified in `.sql` file in **/migrations** folder. The parameters required for database connection to complete migration are specified in **migration-local.sh**.
 
