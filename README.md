@@ -75,7 +75,6 @@ In case you want to build the service yourself, you will need to have these tool
 - protobuffer-compiler (protoc)
 - docker
 - golang
-* Postgers
 	
 If you are ok with that, be sure to edit database connection parameters in **config.yml** file among with **Dockerfile** and **migration-local.sh**. The commands to launch the server app and database are listed below:
 ```
