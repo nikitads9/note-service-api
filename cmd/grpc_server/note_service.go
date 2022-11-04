@@ -11,7 +11,7 @@ import (
 var pathConfig string
 
 func init() {
-	flag.StringVar(&pathConfig, "config", "C://Users/swnik/Desktop/projects/note-service-api/config.yml", "path to config")
+	flag.StringVar(&pathConfig, "config", "config.yml", "path to config")
 }
 
 func main() {
