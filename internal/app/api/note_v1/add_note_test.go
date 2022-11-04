@@ -27,13 +27,13 @@ func Test_AddNote(t *testing.T) {
 			Content: noteContent,
 		}
 		validReq = &desc.AddNoteRequest{
-			Note: &desc.Notes{
+			Note: &desc.Note{
 				Title:   noteTitle,
 				Content: noteContent,
 			},
 		}
 	)
-	noteRepoMock := noteRepoMocks.NewMockINoteRepository(mock)
+	noteRepoMock := noteRepoMocks.NewMockRepository(mock)
 	gomock.InOrder(
 		noteRepoMock.EXPECT().AddNote(ctx, validNoteInfo).Return(noteId, nil).Times(1),
 		noteRepoMock.EXPECT().AddNote(ctx, validNoteInfo).Return(noteId, errors.New("some error")).Times(1),

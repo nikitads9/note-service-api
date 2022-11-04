@@ -23,7 +23,7 @@ func Test_RemoveNote(t *testing.T) {
 			Id: noteId,
 		}
 	)
-	noteRepoMock := noteRepoMocks.NewMockINoteRepository(mock)
+	noteRepoMock := noteRepoMocks.NewMockRepository(mock)
 	gomock.InOrder(
 		noteRepoMock.EXPECT().RemoveNote(ctx, noteId).Return(noteId, nil).Times(1),
 		noteRepoMock.EXPECT().RemoveNote(ctx, noteId).Return(int64(0), errors.New("someError")).Times(1),

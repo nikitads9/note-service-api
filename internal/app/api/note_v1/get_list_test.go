@@ -35,7 +35,7 @@ func Test_GetList(t *testing.T) {
 			},
 		}
 	)
-	noteRepoMock := noteRepoMocks.NewMockINoteRepository(mock)
+	noteRepoMock := noteRepoMocks.NewMockRepository(mock)
 	gomock.InOrder(
 		noteRepoMock.EXPECT().GetList(ctx).Return(validResponse, nil).Times(1),
 		noteRepoMock.EXPECT().GetList(ctx).Return(nil, errors.New("some error")).Times(1),

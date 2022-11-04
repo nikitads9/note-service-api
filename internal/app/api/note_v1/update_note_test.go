@@ -46,7 +46,7 @@ func Test_UpdateNote(t *testing.T) {
 			},
 		}
 	)
-	noteRepoMock := noteRepoMocks.NewMockINoteRepository(mock)
+	noteRepoMock := noteRepoMocks.NewMockRepository(mock)
 	gomock.InOrder(
 		noteRepoMock.EXPECT().UpdateNote(ctx, validNote).Return(nil).Times(1),
 		noteRepoMock.EXPECT().UpdateNote(ctx, validNote).Return(errors.New("someError")).Times(1),

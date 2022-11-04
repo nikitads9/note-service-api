@@ -32,7 +32,7 @@ func Test_GetNote(t *testing.T) {
 		}
 		errRepo = errors.New("ebanyi rot etogo kasino")
 	)
-	noteRepoMock := noteRepoMocks.NewMockINoteRepository(mock)
+	noteRepoMock := noteRepoMocks.NewMockRepository(mock)
 	gomock.InOrder(
 		noteRepoMock.EXPECT().GetNote(ctx, noteId).Return(validResponse, nil).Times(1),
 		noteRepoMock.EXPECT().GetNote(ctx, noteId).Return(nil, errRepo).Times(1),

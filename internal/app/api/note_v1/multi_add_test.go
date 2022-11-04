@@ -35,7 +35,7 @@ func Test_MultiAdd(t *testing.T) {
 			},
 		}
 		validReq = &desc.MultiAddRequest{
-			Notes: []*desc.Notes{
+			Notes: []*desc.Note{
 				{
 					Title:   noteTitle1,
 					Content: noteContent1,
@@ -47,7 +47,7 @@ func Test_MultiAdd(t *testing.T) {
 			},
 		}
 	)
-	noteRepoMock := noteRepoMocks.NewMockINoteRepository(mock)
+	noteRepoMock := noteRepoMocks.NewMockRepository(mock)
 	gomock.InOrder(
 		noteRepoMock.EXPECT().MultiAdd(ctx, validNotes).Return(int64(len(validReq.GetNotes())), nil).Times(1),
 		noteRepoMock.EXPECT().MultiAdd(ctx, validNotes).Return(int64(len(validReq.GetNotes())), errors.New("some error")).Times(1),

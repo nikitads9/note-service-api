@@ -1,14 +1,13 @@
 package note_repository
 
-//go:generate mockgen --build_flags=--mod=mod -destination=mocks/note_service_repository.go -package=mocks . Repository
+//go:generate mockgen --build_flags=--mod=mod -destination=../mocks/note_service_repository.go -package=mocks . Repository
 
 import (
 	"context"
-	"errors"
 	"time"
 
 	sq "github.com/Masterminds/squirrel"
-	"github.com/jackc/pgx/v4"
+	"github.com/georgysavva/scany/v2/pgxscan"
 	"github.com/nikitads9/note-service-api/internal/app/model"
 	"github.com/nikitads9/note-service-api/internal/app/repository/table"
 	"github.com/nikitads9/note-service-api/internal/pkg/db"
@@ -113,7 +112,7 @@ func (r *repository) GetNote(ctx context.Context, id int64) (*model.NoteInfo, er
 	var res = new(model.NoteInfo)
 	err = r.client.DB().GetContext(ctx, res, q, args...)
 	if err != nil {
-		if errors.Is(err, pgx.ErrNoRows) {
+		if pgxscan.NotFound(err) {
 			return nil, nil
 		}
 		return nil, err
