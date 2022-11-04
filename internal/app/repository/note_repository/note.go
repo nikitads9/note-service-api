@@ -1,4 +1,4 @@
-package note_db
+package note_repository
 
 //go:generate mockgen --build_flags=--mod=mod -destination=mocks/note_service_repository.go -package=mocks . Repository
 
