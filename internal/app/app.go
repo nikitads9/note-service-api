@@ -12,7 +12,6 @@ import (
 	grpcValidator "github.com/grpc-ecosystem/go-grpc-middleware/validator"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/nikitads9/note-service-api/internal/app/api/note_v1"
-	"github.com/nikitads9/note-service-api/internal/config"
 	pb "github.com/nikitads9/note-service-api/pkg/note_api"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -37,19 +36,18 @@ func NewApp(ctx context.Context, pathConfig string) (*App, error) {
 func (a *App) Run(ctx context.Context) error {
 	var wg sync.WaitGroup
 	var err error
-	cfg := a.serviceProvider.GetConfig()
 
 	defer a.serviceProvider.db.Close()
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		err = a.startGRPC(cfg)
+		err = a.startGRPC()
 	}()
 
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		err = a.startHTTP(cfg)
+		err = a.startHTTP()
 	}()
 
 	wg.Wait()
@@ -83,11 +81,7 @@ func (a *App) initServiceProvider(_ context.Context) error {
 }
 
 func (a *App) initServer(ctx context.Context) error {
-	noteService, err := a.serviceProvider.GetNoteService(ctx)
-	if err != nil {
-		return err
-	}
-
+	noteService := a.serviceProvider.GetNoteService(ctx)
 	a.noteImpl = note_v1.NewNoteV1(noteService)
 
 	return nil
@@ -112,8 +106,8 @@ func (a *App) initPublicHTTPHandlers(ctx context.Context) error {
 	return nil
 }
 
-func (a *App) startGRPC(cfg *config.Config) error {
-	list, err := net.Listen("tcp", cfg.Grpc.Port)
+func (a *App) startGRPC() error {
+	list, err := net.Listen("tcp", a.serviceProvider.GetConfig().Grpc.Port)
 	if err != nil {
 		return fmt.Errorf("failed to create listener %v", err.Error())
 	}
@@ -127,6 +121,6 @@ func (a *App) startGRPC(cfg *config.Config) error {
 	return nil
 }
 
-func (a *App) startHTTP(cfg *config.Config) error {
-	return http.ListenAndServe(cfg.Http.Port, a.mux)
+func (a *App) startHTTP() error {
+	return http.ListenAndServe(a.serviceProvider.GetConfig().Http.Port, a.mux)
 }

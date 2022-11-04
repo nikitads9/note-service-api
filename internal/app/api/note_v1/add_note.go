@@ -9,7 +9,7 @@ import (
 )
 
 func (i *Implementation) AddNote(ctx context.Context, req *desc.AddNoteRequest) (*desc.AddNoteResponse, error) {
-	id, err := i.noteService.AddNote(ctx, convert.ToNoteInfo(&desc.Notes{
+	id, err := i.noteService.AddNote(ctx, convert.ToNoteInfo(&desc.Note{
 		Title:   req.GetNote().GetTitle(),
 		Content: req.GetNote().GetContent(),
 	}))

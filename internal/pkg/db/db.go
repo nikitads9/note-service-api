@@ -3,10 +3,10 @@ package db
 import (
 	"context"
 
-	"github.com/georgysavva/scany/pgxscan"
-	"github.com/jackc/pgconn"
-	pgx "github.com/jackc/pgx/v4"
-	"github.com/jackc/pgx/v4/pgxpool"
+	"github.com/georgysavva/scany/v2/pgxscan"
+	pgx "github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgconn"
+	"github.com/jackc/pgx/v5/pgxpool"
 )
 
 type Query struct {

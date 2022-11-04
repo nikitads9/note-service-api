@@ -27,7 +27,7 @@ func main() {
 
 	var res *pb.AddNoteResponse
 	res, err = client.AddNote(ctx, &pb.AddNoteRequest{
-		Note: &pb.Notes{
+		Note: &pb.Note{
 			Title:   "title1",
 			Content: "fhdshjdsgd",
 		},
@@ -41,7 +41,7 @@ func main() {
 	var addedID *pb.MultiAddResponse
 
 	addedID, err = client.MultiAdd(ctx, &pb.MultiAddRequest{
-		Notes: []*pb.Notes{
+		Notes: []*pb.Note{
 			{
 				Title:   "title11",
 				Content: "ffdsjfdjf",

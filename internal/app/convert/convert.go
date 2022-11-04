@@ -9,14 +9,14 @@ import (
 	_ "google.golang.org/protobuf/types/known/wrapperspb"
 )
 
-func ToNoteInfo(note *desc.Notes) *model.NoteInfo {
+func ToNoteInfo(note *desc.Note) *model.NoteInfo {
 	return &model.NoteInfo{
-		Title:   note.Title,
-		Content: note.Content,
+		Title:   note.GetTitle(),
+		Content: note.GetContent(),
 	}
 }
 
-func ToNotesInfo(notes []*desc.Notes) []*model.NoteInfo {
+func ToNotesInfo(notes []*desc.Note) []*model.NoteInfo {
 	res := make([]*model.NoteInfo, 0, len(notes))
 
 	for _, elem := range notes {
@@ -29,20 +29,16 @@ func ToNotesInfo(notes []*desc.Notes) []*model.NoteInfo {
 func ToDescNoteInfo(note *model.NoteInfo) *desc.NoteInfo {
 	res := &desc.NoteInfo{
 		Id: note.Id,
-		Note: &desc.Notes{
+		Note: &desc.Note{
 			Title:   note.Title,
 			Content: note.Content,
 		},
 
-		CreatedAt: &timestamppb.Timestamp{
-			Seconds: note.CreatedAt.Unix(),
-		},
+		CreatedAt: timestamppb.New(note.CreatedAt),
 	}
 
 	if note.UpdatedAt.Valid {
-		res.UpdatedAt = &timestamppb.Timestamp{
-			Seconds: note.UpdatedAt.Time.Unix(),
-		}
+		res.UpdatedAt = timestamppb.New(note.UpdatedAt.Time)
 	}
 
 	return res

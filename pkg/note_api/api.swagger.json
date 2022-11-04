@@ -197,7 +197,7 @@
       "type": "object",
       "properties": {
         "note": {
-          "$ref": "#/definitions/apiNotes"
+          "$ref": "#/definitions/apiNote"
         }
       }
     },
@@ -213,7 +213,7 @@
     "apiGetListResponse": {
       "type": "object",
       "properties": {
-        "noteInfo": {
+        "note_info": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/apiNoteInfo"
@@ -224,7 +224,7 @@
     "apiGetNoteResponse": {
       "type": "object",
       "properties": {
-        "noteInfo": {
+        "note_info": {
           "$ref": "#/definitions/apiNoteInfo"
         }
       }
@@ -235,7 +235,7 @@
         "notes": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/apiNotes"
+            "$ref": "#/definitions/apiNote"
           }
         }
       }
@@ -249,6 +249,17 @@
         }
       }
     },
+    "apiNote": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        }
+      }
+    },
     "apiNoteInfo": {
       "type": "object",
       "properties": {
@@ -257,26 +268,15 @@
           "format": "int64"
         },
         "note": {
-          "$ref": "#/definitions/apiNotes"
+          "$ref": "#/definitions/apiNote"
         },
-        "createdAt": {
+        "created_at": {
           "type": "string",
           "format": "date-time"
         },
-        "updatedAt": {
+        "updated_at": {
           "type": "string",
           "format": "date-time"
-        }
-      }
-    },
-    "apiNotes": {
-      "type": "object",
-      "properties": {
-        "title": {
-          "type": "string"
-        },
-        "content": {
-          "type": "string"
         }
       }
     },

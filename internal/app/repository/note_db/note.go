@@ -1,11 +1,10 @@
-package repository
+package note_db
 
-//go:generate mockgen --build_flags=--mod=mod -destination=mocks/note_service_repository.go -package=mocks . INoteRepository
+//go:generate mockgen --build_flags=--mod=mod -destination=mocks/note_service_repository.go -package=mocks . Repository
 
 import (
 	"context"
 	"errors"
-	"fmt"
 	"time"
 
 	sq "github.com/Masterminds/squirrel"
@@ -19,7 +18,7 @@ import (
 
 var errNotFound = status.Error(codes.NotFound, "there is no note with this id")
 
-type INoteRepository interface {
+type Repository interface {
 	AddNote(ctx context.Context, note *model.NoteInfo) (int64, error)
 	GetList(ctx context.Context) ([]*model.NoteInfo, error)
 	GetNote(ctx context.Context, id int64) (*model.NoteInfo, error)
@@ -27,17 +26,17 @@ type INoteRepository interface {
 	RemoveNote(ctx context.Context, id int64) (int64, error)
 	UpdateNote(ctx context.Context, note *model.UpdateNoteInfo) error
 }
-type noteRepository struct {
+type repository struct {
 	client db.Client
 }
 
-func NewNoteRepository(client db.Client) INoteRepository {
-	return &noteRepository{
+func NewNoteRepository(client db.Client) Repository {
+	return &repository{
 		client: client,
 	}
 }
 
-func (n *noteRepository) AddNote(ctx context.Context, note *model.NoteInfo) (int64, error) {
+func (r *repository) AddNote(ctx context.Context, note *model.NoteInfo) (int64, error) {
 	builder := sq.Insert(table.NotesTable).
 		PlaceholderFormat(sq.Dollar).
 		Columns("title, content, created_at").
@@ -50,11 +49,11 @@ func (n *noteRepository) AddNote(ctx context.Context, note *model.NoteInfo) (int
 	}
 
 	q := db.Query{
-		Name:     "AddNote",
+		Name:     "AddNoteRepo",
 		QueryRaw: query,
 	}
 
-	row, err := n.client.DB().QueryContext(ctx, q, args...)
+	row, err := r.client.DB().QueryContext(ctx, q, args...)
 	if err != nil {
 		return 0, err
 	}
@@ -70,7 +69,7 @@ func (n *noteRepository) AddNote(ctx context.Context, note *model.NoteInfo) (int
 	return id, nil
 }
 
-func (n *noteRepository) GetList(ctx context.Context) ([]*model.NoteInfo, error) {
+func (r *repository) GetList(ctx context.Context) ([]*model.NoteInfo, error) {
 	builder := sq.Select("id, title, content, created_at, updated_at").
 		PlaceholderFormat(sq.Dollar).
 		From(table.NotesTable)
@@ -80,13 +79,13 @@ func (n *noteRepository) GetList(ctx context.Context) ([]*model.NoteInfo, error)
 		return nil, err
 	}
 
-	var res []*model.NoteInfo
 	q := db.Query{
-		Name:     "GetList",
+		Name:     "GetListRepo",
 		QueryRaw: query,
 	}
 
-	err = n.client.DB().SelectContext(ctx, &res, q, args...)
+	var res []*model.NoteInfo
+	err = r.client.DB().SelectContext(ctx, &res, q, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -94,7 +93,7 @@ func (n *noteRepository) GetList(ctx context.Context) ([]*model.NoteInfo, error)
 	return res, nil
 }
 
-func (n *noteRepository) GetNote(ctx context.Context, id int64) (*model.NoteInfo, error) {
+func (r *repository) GetNote(ctx context.Context, id int64) (*model.NoteInfo, error) {
 	builder := sq.Select("id, title, content, created_at, updated_at").
 		PlaceholderFormat(sq.Dollar).
 		From(table.NotesTable).
@@ -106,16 +105,16 @@ func (n *noteRepository) GetNote(ctx context.Context, id int64) (*model.NoteInfo
 		return nil, err
 	}
 
-	var res = new(model.NoteInfo)
 	q := db.Query{
-		Name:     "GetNote",
+		Name:     "GetNoteRepo",
 		QueryRaw: query,
 	}
 
-	err = n.client.DB().GetContext(ctx, res, q, args...)
+	var res = new(model.NoteInfo)
+	err = r.client.DB().GetContext(ctx, res, q, args...)
 	if err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
-			return nil, fmt.Errorf("%w", errNotFound)
+			return nil, nil
 		}
 		return nil, err
 	}
@@ -123,7 +122,7 @@ func (n *noteRepository) GetNote(ctx context.Context, id int64) (*model.NoteInfo
 	return res, nil
 }
 
-func (n *noteRepository) MultiAdd(ctx context.Context, notes []*model.NoteInfo) (int64, error) {
+func (r *repository) MultiAdd(ctx context.Context, notes []*model.NoteInfo) (int64, error) {
 	builder := sq.Insert(table.NotesTable).
 		PlaceholderFormat(sq.Dollar).
 		Columns("title, content, created_at").
@@ -139,11 +138,11 @@ func (n *noteRepository) MultiAdd(ctx context.Context, notes []*model.NoteInfo) 
 	}
 
 	q := db.Query{
-		Name:     "MultiAdd",
+		Name:     "MultiAddRepo",
 		QueryRaw: query,
 	}
 
-	row, err := n.client.DB().QueryContext(ctx, q, args...)
+	row, err := r.client.DB().QueryContext(ctx, q, args...)
 	if err != nil {
 		return 0, err
 	}
@@ -157,7 +156,7 @@ func (n *noteRepository) MultiAdd(ctx context.Context, notes []*model.NoteInfo) 
 	return added, nil
 }
 
-func (n *noteRepository) RemoveNote(ctx context.Context, id int64) (int64, error) {
+func (r *repository) RemoveNote(ctx context.Context, id int64) (int64, error) {
 	builder := sq.Delete(table.NotesTable).
 		PlaceholderFormat(sq.Dollar).
 		Where(sq.Eq{"id": id}).
@@ -169,11 +168,11 @@ func (n *noteRepository) RemoveNote(ctx context.Context, id int64) (int64, error
 	}
 
 	q := db.Query{
-		Name:     "RemoveNote",
+		Name:     "RemoveNoteRepo",
 		QueryRaw: query,
 	}
 
-	row, err := n.client.DB().QueryContext(ctx, q, args...)
+	row, err := r.client.DB().QueryContext(ctx, q, args...)
 	if err != nil {
 		return 0, err
 	}
@@ -192,7 +191,7 @@ func (n *noteRepository) RemoveNote(ctx context.Context, id int64) (int64, error
 	return removedID, nil
 }
 
-func (n *noteRepository) UpdateNote(ctx context.Context, note *model.UpdateNoteInfo) error {
+func (r *repository) UpdateNote(ctx context.Context, note *model.UpdateNoteInfo) error {
 	builder := sq.Update(table.NotesTable).
 		Set("updated_at", time.Now().UTC()).
 		Where(sq.Eq{"id": note.Id}).
@@ -213,20 +212,18 @@ func (n *noteRepository) UpdateNote(ctx context.Context, note *model.UpdateNoteI
 	}
 
 	q := db.Query{
-		Name:     "UpdateNote",
+		Name:     "UpdateNoteRepo",
 		QueryRaw: query,
 	}
 
-	row, err := n.client.DB().QueryContext(ctx, q, args...)
+	result, err := r.client.DB().ExecContext(ctx, q, args...)
 	if err != nil {
 		return err
 	}
 
-	if !row.Next() {
+	if result.RowsAffected() == 0 {
 		return errNotFound
 	}
-
-	defer row.Close()
 
 	return nil
 }

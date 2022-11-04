@@ -2,12 +2,9 @@ package config
 
 import (
 	"fmt"
-	"net"
 	"os"
 	"strings"
-	"time"
 
-	"github.com/jackc/pgx/v4/pgxpool"
 	"gopkg.in/yaml.v3"
 )
 
@@ -58,26 +55,9 @@ func Read(path string) (*Config, error) {
 	return config, nil
 }
 
-func (c *Config) GetDBConfig() (*pgxpool.Config, error) {
+func (c *Config) GetDBConfig() (string, error) {
 	DbDsn := fmt.Sprintf("user=%s dbname=%s password={password} host=%s port=%s sslmode=%s", c.Database.User, c.Database.Name, c.Database.Host, c.Database.Port, c.Database.Ssl)
 	DbDsn = strings.ReplaceAll(DbDsn, dbPassEscSeq, password)
 
-	poolConfig, err := pgxpool.ParseConfig(DbDsn)
-	if err != nil {
-		return nil, err
-	}
-	poolConfig.ConnConfig.BuildStatementCache = nil
-	poolConfig.ConnConfig.ConnectTimeout = time.Second
-	poolConfig.ConnConfig.PreferSimpleProtocol = true
-	poolConfig.MaxConns = c.Database.MaxOpenedConnections
-
-	return poolConfig, nil
-}
-
-func (g *Grpc) GetAddress() string {
-	return net.JoinHostPort(g.Host, g.Port)
-}
-
-func (h *Http) GetAddress() string {
-	return net.JoinHostPort(h.Host, h.Port)
+	return DbDsn, nil
 }
