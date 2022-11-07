@@ -4,17 +4,17 @@ import (
 	"context"
 	"log"
 
-	"github.com/nikitads9/note-service-api/internal/app/repository/note_repository"
-	"github.com/nikitads9/note-service-api/internal/app/service/note"
 	"github.com/nikitads9/note-service-api/internal/config"
 	"github.com/nikitads9/note-service-api/internal/pkg/db"
+	noteRepository "github.com/nikitads9/note-service-api/internal/repository/note"
+	"github.com/nikitads9/note-service-api/internal/service/note"
 )
 
 type serviceProvider struct {
 	db             db.Client
 	configPath     string
 	config         *config.Config
-	noteRepository note_repository.Repository
+	noteRepository noteRepository.Repository
 	noteService    *note.Service
 }
 
@@ -53,9 +53,9 @@ func (s *serviceProvider) GetConfig() *config.Config {
 	return s.config
 }
 
-func (s *serviceProvider) GetNoteRepository(ctx context.Context) note_repository.Repository {
+func (s *serviceProvider) GetNoteRepository(ctx context.Context) noteRepository.Repository {
 	if s.noteRepository == nil {
-		s.noteRepository = note_repository.NewNoteRepository(s.GetDB(ctx))
+		s.noteRepository = noteRepository.NewNoteRepository(s.GetDB(ctx))
 		return s.noteRepository
 	}
 

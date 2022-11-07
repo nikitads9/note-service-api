@@ -1,7 +1,7 @@
 package note_v1
 
 import (
-	"github.com/nikitads9/note-service-api/internal/app/service/note"
+	"github.com/nikitads9/note-service-api/internal/service/note"
 	desc "github.com/nikitads9/note-service-api/pkg/note_api"
 )
 

@@ -7,8 +7,8 @@ import (
 
 	gofakeit "github.com/brianvoe/gofakeit/v6"
 	"github.com/golang/mock/gomock"
-	noteRepoMocks "github.com/nikitads9/note-service-api/internal/app/repository/mocks"
-	"github.com/nikitads9/note-service-api/internal/app/service/note"
+	noteRepoMocks "github.com/nikitads9/note-service-api/internal/repository/mocks"
+	"github.com/nikitads9/note-service-api/internal/service/note"
 
 	desc "github.com/nikitads9/note-service-api/pkg/note_api"
 	"github.com/stretchr/testify/require"

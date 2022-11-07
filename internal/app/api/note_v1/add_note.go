@@ -4,7 +4,7 @@ import (
 	"context"
 
 	_ "github.com/jackc/pgx/stdlib"
-	"github.com/nikitads9/note-service-api/internal/app/convert"
+	"github.com/nikitads9/note-service-api/internal/convert"
 	desc "github.com/nikitads9/note-service-api/pkg/note_api"
 )
 

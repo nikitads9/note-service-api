@@ -1,4 +1,4 @@
-package note_repository
+package note
 
 //go:generate mockgen --build_flags=--mod=mod -destination=../mocks/note_service_repository.go -package=mocks . Repository
 
@@ -8,9 +8,9 @@ import (
 
 	sq "github.com/Masterminds/squirrel"
 	"github.com/georgysavva/scany/v2/pgxscan"
-	"github.com/nikitads9/note-service-api/internal/app/model"
-	"github.com/nikitads9/note-service-api/internal/app/repository/table"
+	"github.com/nikitads9/note-service-api/internal/model"
 	"github.com/nikitads9/note-service-api/internal/pkg/db"
+	"github.com/nikitads9/note-service-api/internal/repository/table"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -48,7 +48,7 @@ func (r *repository) AddNote(ctx context.Context, note *model.NoteInfo) (int64, 
 	}
 
 	q := db.Query{
-		Name:     "AddNoteRepo",
+		Name:     "note_repository.AddNote",
 		QueryRaw: query,
 	}
 
@@ -79,7 +79,7 @@ func (r *repository) GetList(ctx context.Context) ([]*model.NoteInfo, error) {
 	}
 
 	q := db.Query{
-		Name:     "GetListRepo",
+		Name:     "note_repository.GetList",
 		QueryRaw: query,
 	}
 
@@ -105,7 +105,7 @@ func (r *repository) GetNote(ctx context.Context, id int64) (*model.NoteInfo, er
 	}
 
 	q := db.Query{
-		Name:     "GetNoteRepo",
+		Name:     "note_repository.GetNote",
 		QueryRaw: query,
 	}
 
@@ -137,7 +137,7 @@ func (r *repository) MultiAdd(ctx context.Context, notes []*model.NoteInfo) (int
 	}
 
 	q := db.Query{
-		Name:     "MultiAddRepo",
+		Name:     "note_repository.MultiAdd",
 		QueryRaw: query,
 	}
 
@@ -167,7 +167,7 @@ func (r *repository) RemoveNote(ctx context.Context, id int64) (int64, error) {
 	}
 
 	q := db.Query{
-		Name:     "RemoveNoteRepo",
+		Name:     "note_repository.RemoveNote",
 		QueryRaw: query,
 	}
 
@@ -211,7 +211,7 @@ func (r *repository) UpdateNote(ctx context.Context, note *model.UpdateNoteInfo)
 	}
 
 	q := db.Query{
-		Name:     "UpdateNoteRepo",
+		Name:     "note_repository.UpdateNote",
 		QueryRaw: query,
 	}
 

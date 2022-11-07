@@ -7,9 +7,9 @@ import (
 
 	gofakeit "github.com/brianvoe/gofakeit/v6"
 	"github.com/golang/mock/gomock"
-	"github.com/nikitads9/note-service-api/internal/app/model"
-	noteRepoMocks "github.com/nikitads9/note-service-api/internal/app/repository/mocks"
-	"github.com/nikitads9/note-service-api/internal/app/service/note"
+	"github.com/nikitads9/note-service-api/internal/model"
+	noteRepoMocks "github.com/nikitads9/note-service-api/internal/repository/mocks"
+	"github.com/nikitads9/note-service-api/internal/service/note"
 
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/types/known/emptypb"

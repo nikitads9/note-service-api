@@ -15,7 +15,4 @@ WORKDIR /root/
 COPY --from=builder /github.com/nikitads9/note-service-api/bin/note_service .
 COPY --from=builder /github.com/nikitads9/note-service-api/config.yml .
 
-EXPOSE 50051
-EXPOSE 8000
-
 CMD ["./note_service", "--config", "config.yml"]

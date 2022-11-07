@@ -3,13 +3,17 @@ package convert
 import (
 	"database/sql"
 
-	"github.com/nikitads9/note-service-api/internal/app/model"
+	"github.com/nikitads9/note-service-api/internal/model"
 	desc "github.com/nikitads9/note-service-api/pkg/note_api"
 	"google.golang.org/protobuf/types/known/timestamppb"
 	_ "google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 func ToNoteInfo(note *desc.Note) *model.NoteInfo {
+	if note == nil {
+		return nil
+	}
+
 	return &model.NoteInfo{
 		Title:   note.GetTitle(),
 		Content: note.GetContent(),
@@ -17,8 +21,11 @@ func ToNoteInfo(note *desc.Note) *model.NoteInfo {
 }
 
 func ToNotesInfo(notes []*desc.Note) []*model.NoteInfo {
-	res := make([]*model.NoteInfo, 0, len(notes))
+	if notes == nil {
+		return nil
+	}
 
+	res := make([]*model.NoteInfo, 0, len(notes))
 	for _, elem := range notes {
 		res = append(res, ToNoteInfo(elem))
 	}
@@ -27,6 +34,10 @@ func ToNotesInfo(notes []*desc.Note) []*model.NoteInfo {
 }
 
 func ToDescNoteInfo(note *model.NoteInfo) *desc.NoteInfo {
+	if note == nil {
+		return nil
+	}
+
 	res := &desc.NoteInfo{
 		Id: note.Id,
 		Note: &desc.Note{
@@ -45,6 +56,10 @@ func ToDescNoteInfo(note *model.NoteInfo) *desc.NoteInfo {
 }
 
 func ToDescNotesInfo(notes []*model.NoteInfo) []*desc.NoteInfo {
+	if notes == nil {
+		return nil
+	}
+
 	res := make([]*desc.NoteInfo, 0, len(notes))
 	for _, elem := range notes {
 		res = append(res, ToDescNoteInfo(elem))
@@ -54,6 +69,10 @@ func ToDescNotesInfo(notes []*model.NoteInfo) []*desc.NoteInfo {
 }
 
 func ToUpdateNoteInfo(req *desc.UpdateNoteRequest) *model.UpdateNoteInfo {
+	if req == nil {
+		return nil
+	}
+
 	return &model.UpdateNoteInfo{
 		Id: req.GetId(),
 		Title: sql.NullString{
