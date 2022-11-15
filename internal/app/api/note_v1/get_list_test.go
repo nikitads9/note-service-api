@@ -22,6 +22,7 @@ func Test_GetList(t *testing.T) {
 		noteId      = gofakeit.Int64()
 		noteTitle   = gofakeit.BeerName()
 		noteContent = gofakeit.BeerStyle()
+		noteErr     = errors.New(gofakeit.Phrase())
 
 		validResponse = []*model.NoteInfo{{
 			Id:      noteId,
@@ -38,7 +39,7 @@ func Test_GetList(t *testing.T) {
 	noteRepoMock := noteRepoMocks.NewMockRepository(mock)
 	gomock.InOrder(
 		noteRepoMock.EXPECT().GetList(ctx).Return(validResponse, nil).Times(1),
-		noteRepoMock.EXPECT().GetList(ctx).Return(nil, errors.New("some error")).Times(1),
+		noteRepoMock.EXPECT().GetList(ctx).Return(nil, noteErr).Times(1),
 	)
 
 	api := newMockNoteV1(Implementation{
@@ -54,7 +55,9 @@ func Test_GetList(t *testing.T) {
 	})
 
 	t.Run("error case", func(t *testing.T) {
-		_, err := api.GetList(ctx, &emptypb.Empty{})
+		res, err := api.GetList(ctx, &emptypb.Empty{})
 		require.Error(t, err)
+		require.Equal(t, err, noteErr)
+		require.Nil(t, res)
 	})
 }

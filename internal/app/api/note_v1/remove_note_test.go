@@ -19,6 +19,7 @@ func Test_RemoveNote(t *testing.T) {
 		ctx          = context.Background()
 		mock         = gomock.NewController(t)
 		noteId       = gofakeit.Int64()
+		noteErr      = errors.New(gofakeit.Phrase())
 		validRequest = &desc.RemoveNoteRequest{
 			Id: noteId,
 		}
@@ -26,7 +27,7 @@ func Test_RemoveNote(t *testing.T) {
 	noteRepoMock := noteRepoMocks.NewMockRepository(mock)
 	gomock.InOrder(
 		noteRepoMock.EXPECT().RemoveNote(ctx, noteId).Return(noteId, nil).Times(1),
-		noteRepoMock.EXPECT().RemoveNote(ctx, noteId).Return(int64(0), errors.New("someError")).Times(1),
+		noteRepoMock.EXPECT().RemoveNote(ctx, noteId).Return(int64(0), noteErr).Times(1),
 	)
 
 	api := newMockNoteV1(Implementation{
@@ -42,5 +43,6 @@ func Test_RemoveNote(t *testing.T) {
 	t.Run("error case", func(t *testing.T) {
 		_, err := api.RemoveNote(ctx, validRequest)
 		require.Error(t, err)
+		require.Equal(t, err, noteErr)
 	})
 }

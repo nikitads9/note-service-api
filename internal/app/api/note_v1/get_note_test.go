@@ -22,6 +22,7 @@ func Test_GetNote(t *testing.T) {
 		noteId       = gofakeit.Int64()
 		noteTitle    = gofakeit.BeerName()
 		noteContent  = gofakeit.BeerStyle()
+		noteErr      = errors.New(gofakeit.Phrase())
 		validRequest = &desc.GetNoteRequest{
 			Id: noteId,
 		}
@@ -30,12 +31,11 @@ func Test_GetNote(t *testing.T) {
 			Title:   noteTitle,
 			Content: noteContent,
 		}
-		errRepo = errors.New("ebanyi rot etogo kasino")
 	)
 	noteRepoMock := noteRepoMocks.NewMockRepository(mock)
 	gomock.InOrder(
 		noteRepoMock.EXPECT().GetNote(ctx, noteId).Return(validResponse, nil).Times(1),
-		noteRepoMock.EXPECT().GetNote(ctx, noteId).Return(nil, errRepo).Times(1),
+		noteRepoMock.EXPECT().GetNote(ctx, noteId).Return(nil, noteErr).Times(1),
 	)
 
 	api := newMockNoteV1(Implementation{
@@ -49,8 +49,9 @@ func Test_GetNote(t *testing.T) {
 	})
 
 	t.Run("error case", func(t *testing.T) {
-		_, err := api.GetNote(ctx, validRequest)
+		res, err := api.GetNote(ctx, validRequest)
 		require.Error(t, err)
-		require.Equal(t, errRepo, err)
+		require.Equal(t, noteErr, err)
+		require.Nil(t, res)
 	})
 }

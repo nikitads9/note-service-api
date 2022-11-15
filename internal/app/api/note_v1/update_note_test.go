@@ -25,6 +25,7 @@ func Test_UpdateNote(t *testing.T) {
 		noteId       = gofakeit.Int64()
 		noteTitle    = gofakeit.BeerName()
 		noteContent  = gofakeit.BeerStyle()
+		noteErr      = errors.New(gofakeit.Phrase())
 		validRequest = &desc.UpdateNoteRequest{
 			Id: noteId,
 			Title: &wrapper.StringValue{
@@ -49,7 +50,7 @@ func Test_UpdateNote(t *testing.T) {
 	noteRepoMock := noteRepoMocks.NewMockRepository(mock)
 	gomock.InOrder(
 		noteRepoMock.EXPECT().UpdateNote(ctx, validNote).Return(nil).Times(1),
-		noteRepoMock.EXPECT().UpdateNote(ctx, validNote).Return(errors.New("someError")).Times(1),
+		noteRepoMock.EXPECT().UpdateNote(ctx, validNote).Return(noteErr).Times(1),
 	)
 
 	api := newMockNoteV1(Implementation{
@@ -65,5 +66,6 @@ func Test_UpdateNote(t *testing.T) {
 	t.Run("error case", func(t *testing.T) {
 		_, err := api.UpdateNote(ctx, validRequest)
 		require.Error(t, err)
+		require.Equal(t, err, noteErr)
 	})
 }

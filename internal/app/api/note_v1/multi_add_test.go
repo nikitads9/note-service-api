@@ -22,6 +22,7 @@ func Test_MultiAdd(t *testing.T) {
 		noteContent1 = gofakeit.BeerStyle()
 		noteTitle2   = gofakeit.BeerName()
 		noteContent2 = gofakeit.BeerStyle()
+		noteErr      = errors.New(gofakeit.Phrase())
 
 		validNotes = []*model.NoteInfo{
 			{
@@ -50,7 +51,7 @@ func Test_MultiAdd(t *testing.T) {
 	noteRepoMock := noteRepoMocks.NewMockRepository(mock)
 	gomock.InOrder(
 		noteRepoMock.EXPECT().MultiAdd(ctx, validNotes).Return(int64(len(validReq.GetNotes())), nil).Times(1),
-		noteRepoMock.EXPECT().MultiAdd(ctx, validNotes).Return(int64(len(validReq.GetNotes())), errors.New("some error")).Times(1),
+		noteRepoMock.EXPECT().MultiAdd(ctx, validNotes).Return(int64(0), noteErr).Times(1),
 	)
 
 	api := newMockNoteV1(Implementation{
@@ -66,5 +67,6 @@ func Test_MultiAdd(t *testing.T) {
 	t.Run("error case", func(t *testing.T) {
 		_, err := api.MultiAdd(ctx, validReq)
 		require.Error(t, err)
+		require.Equal(t, err, noteErr)
 	})
 }
