@@ -1,25 +1,34 @@
 package config
 
 import (
+	"fmt"
 	"os"
+	"strings"
 
 	"gopkg.in/yaml.v3"
 )
 
+const (
+	dbPassEscSeq = "{password}"
+	password     = "notes_pass"
+)
+
 type Grpc struct {
+	Host string `yaml:"host"`
 	Port string `yaml:"port"`
 }
 
 type Database struct {
-	Host     string `yaml:"host"`
-	Port     string `yaml:"port"`
-	User     string `yaml:"user"`
-	Password string `yaml:"password"`
-	Name     string `yaml:"database"`
-	Ssl      string `yaml:"ssl"`
+	Host                 string `yaml:"host"`
+	Port                 string `yaml:"port"`
+	User                 string `yaml:"user"`
+	Name                 string `yaml:"database"`
+	Ssl                  string `yaml:"ssl"`
+	MaxOpenedConnections int32  `yaml:"max_opened_connections"`
 }
 
 type Http struct {
+	Host string `yaml:"host"`
 	Port string `yaml:"port"`
 }
 
@@ -44,4 +53,11 @@ func Read(path string) (*Config, error) {
 	}
 
 	return config, nil
+}
+
+func (c *Config) GetDBConfig() (string, error) {
+	DbDsn := fmt.Sprintf("user=%s dbname=%s password={password} host=%s port=%s sslmode=%s", c.Database.User, c.Database.Name, c.Database.Host, c.Database.Port, c.Database.Ssl)
+	DbDsn = strings.ReplaceAll(DbDsn, dbPassEscSeq, password)
+
+	return DbDsn, nil
 }

@@ -27,7 +27,7 @@ func main() {
 
 	var res *pb.AddNoteResponse
 	res, err = client.AddNote(ctx, &pb.AddNoteRequest{
-		Note: &pb.Notes{
+		Note: &pb.Note{
 			Title:   "title1",
 			Content: "fhdshjdsgd",
 		},
@@ -41,7 +41,7 @@ func main() {
 	var addedID *pb.MultiAddResponse
 
 	addedID, err = client.MultiAdd(ctx, &pb.MultiAddRequest{
-		Notes: []*pb.Notes{
+		Notes: []*pb.Note{
 			{
 				Title:   "title11",
 				Content: "ffdsjfdjf",
@@ -59,9 +59,9 @@ func main() {
 	if err != nil {
 		log.Printf("failed to add notes: %v\n", err.Error())
 	}
-	fmt.Printf("added %v IDs", addedID.GetCount())
+	fmt.Printf("added %v IDs\n", addedID.GetCount())
 
-	_, err = client.RemoveNote(ctx, &pb.RemoveNoteRequest{Id: int64(2)})
+	_, err = client.RemoveNote(ctx, &pb.RemoveNoteRequest{Id: int64(4)})
 	if err != nil {
 		log.Printf("failed to remove note: %v\n", err.Error())
 	}
@@ -73,12 +73,12 @@ func main() {
 	fmt.Printf("%v\n", notes.GetNoteInfo())
 
 	_, err = client.UpdateNote(ctx, &pb.UpdateNoteRequest{
-		Id: 3,
+		Id: 2,
 		Title: &wrapper.StringValue{
 			Value: "newtitle",
 		},
 		Content: &wrapper.StringValue{
-			Value: "newcontent",
+			Value: "newcontent UPDATED",
 		},
 	})
 	if err != nil {
@@ -86,7 +86,7 @@ func main() {
 	}
 
 	note, err := client.GetNote(ctx, &pb.GetNoteRequest{
-		Id: 3,
+		Id: 2,
 	})
 	if err != nil {
 		log.Printf("failed to get note: %v\n", err.Error())

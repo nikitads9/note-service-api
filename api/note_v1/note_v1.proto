@@ -8,6 +8,7 @@ import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "validate/validate.proto";
 import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
 
 service NoteV1 {
     rpc AddNote (AddNoteRequest) returns (AddNoteResponse) {
@@ -46,18 +47,20 @@ service NoteV1 {
     }
 }
 
-message Notes {
+message Note {
     string title = 1 [json_name = "title", (validate.rules).string = {min_len: 1, max_len: 20}]; 
     string content = 2 [json_name = "content", (validate.rules).string = {min_len: 1, max_len: 1000}]; 
 }
 
 message NoteInfo {
     int64 id = 1;
-    Notes note = 2;
+    Note note = 2;
+    google.protobuf.Timestamp created_at = 3;
+    google.protobuf.Timestamp updated_at = 4;
 }
 
 message AddNoteRequest {
-    Notes note= 1;
+    Note note= 1;
 }
 
 message AddNoteResponse {
@@ -73,7 +76,7 @@ message RemoveNoteResponse {
 }
 
 message MultiAddRequest {
-    repeated Notes notes = 1 [json_name = "notes"];
+    repeated Note notes = 1 [json_name = "notes"];
 }
 
 message MultiAddResponse {
@@ -85,11 +88,11 @@ message GetNoteRequest {
 }
 
 message GetNoteResponse {
-    NoteInfo noteInfo= 1;
+    NoteInfo note_info= 1;
 }
 
 message GetListResponse {
-    repeated NoteInfo noteInfo = 1;
+    repeated NoteInfo note_info = 1;
 }
 message UpdateNoteRequest {
     int64 id = 1 [json_name = "id", (validate.rules).int64 = {gt : 0}];

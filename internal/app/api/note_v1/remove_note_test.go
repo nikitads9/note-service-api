@@ -7,8 +7,8 @@ import (
 
 	gofakeit "github.com/brianvoe/gofakeit/v6"
 	"github.com/golang/mock/gomock"
-	noteRepoMocks "github.com/nikitads9/note-service-api/internal/app/repository/mocks"
-	"github.com/nikitads9/note-service-api/internal/app/service/note"
+	noteRepoMocks "github.com/nikitads9/note-service-api/internal/repository/mocks"
+	"github.com/nikitads9/note-service-api/internal/service/note"
 
 	desc "github.com/nikitads9/note-service-api/pkg/note_api"
 	"github.com/stretchr/testify/require"
@@ -19,14 +19,15 @@ func Test_RemoveNote(t *testing.T) {
 		ctx          = context.Background()
 		mock         = gomock.NewController(t)
 		noteId       = gofakeit.Int64()
+		noteErr      = errors.New(gofakeit.Phrase())
 		validRequest = &desc.RemoveNoteRequest{
 			Id: noteId,
 		}
 	)
-	noteRepoMock := noteRepoMocks.NewMockINoteRepository(mock)
+	noteRepoMock := noteRepoMocks.NewMockRepository(mock)
 	gomock.InOrder(
 		noteRepoMock.EXPECT().RemoveNote(ctx, noteId).Return(noteId, nil).Times(1),
-		noteRepoMock.EXPECT().RemoveNote(ctx, noteId).Return(int64(0), errors.New("someError")).Times(1),
+		noteRepoMock.EXPECT().RemoveNote(ctx, noteId).Return(int64(0), noteErr).Times(1),
 	)
 
 	api := newMockNoteV1(Implementation{
@@ -42,5 +43,6 @@ func Test_RemoveNote(t *testing.T) {
 	t.Run("error case", func(t *testing.T) {
 		_, err := api.RemoveNote(ctx, validRequest)
 		require.Error(t, err)
+		require.Equal(t, err, noteErr)
 	})
 }

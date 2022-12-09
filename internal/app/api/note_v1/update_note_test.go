@@ -8,9 +8,9 @@ import (
 
 	gofakeit "github.com/brianvoe/gofakeit/v6"
 	"github.com/golang/mock/gomock"
-	"github.com/nikitads9/note-service-api/internal/app/model"
-	noteRepoMocks "github.com/nikitads9/note-service-api/internal/app/repository/mocks"
-	"github.com/nikitads9/note-service-api/internal/app/service/note"
+	"github.com/nikitads9/note-service-api/internal/model"
+	noteRepoMocks "github.com/nikitads9/note-service-api/internal/repository/mocks"
+	"github.com/nikitads9/note-service-api/internal/service/note"
 
 	desc "github.com/nikitads9/note-service-api/pkg/note_api"
 	"github.com/stretchr/testify/require"
@@ -25,6 +25,7 @@ func Test_UpdateNote(t *testing.T) {
 		noteId       = gofakeit.Int64()
 		noteTitle    = gofakeit.BeerName()
 		noteContent  = gofakeit.BeerStyle()
+		noteErr      = errors.New(gofakeit.Phrase())
 		validRequest = &desc.UpdateNoteRequest{
 			Id: noteId,
 			Title: &wrapper.StringValue{
@@ -34,7 +35,7 @@ func Test_UpdateNote(t *testing.T) {
 				Value: noteContent,
 			},
 		}
-		validNote = &model.NoteInfo{
+		validNote = &model.UpdateNoteInfo{
 			Id: noteId,
 			Title: sql.NullString{
 				String: noteTitle,
@@ -46,10 +47,10 @@ func Test_UpdateNote(t *testing.T) {
 			},
 		}
 	)
-	noteRepoMock := noteRepoMocks.NewMockINoteRepository(mock)
+	noteRepoMock := noteRepoMocks.NewMockRepository(mock)
 	gomock.InOrder(
 		noteRepoMock.EXPECT().UpdateNote(ctx, validNote).Return(nil).Times(1),
-		noteRepoMock.EXPECT().UpdateNote(ctx, validNote).Return(errors.New("someError")).Times(1),
+		noteRepoMock.EXPECT().UpdateNote(ctx, validNote).Return(noteErr).Times(1),
 	)
 
 	api := newMockNoteV1(Implementation{
@@ -65,5 +66,6 @@ func Test_UpdateNote(t *testing.T) {
 	t.Run("error case", func(t *testing.T) {
 		_, err := api.UpdateNote(ctx, validRequest)
 		require.Error(t, err)
+		require.Equal(t, err, noteErr)
 	})
 }

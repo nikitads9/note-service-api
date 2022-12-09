@@ -2,15 +2,14 @@ package note_v1
 
 import (
 	"context"
-	"database/sql"
 	"errors"
 	"testing"
 
 	gofakeit "github.com/brianvoe/gofakeit/v6"
 	"github.com/golang/mock/gomock"
-	"github.com/nikitads9/note-service-api/internal/app/model"
-	noteRepoMocks "github.com/nikitads9/note-service-api/internal/app/repository/mocks"
-	"github.com/nikitads9/note-service-api/internal/app/service/note"
+	"github.com/nikitads9/note-service-api/internal/model"
+	noteRepoMocks "github.com/nikitads9/note-service-api/internal/repository/mocks"
+	"github.com/nikitads9/note-service-api/internal/service/note"
 
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/types/known/emptypb"
@@ -23,35 +22,24 @@ func Test_GetList(t *testing.T) {
 		noteId      = gofakeit.Int64()
 		noteTitle   = gofakeit.BeerName()
 		noteContent = gofakeit.BeerStyle()
+		noteErr     = errors.New(gofakeit.Phrase())
 
 		validResponse = []*model.NoteInfo{{
-			Id: noteId,
-			Title: sql.NullString{
-				String: noteTitle,
-				Valid:  true,
-			},
-			Content: sql.NullString{
-				String: noteContent,
-				Valid:  true,
-			},
+			Id:      noteId,
+			Title:   noteTitle,
+			Content: noteContent,
 		},
 			{
-				Id: noteId,
-				Title: sql.NullString{
-					String: noteTitle,
-					Valid:  true,
-				},
-				Content: sql.NullString{
-					String: noteContent,
-					Valid:  true,
-				},
+				Id:      noteId,
+				Title:   noteTitle,
+				Content: noteContent,
 			},
 		}
 	)
-	noteRepoMock := noteRepoMocks.NewMockINoteRepository(mock)
+	noteRepoMock := noteRepoMocks.NewMockRepository(mock)
 	gomock.InOrder(
 		noteRepoMock.EXPECT().GetList(ctx).Return(validResponse, nil).Times(1),
-		noteRepoMock.EXPECT().GetList(ctx).Return(nil, errors.New("some error")).Times(1),
+		noteRepoMock.EXPECT().GetList(ctx).Return(nil, noteErr).Times(1),
 	)
 
 	api := newMockNoteV1(Implementation{
@@ -67,7 +55,9 @@ func Test_GetList(t *testing.T) {
 	})
 
 	t.Run("error case", func(t *testing.T) {
-		_, err := api.GetList(ctx, &emptypb.Empty{})
+		res, err := api.GetList(ctx, &emptypb.Empty{})
 		require.Error(t, err)
+		require.Equal(t, err, noteErr)
+		require.Nil(t, res)
 	})
 }

@@ -8,6 +8,6 @@ database:
   host: "postgres"
   port: "5432"
   user: "postgres"
-  password: "notes_pass"
   database: "notes_db"
   ssl: "disable"
+  max_opened_connections: 10

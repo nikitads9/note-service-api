@@ -1,7 +1,6 @@
 version: "3"
 
 volumes:
-  app-volume:
   postgres-volume:
 
 services:
@@ -29,6 +28,4 @@ services:
       - postgres
     links:
       - postgres
-    volumes: 
-      - app-volume:/var/lib/note-app/data
 

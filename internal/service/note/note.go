@@ -1,12 +1,12 @@
 package note
 
-import "github.com/nikitads9/note-service-api/internal/app/repository"
+import "github.com/nikitads9/note-service-api/internal/repository/note"
 
 type Service struct {
-	noteRepository repository.INoteRepository
+	noteRepository note.Repository
 }
 
-func NewNoteService(noteRepository repository.INoteRepository) *Service {
+func NewNoteService(noteRepository note.Repository) *Service {
 	return &Service{
 		noteRepository: noteRepository,
 	}
@@ -16,7 +16,7 @@ func NewMockNoteService(deps ...interface{}) *Service {
 	is := Service{}
 	for _, val := range deps {
 		switch s := val.(type) {
-		case repository.INoteRepository:
+		case note.Repository:
 			is.noteRepository = s
 		}
 	}

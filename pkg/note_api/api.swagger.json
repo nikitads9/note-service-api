@@ -18,7 +18,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/AddNoteResponse"
+              "$ref": "#/definitions/apiAddNoteResponse"
             }
           },
           "default": {
@@ -34,7 +34,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/AddNoteRequest"
+              "$ref": "#/definitions/apiAddNoteRequest"
             }
           }
         ],
@@ -50,7 +50,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/GetListResponse"
+              "$ref": "#/definitions/apiGetListResponse"
             }
           },
           "default": {
@@ -72,7 +72,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/GetNoteResponse"
+              "$ref": "#/definitions/apiGetNoteResponse"
             }
           },
           "default": {
@@ -103,7 +103,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/MultiAddResponse"
+              "$ref": "#/definitions/apiMultiAddResponse"
             }
           },
           "default": {
@@ -119,7 +119,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/MultiAddRequest"
+              "$ref": "#/definitions/apiMultiAddRequest"
             }
           }
         ],
@@ -135,7 +135,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/RemoveNoteResponse"
+              "$ref": "#/definitions/apiRemoveNoteResponse"
             }
           },
           "default": {
@@ -182,7 +182,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/UpdateNoteRequest"
+              "$ref": "#/definitions/apiUpdateNoteRequest"
             }
           }
         ],
@@ -193,15 +193,15 @@
     }
   },
   "definitions": {
-    "AddNoteRequest": {
+    "apiAddNoteRequest": {
       "type": "object",
       "properties": {
         "note": {
-          "$ref": "#/definitions/Notes"
+          "$ref": "#/definitions/apiNote"
         }
       }
     },
-    "AddNoteResponse": {
+    "apiAddNoteResponse": {
       "type": "object",
       "properties": {
         "id": {
@@ -210,37 +210,37 @@
         }
       }
     },
-    "GetListResponse": {
+    "apiGetListResponse": {
       "type": "object",
       "properties": {
-        "noteInfo": {
+        "note_info": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/NoteInfo"
+            "$ref": "#/definitions/apiNoteInfo"
           }
         }
       }
     },
-    "GetNoteResponse": {
+    "apiGetNoteResponse": {
       "type": "object",
       "properties": {
-        "noteInfo": {
-          "$ref": "#/definitions/NoteInfo"
+        "note_info": {
+          "$ref": "#/definitions/apiNoteInfo"
         }
       }
     },
-    "MultiAddRequest": {
+    "apiMultiAddRequest": {
       "type": "object",
       "properties": {
         "notes": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Notes"
+            "$ref": "#/definitions/apiNote"
           }
         }
       }
     },
-    "MultiAddResponse": {
+    "apiMultiAddResponse": {
       "type": "object",
       "properties": {
         "count": {
@@ -249,19 +249,7 @@
         }
       }
     },
-    "NoteInfo": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "int64"
-        },
-        "note": {
-          "$ref": "#/definitions/Notes"
-        }
-      }
-    },
-    "Notes": {
+    "apiNote": {
       "type": "object",
       "properties": {
         "title": {
@@ -272,7 +260,27 @@
         }
       }
     },
-    "RemoveNoteResponse": {
+    "apiNoteInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "note": {
+          "$ref": "#/definitions/apiNote"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "apiRemoveNoteResponse": {
       "type": "object",
       "properties": {
         "removed": {
@@ -281,7 +289,7 @@
         }
       }
     },
-    "UpdateNoteRequest": {
+    "apiUpdateNoteRequest": {
       "type": "object",
       "properties": {
         "id": {
