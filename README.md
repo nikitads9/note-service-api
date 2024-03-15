@@ -1,5 +1,5 @@
 # Note Service
-
+[![codecov](https://codecov.io/github/nikitads9/note-service-api/graph/badge.svg?token=RBS8V3UAWG)](https://codecov.io/github/nikitads9/note-service-api)
 ## Brief description
 
 <p align="justify">
