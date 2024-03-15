@@ -1,6 +1,6 @@
 module github.com/nikitads9/note-service-api
 
-go 1.19
+go 1.21
 
 require (
 	github.com/envoyproxy/protoc-gen-validate v0.6.13

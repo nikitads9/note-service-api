@@ -11,23 +11,30 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: Set up Go
       uses: actions/setup-go@v2
       with:
-        go-version: 1.19
+        go-version: 1.21
 
     - name: Build
       run: go build -v ./...
 
     - name: Test
       run: go test -v ./...
+      env: 
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v4.0.1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        slug: nikitads9/note-service-app
   
   linter:
     strategy:
       matrix:
-        go-version: [1.19.x]
+        go-version: [1.21.x]
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
@@ -36,8 +43,10 @@ jobs:
       with:
         go-version: ${{ matrix.go-version }}
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
     - name: Run linters
       uses: golangci/golangci-lint-action@v2
       with:
         version: latest
+
+
